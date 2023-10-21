@@ -1,0 +1,33 @@
+.dark {
+  background-color: #343a40;
+  color: white;
+  text-align: center;
+  font-size: larger;
+  padding-top: 20px;
+  margin-bottom: -18px;
+}
+
+.social {
+  > button {
+    margin-left: 10px;
+    background-color: #f8f9fa;
+    border-color: #f8f9fa;
+  }
+}
+
+.light {
+  background-color: var(--mat-toolbar-container-background-color);
+  padding-top: 30px;
+  font-size: smaller;
+  text-align: center;
+  
+  > div > * {
+    margin-bottom: 10px;
+  }
+
+  > div:nth-child(1) {
+    text-align: right;
+    margin-bottom: 10px;
+    margin-right: 10px;
+  }
+}

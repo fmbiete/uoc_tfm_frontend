@@ -1,0 +1,131 @@
+<h1 i18n mat-dialog-title>User Registration</h1>
+<mat-dialog-content [formGroup]="registerForm">
+  <div [formGroup]="registerForm">
+    <mat-form-field>
+      <mat-label i18n>Email</mat-label>
+      <input matInput i18n-placeholder placeholder="your.email@work.com" [formControl]="email" type="email"
+        i18n-aria-label aria-label="email" required maxlength="100">
+      <mat-icon matSuffix>email</mat-icon>
+      <mat-error i18n *ngIf="email.errors?.['required']">You must enter a value</mat-error>
+      <mat-error i18n *ngIf="email.errors?.['pattern']">The value is not a valid email address</mat-error>
+      <mat-error i18n *ngIf="email.errors?.['maxlength']">The value is too long</mat-error>
+    </mat-form-field>
+  </div>
+
+  <div [formGroup]="registerForm">
+    <mat-form-field>
+      <mat-label i18n>Password</mat-label>
+      <input matInput [type]="hide ? 'password' : 'text'" [formControl]="password" i18n-aria-label aria-label="password"
+        required maxlength="64">
+      <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+        [attr.aria-pressed]="hide">
+        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+      <mat-error i18n *ngIf="password.errors?.['required']">You must enter a value</mat-error>
+      <mat-error i18n *ngIf="password.errors?.['maxlength']">The value is too long</mat-error>
+    </mat-form-field>
+  </div>
+
+  <div [formGroup]="registerForm">
+    <mat-form-field>
+      <mat-label i18n>Confirm Password</mat-label>
+      <input matInput [type]="hide ? 'password' : 'text'" [formControl]="password2" i18n-aria-label
+        aria-label="Confirm Password" required maxlength="64">
+      <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+        [attr.aria-pressed]="hide">
+        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+      <mat-error i18n *ngIf="password2.errors?.['required']">You must enter a value</mat-error>
+      <mat-error i18n *ngIf="password2.errors?.['maxlength']">The value is too long</mat-error>
+      <mat-error i18n *ngIf="password2.errors?.['matchValidator']">The password values don't match</mat-error>
+    </mat-form-field>
+  </div>
+
+  <div [formGroup]="registerForm">
+    <mat-form-field>
+      <mat-label i18n>Name</mat-label>
+      <input matInput i18n-placeholder placeholder="John" [formControl]="name" type="text" i18n-aria-label
+        aria-label="Name" required maxlength="250">
+      <mat-error i18n *ngIf="name.errors?.['required']">You must enter a value</mat-error>
+      <mat-error i18n *ngIf="name.errors?.['maxlength']">The value is too long</mat-error>
+    </mat-form-field>
+  </div>
+
+  <div [formGroup]="registerForm">
+    <mat-form-field>
+      <mat-label i18n>Surname</mat-label>
+      <input matInput i18n-placeholder placeholder="Doe" [formControl]="surname" type="text" i18n-aria-label
+        aria-label="Surname" required maxlength="250">
+      <mat-error i18n *ngIf="surname.errors?.['required']">You must enter a value</mat-error>
+      <mat-error i18n *ngIf="surname.errors?.['maxlength']">The value is too long</mat-error>
+    </mat-form-field>
+  </div>
+
+  <div [formGroup]="registerForm">
+    <mat-form-field>
+      <mat-label i18n>Address Line 1</mat-label>
+      <input matInput i18n-placeholder placeholder="Address Line 1" [formControl]="address1" type="text" i18n-aria-label
+        aria-label="Address Line 1" required maxlength="250">
+      <mat-error i18n *ngIf="address1.errors?.['required']">You must enter a value</mat-error>
+      <mat-error i18n *ngIf="address1.errors?.['maxlength']">The value is too long</mat-error>
+    </mat-form-field>
+  </div>
+
+  <div [formGroup]="registerForm">
+    <mat-form-field>
+      <mat-label i18n>Address Line 2</mat-label>
+      <input matInput i18n-placeholder placeholder="Address Line 2" [formControl]="address2" type="text" i18n-aria-label
+        aria-label="Address Line 2" maxlength="250">
+      <mat-error i18n *ngIf="address2.errors?.['maxlength']">The value is too long</mat-error>
+    </mat-form-field>
+  </div>
+
+  <div [formGroup]="registerForm">
+    <mat-form-field>
+      <mat-label i18n>Address Line 3</mat-label>
+      <input matInput i18n-placeholder placeholder="Address Line 3" [formControl]="address3" type="text" i18n-aria-label
+        aria-label="Address Line 3" maxlength="250">
+      <mat-error i18n *ngIf="address3.errors?.['maxlength']">The value is too long</mat-error>
+    </mat-form-field>
+  </div>
+
+  <div [formGroup]="registerForm">
+    <mat-form-field>
+      <mat-label i18n>City</mat-label>
+      <input matInput i18n-placeholder placeholder="City" [formControl]="city" type="text" i18n-aria-label
+        aria-label="City" required maxlength="250">
+      <mat-error i18n *ngIf="city.errors?.['required']">You must enter a value</mat-error>
+      <mat-error i18n *ngIf="city.errors?.['maxlength']">The value is too long</mat-error>
+    </mat-form-field>
+  </div>
+
+  <div [formGroup]="registerForm">
+    <mat-form-field>
+      <mat-label i18n>Postal Code</mat-label>
+      <input matInput i18n-placeholder placeholder="Postal Code" [formControl]="postal_code" type="text" i18n-aria-label
+        aria-label="Postal Code" required maxlength="10">
+      <mat-error i18n *ngIf="postal_code.errors?.['required']">You must enter a value</mat-error>
+      <mat-error i18n *ngIf="postal_code.errors?.['maxlength']">The value is too long</mat-error>
+    </mat-form-field>
+  </div>
+
+  <div [formGroup]="registerForm">
+    <mat-form-field>
+      <mat-label i18n>Phone Number</mat-label>
+      <input matInput i18n-placeholder placeholder="Phone Number" [formControl]="phone" type="text" i18n-aria-label
+        aria-label="Phone Number" required maxlength="20">
+      <mat-icon matSuffix>phone</mat-icon>
+      <mat-error i18n *ngIf="phone.errors?.['required']">You must enter a value</mat-error>
+      <mat-error i18n *ngIf="phone.errors?.['maxlength']">The value is too long</mat-error>
+    </mat-form-field>
+  </div>
+
+
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="center">
+  <button mat-raised-button mat-dialog-close i18n type="reset">Cancel</button>
+  <button mat-raised-button color="primary" i18n type="submit" [disabled]="!registerForm.valid"
+    (click)="register()">Register</button>
+</mat-dialog-actions>
