@@ -1,13 +1,16 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Dish } from 'src/app/dishes/models/dish.dto';
+import { Dish, PageDishes } from 'src/app/dishes/models/dish.dto';
 import { DishService } from 'src/app/dishes/services/dish.service';
 import { SnackbarService } from '../../services/snackbar.service';
+import { NgFor, NgForOf } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-carousel',
   templateUrl: './carousel.component.html',
   styleUrls: ['./carousel.component.scss'],
   standalone: true,
+  imports: [NgFor, NgForOf],
 })
 export class CarouselComponent implements OnInit {
   @Input() filter: string = 'favourites';
@@ -29,35 +32,25 @@ export class CarouselComponent implements OnInit {
     }
   }
 
-  async favourites(): Promise<void> {
-    try {
-      const ret = await this.dishService.favourites();
-      if (ret === undefined) {
-        this.snackbar.show(
-          null,
-          $localize`List Favourites Dishes Failed\nUnkown Error`
-        );
-      } else {
-        this.dishes = ret;
-      }
-    } catch (error: any) {
-      this.snackbar.show(error, $localize`List Favourites Dishes Failed`);
-    }
+  favourites(): void {
+    this.dishService.favourites().subscribe({
+      next: (page: PageDishes) => {
+        this.dishes = page.dishes;
+      },
+      error: (err: HttpErrorResponse) => {
+        this.snackbar.show(err.error, $localize`List Favourite Dishes Failed`);
+      },
+    });
   }
 
-  async promotions(): Promise<void> {
-    try {
-      const ret = await this.dishService.promotions();
-      if (ret === undefined) {
-        this.snackbar.show(
-          null,
-          $localize`List Promoted Dishes Failed\nUnkown Error`
-        );
-      } else {
-        this.dishes = ret;
-      }
-    } catch (error: any) {
-      this.snackbar.show(error, $localize`List Promoted Dishes Failed`);
-    }
+  promotions(): void {
+    this.dishService.favourites().subscribe({
+      next: (page: PageDishes) => {
+        this.dishes = page.dishes;
+      },
+      error: (err: HttpErrorResponse) => {
+        this.snackbar.show(err.error, $localize`List Promotion Dishes Failed`);
+      },
+    });
   }
 }

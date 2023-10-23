@@ -50,9 +50,7 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.headerService.headerManagement.subscribe((status: Header) => {
-      console.debug(`header -> headerService subscribe`);
       if (status) {
-        console.debug(status);
         this.showAuthSection = status.showAuthSection;
         this.showNoAuthSection = status.showNoAuthSection;
         this.showAdminSection = status.showAdminSection;

@@ -11,3 +11,9 @@ export class Dish {
   Cost!: number;
   Promotions!: Promotion[];
 }
+
+export class PageDishes {
+  dishes!: Dish[];
+  page!: number;
+  limit!: number;
+}
