@@ -4,13 +4,14 @@ import { DishService } from 'src/app/dishes/services/dish.service';
 import { SnackbarService } from '../../services/snackbar.service';
 import { NgFor, NgForOf } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
+import { ThumbnailComponent } from 'src/app/dishes/components/thumbnail/thumbnail.component';
 
 @Component({
   selector: 'app-carousel',
   templateUrl: './carousel.component.html',
   styleUrls: ['./carousel.component.scss'],
   standalone: true,
-  imports: [NgFor, NgForOf],
+  imports: [NgFor, NgForOf, ThumbnailComponent],
 })
 export class CarouselComponent implements OnInit {
   @Input() filter: string = 'favourites';
