@@ -5,7 +5,12 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatBadgeModule } from '@angular/material/badge';
-import { Router, RouterModule } from '@angular/router';
+import {
+  Router,
+  RouterLink,
+  RouterLinkActive,
+  RouterModule,
+} from '@angular/router';
 import { HeaderService } from '../../services/header.service';
 import { LocalStorageService } from '../../services/local-storage.service';
 import { Header } from '../../models/header.dto';
@@ -29,6 +34,8 @@ import { environment } from 'src/environments/environment';
     MatBadgeModule,
     NgIf,
     RouterModule,
+    RouterLink,
+    RouterLinkActive,
   ],
 })
 export class HeaderComponent implements OnInit {

@@ -3,16 +3,20 @@
     <div>For the latest news and updates</div>
     <h2>Visit us on</h2>
     <div class="social">
-      <button mat-mini-fab i18n-aria-label aria-label="">
+      <button mat-mini-fab i18n-aria-label aria-label="About this Project" i18n-matTooltip
+        matTooltip="About this Project" (click)="about()">
         <mat-icon>info</mat-icon>
       </button>
-      <button mat-mini-fab i18n-aria-label aria-label="">
+      <button mat-mini-fab i18n-aria-label aria-label="Follow us in Linkedin" i18n-matTooltip
+        matTooltip="Follow us in Linkedin">
         <mat-icon svgIcon="linkedin"></mat-icon>
       </button>
-      <button mat-mini-fab i18n-aria-label aria-label="">
+      <button mat-mini-fab i18n-aria-label aria-label="Follow us in Twitter" i18n-matTooltip
+        matTooltip="Follow us in Twitter">
         <mat-icon svgIcon="twitter"></mat-icon>
       </button>
-      <button mat-mini-fab i18n-aria-label aria-label="">
+      <button mat-mini-fab i18n-aria-label aria-label="Follow us in Facebook" i18n-matTooltip
+        matTooltip="Follow us in Facebook">
         <mat-icon svgIcon="facebook"></mat-icon>
       </button>
     </div>
@@ -21,19 +25,20 @@
     <div>Restauration Service supporting {{companyName}}</div>
     <div class="info">
       <div>
-        <button mat-button (click)="about()">
+        <button mat-button i18n-matTooltip matTooltip="About this Project" (click)="about()">
           &copy; 2023-2024<br />Francisco Miguel Biete Ba&nacute;&oacute;n
         </button>
       </div>
       <div>
         <a mat-button
           href="https://www.uoc.edu/es/estudios/masters/master-universitario-desarrollo-sitios-aplicaciones-web"
-          target="_blank" rel="noopener noreferrer">
+          target="_blank" rel="noopener noreferrer" i18n-matTooltip matTooltip="Master's Degree Program">
           Master's Degree in Website and Web Application Development
         </a>
       </div>
       <div>
-        <a mat-button href="http://www.uoc.edu" target="_blank" rel="noopener noreferrer">
+        <a mat-button href="http://www.uoc.edu" target="_blank" rel="noopener noreferrer" i18n-matTooltip
+          matTooltip="University Official Site">
           Universitat Oberta de Catalunya
         </a>
       </div>

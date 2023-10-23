@@ -4,13 +4,14 @@ import { MatButtonModule } from '@angular/material/button';
 import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-footer',
   templateUrl: './footer.component.html',
   styleUrls: ['./footer.component.scss'],
   standalone: true,
-  imports: [MatButtonModule, MatIconModule],
+  imports: [MatButtonModule, MatIconModule, MatTooltipModule],
 })
 export class FooterComponent {
   applicationTitle: string = environment.title;
