@@ -18,6 +18,7 @@ import { NgIf } from '@angular/common';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { LoginComponent } from '../login/login.component';
 import { environment } from 'src/environments/environment';
+import { SnackbarService } from '../../services/snackbar.service';
 
 @Component({
   selector: 'app-header',
@@ -45,6 +46,7 @@ export class HeaderComponent implements OnInit {
   showNoAuthSection: boolean;
 
   constructor(
+    private snackbar: SnackbarService,
     private router: Router,
     private headerService: HeaderService,
     private localStorageService: LocalStorageService,
@@ -91,5 +93,6 @@ export class HeaderComponent implements OnInit {
     this.localStorageService.resetLogin();
     this.headerService.showUnauthenticated();
     this.router.navigateByUrl('/');
+    this.snackbar.show(null, $localize`See you soon!`);
   }
 }

@@ -96,6 +96,7 @@ export class LoginComponent implements OnInit {
 
       this.headerService.showAuthenticated(authResponse?.admin);
       this.dialogRef.close();
+      this.snackbar.show(null, $localize`Welcome back!`);
     } catch (error: any) {
       // we stay in the dialog and show error
       this.headerService.showUnauthenticated();
