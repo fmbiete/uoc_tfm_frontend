@@ -48,10 +48,8 @@ export class DetailComponent implements OnInit {
       this.dishService.detail(parseInt(this.id)).subscribe({
         next: (dish: Dish) => {
           this.dish = dish;
-          console.debug(dish);
           const model = new Dish();
           Object.assign(model, dish);
-          console.debug(model);
           this.rating = model.calculateRating();
           this.loaded = true;
           this.authenticated = this.localStorage.isLoggedIn();
@@ -61,6 +59,10 @@ export class DetailComponent implements OnInit {
         },
       });
     }
+  }
+
+  addCart(): void {
+    // TODO:
   }
 
   like(): void {

@@ -1,4 +1,4 @@
-<div style="display: grid; grid-template-columns: auto auto;">
+<div style="display: grid; grid-template-columns: auto auto auto;">
   <div style="height: 300px; width: 300px; background-color: blueviolet;">
     <ngx-skeleton-loader *ngIf="!loaded" count="1" appearance="circle"
       [theme]="{height: '300px', width: '300px'}"></ngx-skeleton-loader>
@@ -8,6 +8,7 @@
     <ngx-skeleton-loader *ngIf="!loaded" count="1" appearance="line"></ngx-skeleton-loader>
     <div>{{ dish.Description }}</div>
     <ngx-skeleton-loader *ngIf="!loaded" count="3" appearance="line"></ngx-skeleton-loader>
+
     <section>
       <h2 i18n>Ingredients</h2>
       <mat-chip-set class="ingredients">
@@ -15,6 +16,7 @@
       </mat-chip-set>
       <ngx-skeleton-loader *ngIf="!loaded" count="1" appearance="line"></ngx-skeleton-loader>
     </section>
+
     <section>
       <h2 i18n>Allergens</h2>
       <mat-chip-set class="allergens">
@@ -22,6 +24,7 @@
       </mat-chip-set>
       <ngx-skeleton-loader *ngIf="!loaded" count="1" appearance="line"></ngx-skeleton-loader>
     </section>
+
     <section>
       <h2 i18n>Reviews</h2>
       <ngx-skeleton-loader *ngIf="!loaded" count="5" appearance="circle"></ngx-skeleton-loader>
@@ -39,5 +42,19 @@
         </span>
       </span>
     </section>
+  </div>
+
+  <div>
+    <section>
+      <h3 i18n>Price</h3>
+      <ngx-skeleton-loader *ngIf="!loaded" count="1" appearance="line"></ngx-skeleton-loader>
+      <div *ngIf="loaded">{{ dish.Cost }}</div>
+    </section>
+
+    <ngx-skeleton-loader *ngIf="!loaded" count="1" appearance="circle" [theme]="{width: '150px'}"></ngx-skeleton-loader>
+    <button *ngIf="loaded" mat-raised-button color="primary" (click)="addCart()">
+      <mat-icon>add_shopping_cart</mat-icon>
+      <span i18n>Add to Cart</span>
+    </button>
   </div>
 </div>
