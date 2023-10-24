@@ -1,3 +1,6 @@
+<ngx-skeleton-loader *ngIf="!loaded" count="1" appearance="circle"
+  [theme]="{height: '300px', width: '300px'}"></ngx-skeleton-loader>
+
 <div *ngFor="let dish of dishes">
   <dish-thumbnail [dish]="dish"></dish-thumbnail>
 </div>

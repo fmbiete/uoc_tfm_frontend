@@ -7,3 +7,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .error-snackbar, .success-snackbar {
   white-space: pre-wrap;
 }
+
+.skeleton-loader {
+  border-radius: 5px !important;
+}
