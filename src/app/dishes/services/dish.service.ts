@@ -14,8 +14,22 @@ export class DishService {
     return this.http.get<Dish>(`${environment.apiUrl}/dish/${dishId}`);
   }
 
+  dislike(dishId: number): Observable<boolean> {
+    return this.http.post<boolean>(
+      `${environment.apiUrl}/dish/${dishId}/dislike`,
+      null
+    );
+  }
+
   favourites(): Observable<PageDishes> {
     return this.http.get<PageDishes>(`${environment.apiUrl}/dishes`);
+  }
+
+  like(dishId: number): Observable<boolean> {
+    return this.http.post<boolean>(
+      `${environment.apiUrl}/dish/${dishId}/like`,
+      null
+    );
   }
 
   promotions(): Observable<PageDishes> {

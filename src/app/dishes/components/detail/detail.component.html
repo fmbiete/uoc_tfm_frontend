@@ -1,3 +1,43 @@
-<h1>Dish Detail</h1>
-<div>{{ dish.Name }}</div>
-<div>{{ dish.Description }}</div>
+<div style="display: grid; grid-template-columns: auto auto;">
+  <div style="height: 300px; width: 300px; background-color: blueviolet;">
+    <ngx-skeleton-loader *ngIf="!loaded" count="1" appearance="circle"
+      [theme]="{height: '300px', width: '300px'}"></ngx-skeleton-loader>
+  </div>
+  <div style="display: grid; grid-template-columns: auto;">
+    <h1>{{ dish.Name }}</h1>
+    <ngx-skeleton-loader *ngIf="!loaded" count="1" appearance="line"></ngx-skeleton-loader>
+    <div>{{ dish.Description }}</div>
+    <ngx-skeleton-loader *ngIf="!loaded" count="3" appearance="line"></ngx-skeleton-loader>
+    <section>
+      <h2 i18n>Ingredients</h2>
+      <mat-chip-set class="ingredients">
+        <mat-chip class="ingredient" *ngFor="let ingredient of dish.Ingredients">{{ ingredient.Name }}</mat-chip>
+      </mat-chip-set>
+      <ngx-skeleton-loader *ngIf="!loaded" count="1" appearance="line"></ngx-skeleton-loader>
+    </section>
+    <section>
+      <h2 i18n>Allergens</h2>
+      <mat-chip-set class="allergens">
+        <mat-chip class="allergen" *ngFor="let allergen of dish.Allergens">{{ allergen.Name }}</mat-chip>
+      </mat-chip-set>
+      <ngx-skeleton-loader *ngIf="!loaded" count="1" appearance="line"></ngx-skeleton-loader>
+    </section>
+    <section>
+      <h2 i18n>Reviews</h2>
+      <ngx-skeleton-loader *ngIf="!loaded" count="5" appearance="circle"></ngx-skeleton-loader>
+      <span *ngIf="loaded">
+        <span *ngFor="let color of rating">
+          <mat-icon color="{{ color }}">star</mat-icon>
+        </span>
+        <span *ngIf="authenticated">
+          <button mat-mini-fab color="primary" aria-label="I like this" (click)="like()">
+            <mat-icon>thumb_up</mat-icon>
+          </button>
+          <button mat-mini-fab color="accent" aria-label="I don't like this" (click)="dislike()">
+            <mat-icon>thumb_down</mat-icon>
+          </button>
+        </span>
+      </span>
+    </section>
+  </div>
+</div>
