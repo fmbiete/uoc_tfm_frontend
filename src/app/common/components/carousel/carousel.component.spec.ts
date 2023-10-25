@@ -1,6 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CarouselComponent } from './carousel.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { HttpClient } from '@angular/common/http';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('CarouselComponent', () => {
   let component: CarouselComponent;
@@ -8,7 +12,9 @@ describe('CarouselComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [CarouselComponent]
+      declarations: [],
+      imports: [HttpClientTestingModule, RouterTestingModule],
+      providers: [MatSnackBar, HttpClient],
     });
     fixture = TestBed.createComponent(CarouselComponent);
     component = fixture.componentInstance;
