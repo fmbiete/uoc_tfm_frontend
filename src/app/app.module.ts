@@ -7,10 +7,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HeaderComponent } from './common/components/header/header.component';
-import { FooterComponent } from './common/components/footer/footer.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { HttpInterceptorService } from './common/services/http-interceptor.service';
+import { HeaderComponent } from './common/components/header/header.component';
+import { FooterComponent } from './common/components/footer/footer.component';
 
 @NgModule({
   declarations: [AppComponent],
@@ -26,9 +26,9 @@ import { HttpInterceptorService } from './common/services/http-interceptor.servi
     BrowserAnimationsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    MatSnackBarModule,
     HeaderComponent,
     FooterComponent,
-    MatSnackBarModule,
   ],
   providers: [
     {
