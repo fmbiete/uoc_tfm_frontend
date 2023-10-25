@@ -1,37 +1,42 @@
-<div style="display: grid; grid-template-columns: auto auto auto;">
-  <div style="height: 300px; width: 300px; background-color: blueviolet;">
-    <ngx-skeleton-loader *ngIf="!loaded" count="1" appearance="circle"
-      [theme]="{height: '300px', width: '300px'}"></ngx-skeleton-loader>
-  </div>
-  <div style="display: grid; grid-template-columns: auto;">
-    <h1>{{ dish.Name }}</h1>
-    <ngx-skeleton-loader *ngIf="!loaded" count="1" appearance="line"></ngx-skeleton-loader>
-    <div>{{ dish.Description }}</div>
-    <ngx-skeleton-loader *ngIf="!loaded" count="3" appearance="line"></ngx-skeleton-loader>
+<ng-container *ngIf="loaded; else loading">
+  <div class="container">
+    <div class="image">
+    </div>
+    <div class="details">
+      <h1>{{ dish.Name }}</h1>
 
-    <section>
-      <h2 i18n>Ingredients</h2>
-      <mat-chip-set class="ingredients">
-        <mat-chip class="ingredient" *ngFor="let ingredient of dish.Ingredients">{{ ingredient.Name }}</mat-chip>
-      </mat-chip-set>
-      <ngx-skeleton-loader *ngIf="!loaded" count="1" appearance="line"></ngx-skeleton-loader>
-    </section>
+      <section>
+        <h3 i18n>Price</h3>
+        <div>{{ dish.Cost | currency }}</div>
 
-    <section>
-      <h2 i18n>Allergens</h2>
-      <mat-chip-set class="allergens">
-        <mat-chip class="allergen" *ngFor="let allergen of dish.Allergens">{{ allergen.Name }}</mat-chip>
-      </mat-chip-set>
-      <ngx-skeleton-loader *ngIf="!loaded" count="1" appearance="line"></ngx-skeleton-loader>
-    </section>
+        <button *ngIf="loaded" mat-raised-button color="primary" (click)="addCart()">
+          <mat-icon>add_shopping_cart</mat-icon>
+          <span i18n>Add to Cart</span>
+        </button>
+      </section>
 
-    <section>
-      <h2 i18n>Reviews</h2>
-      <ngx-skeleton-loader *ngIf="!loaded" count="5" appearance="circle"></ngx-skeleton-loader>
-      <span *ngIf="loaded">
-        <span *ngFor="let color of rating">
-          <mat-icon color="{{ color }}">star</mat-icon>
-        </span>
+      <section>
+        <h2>{{ dish.Name }}</h2>
+        <div>{{ dish.Description }}</div>
+      </section>
+
+      <section>
+        <h2 i18n>Ingredients</h2>
+        <mat-chip-set class="ingredients">
+          <mat-chip class="ingredient" *ngFor="let ingredient of dish.Ingredients">{{ ingredient.Name }}</mat-chip>
+        </mat-chip-set>
+      </section>
+
+      <section>
+        <h2 i18n>Allergens</h2>
+        <mat-chip-set class="allergens">
+          <mat-chip class="allergen" *ngFor="let allergen of dish.Allergens">{{ allergen.Name }}</mat-chip>
+        </mat-chip-set>
+      </section>
+
+      <section>
+        <h2 i18n>Rating</h2>
+        <dish-rating [rating]="dish.Likes | rating: dish.Dislikes"></dish-rating>
         <span *ngIf="authenticated">
           <button mat-mini-fab color="primary" aria-label="I like this" (click)="like()">
             <mat-icon>thumb_up</mat-icon>
@@ -40,21 +45,46 @@
             <mat-icon>thumb_down</mat-icon>
           </button>
         </span>
-      </span>
-    </section>
+      </section>
+    </div>
   </div>
 
-  <div>
-    <section>
-      <h3 i18n>Price</h3>
-      <ngx-skeleton-loader *ngIf="!loaded" count="1" appearance="line"></ngx-skeleton-loader>
-      <div *ngIf="loaded">{{ dish.Cost }}</div>
-    </section>
+</ng-container>
 
-    <ngx-skeleton-loader *ngIf="!loaded" count="1" appearance="circle" [theme]="{width: '150px'}"></ngx-skeleton-loader>
-    <button *ngIf="loaded" mat-raised-button color="primary" (click)="addCart()">
-      <mat-icon>add_shopping_cart</mat-icon>
-      <span i18n>Add to Cart</span>
-    </button>
+<ng-template #loading>
+  <div class="container">
+    <!-- Image -->
+    <ngx-skeleton-loader count="1" appearance="circle"
+      [theme]="{height: '300px', width: '300px'}"></ngx-skeleton-loader>
+    <div class="details">
+      <!-- Name -->
+      <ngx-skeleton-loader count="1" appearance="line"></ngx-skeleton-loader>
+
+      <section>
+        <!-- Price -->
+        <ngx-skeleton-loader count="2" appearance="line"></ngx-skeleton-loader>
+        <!-- Add button -->
+        <ngx-skeleton-loader count="1" appearance="circle" [theme]="{width: '150px'}"></ngx-skeleton-loader>
+      </section>
+
+      <!-- Description -->
+      <ngx-skeleton-loader count="3" appearance="line"></ngx-skeleton-loader>
+
+      <section>
+        <!-- Ingredients -->
+        <ngx-skeleton-loader count="2" appearance="line"></ngx-skeleton-loader>
+      </section>
+
+      <section>
+        <!-- Allergens -->
+        <ngx-skeleton-loader count="2" appearance="line"></ngx-skeleton-loader>
+      </section>
+
+      <section>
+        <!-- Rating -->
+        <ngx-skeleton-loader count="1" appearance="line"></ngx-skeleton-loader>
+        <ngx-skeleton-loader count="7" appearance="circle"></ngx-skeleton-loader>
+      </section>
+    </div>
   </div>
-</div>
+</ng-template>

@@ -1,0 +1,15 @@
+.container {
+  display: grid; 
+  grid-template-columns: auto auto;
+}
+
+.image {
+  height: 300px; 
+  width: 300px; 
+  background-color: blueviolet;
+}
+
+.details {
+  display: grid; 
+  grid-template-columns: auto;
+}
