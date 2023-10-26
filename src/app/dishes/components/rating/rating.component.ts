@@ -14,7 +14,6 @@ export class RatingComponent implements OnInit {
   stars: Array<string> = new Array<string>(5).fill('');
 
   ngOnInit(): void {
-    console.debug(this.rating);
     this.stars = this.stars.map<string>((v: string, i: number) =>
       i < this.rating ? 'accent' : ''
     );
