@@ -1,20 +1,23 @@
 import { Injectable } from '@angular/core';
 import { Cart, CartLine } from '../models/cart.dto';
 import { Dish } from 'src/app/dishes/models/dish.dto';
-import { ReplaySubject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CartService {
-  private cart: Cart = new Cart();
-  private cartCountSubject: ReplaySubject<number> = new ReplaySubject<number>(
-    1
-  );
-  cartCount$ = this.cartCountSubject.asObservable();
+  private cart: Cart;
+  private cartSubject: Subject<Cart>;
 
   constructor() {
-    this.publishCartCount();
+    this.cart = new Cart();
+    this.cartSubject = new Subject<Cart>();
+    this.publishCart();
+  }
+
+  getCart$(): Observable<Cart> {
+    return this.cartSubject.asObservable();
   }
 
   addLine(dish: Dish): void {
@@ -24,41 +27,43 @@ export class CartService {
     } else {
       line.Quantity += 1;
     }
-    this.cart.Count += 1;
-    this.publishCartCount();
+    this.publishCart();
   }
 
-  increaseQuantityLine(line: CartLine) {
-    line.Quantity += 1;
-    this.cart.Count += 1;
-    this.publishCartCount();
+  increaseQuantityLine(idx: number) {
+    this.cart.Lines[idx].Quantity += 1;
+    this.publishCart();
   }
 
   findLine(dishId: number): CartLine | undefined {
     return this.cart.Lines.find((v) => v.DishID == dishId);
   }
 
-  removeLine(line: CartLine) {
-    this.cart.Count -= line.Quantity;
-    this.cart.Lines = this.cart.Lines.filter((v) => v.DishID != line.DishID);
-    this.publishCartCount();
-  }
-
-  decreaseQuatityLine(line: CartLine) {
-    if (line.Quantity == 1) {
-      this.removeLine(line);
+  reduceQuantityLine(idx: number) {
+    if (this.cart.Lines[idx].Quantity == 1) {
+      this.removeLine(idx);
     } else {
-      line.Quantity -= 1;
+      this.cart.Lines[idx].Quantity -= 1;
+      this.publishCart();
     }
-    this.cart.Count -= 1;
-    this.publishCartCount();
   }
 
-  getCart(): Cart {
-    return this.cart;
+  removeLine(idx: number) {
+    this.cart.Lines = this.cart.Lines.filter((_, i) => i != idx);
+    this.publishCart();
   }
 
-  publishCartCount() {
-    this.cartCountSubject.next(this.cart.Count);
+  // decreaseQuatityLine(line: CartLine) {
+  //   if (line.Quantity == 1) {
+  //     this.removeLine(line);
+  //   } else {
+  //     line.Quantity -= 1;
+  //   }
+  //   this.cart.Count -= 1;
+  // }
+
+  publishCart() {
+    console.debug(this.cart);
+    this.cartSubject.next(this.cart);
   }
 }

@@ -14,13 +14,15 @@ import {
 import { HeaderService } from '../../services/header.service';
 import { LocalStorageService } from '../../services/local-storage.service';
 import { Header } from '../../models/header.dto';
-import { AsyncPipe, NgIf } from '@angular/common';
+import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { LoginComponent } from '../login/login.component';
 import { environment } from 'src/environments/environment';
 import { SnackbarService } from '../../services/snackbar.service';
 import { CartService } from 'src/app/cart/services/cart.service';
 import { Observable } from 'rxjs';
+import { Cart } from 'src/app/cart/models/cart.dto';
+import { CountPipe as CountCartProductsPipe } from 'src/app/cart/pipes/count.pipe';
 
 @Component({
   selector: 'app-header',
@@ -36,10 +38,12 @@ import { Observable } from 'rxjs';
     MatMenuModule,
     MatBadgeModule,
     NgIf,
+    NgFor,
     RouterModule,
     RouterLink,
     RouterLinkActive,
     AsyncPipe,
+    CountCartProductsPipe,
   ],
 })
 export class HeaderComponent implements OnInit {
@@ -48,7 +52,7 @@ export class HeaderComponent implements OnInit {
   showAuthSection: boolean;
   showNoAuthSection: boolean;
 
-  cartCount$: Observable<number>;
+  cart$: Observable<Cart>;
 
   constructor(
     private snackbar: SnackbarService,
@@ -61,7 +65,7 @@ export class HeaderComponent implements OnInit {
     this.showAdminSection = false;
     this.showAuthSection = false;
     this.showNoAuthSection = true;
-    this.cartCount$ = this.cartService.cartCount$;
+    this.cart$ = this.cartService.getCart$();
   }
 
   ngOnInit(): void {
@@ -101,5 +105,17 @@ export class HeaderComponent implements OnInit {
     this.headerService.showUnauthenticated();
     this.router.navigateByUrl('/');
     this.snackbar.show(null, $localize`See you soon!`);
+  }
+
+  removeCartLine(idx: number): void {
+    this.cartService.removeLine(idx);
+  }
+
+  increaseCartLine(idx: number): void {
+    this.cartService.increaseQuantityLine(idx);
+  }
+
+  reduceCartLine(idx: number): void {
+    this.cartService.reduceQuantityLine(idx);
   }
 }

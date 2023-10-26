@@ -60,9 +60,7 @@ export class DetailComponent implements OnInit {
   }
 
   addCart(): void {
-    console.debug(this.cartService.getCart());
     this.cartService.addLine(this.dish);
-    console.debug(this.cartService.getCart());
   }
 
   like(): void {

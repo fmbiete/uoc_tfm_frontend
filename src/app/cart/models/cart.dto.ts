@@ -2,11 +2,9 @@ import { Dish } from 'src/app/dishes/models/dish.dto';
 
 export class Cart {
   Lines: Array<CartLine>;
-  Count: 0;
 
   constructor() {
     this.Lines = new Array<CartLine>();
-    this.Count = 0;
   }
 }
 
