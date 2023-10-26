@@ -14,11 +14,13 @@ import {
 import { HeaderService } from '../../services/header.service';
 import { LocalStorageService } from '../../services/local-storage.service';
 import { Header } from '../../models/header.dto';
-import { NgIf } from '@angular/common';
+import { AsyncPipe, NgIf } from '@angular/common';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { LoginComponent } from '../login/login.component';
 import { environment } from 'src/environments/environment';
 import { SnackbarService } from '../../services/snackbar.service';
+import { CartService } from 'src/app/cart/services/cart.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -37,6 +39,7 @@ import { SnackbarService } from '../../services/snackbar.service';
     RouterModule,
     RouterLink,
     RouterLinkActive,
+    AsyncPipe,
   ],
 })
 export class HeaderComponent implements OnInit {
@@ -45,16 +48,20 @@ export class HeaderComponent implements OnInit {
   showAuthSection: boolean;
   showNoAuthSection: boolean;
 
+  cartCount$: Observable<number>;
+
   constructor(
     private snackbar: SnackbarService,
     private router: Router,
     private headerService: HeaderService,
     private localStorageService: LocalStorageService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private cartService: CartService
   ) {
     this.showAdminSection = false;
     this.showAuthSection = false;
     this.showNoAuthSection = true;
+    this.cartCount$ = this.cartService.cartCount$;
   }
 
   ngOnInit(): void {

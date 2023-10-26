@@ -11,6 +11,7 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { LocalStorageService } from 'src/app/common/services/local-storage.service';
 import { RatingComponent } from '../rating/rating.component';
 import { RatingPipe } from '../../pipes/rating.pipe';
+import { CartService } from 'src/app/cart/services/cart.service';
 
 @Component({
   selector: 'dish-detail',
@@ -39,7 +40,8 @@ export class DetailComponent implements OnInit {
   constructor(
     private snackbar: SnackbarService,
     private dishService: DishService,
-    private localStorage: LocalStorageService
+    private localStorage: LocalStorageService,
+    private cartService: CartService
   ) {}
 
   ngOnInit(): void {
@@ -58,7 +60,9 @@ export class DetailComponent implements OnInit {
   }
 
   addCart(): void {
-    // TODO:
+    console.debug(this.cartService.getCart());
+    this.cartService.addLine(this.dish);
+    console.debug(this.cartService.getCart());
   }
 
   like(): void {
