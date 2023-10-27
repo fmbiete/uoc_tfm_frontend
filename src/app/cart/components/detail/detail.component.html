@@ -1,1 +1,41 @@
-<p>detail works!</p>
+<h1 i18n>Shopping Cart Content</h1>
+<ng-container *ngIf="cart$ | async as cart; else empty_cart">
+  <ng-container *ngIf="cart.Lines.length > 0; else empty_cart">
+    <table>
+      <caption i18n>Shopping Cart Content</caption>
+      <thead>
+        <th i18n>Dish</th>
+        <th i18n>Quantity</th>
+        <th></th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let line of cart.Lines; index as idx">
+          <td>{{ line.Name }}</td>
+          <td class="quantity">
+            <span i18n-aria-label aria-label="Decrease Quantity Cart Line" (click)="reduceCartLine(idx)">-</span>
+            <span i18n-aria-label aria-label="Quantity Cart Line">{{ line.Quantity }}</span>
+            <span i18n-aria-label aria-label="Increase Quantity Cart Line" (click)="increaseCartLine(idx)">+</span>
+          </td>
+          <td>
+            <span class="remove-line" i18n-aria-label aria-label="Remove Cart Line"
+              (click)="removeCartLine(idx)">x</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div>
+      <button mat-raised-button color="primary" (click)="checkout()">
+        <mat-icon>shopping_cart_checkout</mat-icon>
+        <span i18n>Proceed to Checkout</span>
+      </button>
+      <button mat-raised-button color="warn" (click)="cleanCart()">
+        <mat-icon>remove_shopping_cart</mat-icon>
+        <span i18n>Empty Shopping Cart</span>
+      </button>
+    </div>
+  </ng-container>
+</ng-container>
+
+<ng-template #empty_cart>
+  <p i18n>Your shopping cart is empty, why not add some delicious dishes to it?</p>
+</ng-template>
