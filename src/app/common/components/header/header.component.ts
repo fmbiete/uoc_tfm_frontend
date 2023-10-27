@@ -107,6 +107,10 @@ export class HeaderComponent implements OnInit {
     this.snackbar.show(null, $localize`See you soon!`);
   }
 
+  detailCart(): void {
+    this.router.navigateByUrl('/cart');
+  }
+
   removeCartLine(idx: number): void {
     this.cartService.removeLine(idx);
   }
