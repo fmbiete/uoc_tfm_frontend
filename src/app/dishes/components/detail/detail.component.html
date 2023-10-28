@@ -1,18 +1,15 @@
 <ng-container *ngIf="loaded; else loading">
-  <div class="container">
-    <div class="image">
+  <div class="tfm-dish-container">
+    <div class="tfm-dish-image">
     </div>
-    <div class="details">
+    <div class="tfm-dish-details">
       <h1>{{ dish.Name }}</h1>
 
       <section>
         <h3 i18n>Price</h3>
         <div>{{ dish.Cost | currency }}</div>
 
-        <button *ngIf="loaded" mat-raised-button color="primary" (click)="addCart()">
-          <mat-icon>add_shopping_cart</mat-icon>
-          <span i18n>Add to Cart</span>
-        </button>
+        <p-button *ngIf="loaded" icon="pi pi-cart-plus" (click)="addCart()" i18n-label label="Add to Cart"></p-button>
       </section>
 
       <section>
@@ -20,30 +17,31 @@
         <div>{{ dish.Description }}</div>
       </section>
 
-      <section>
+      <section class="tfm-list-badges">
         <h2 i18n>Ingredients</h2>
-        <mat-chip-set class="ingredients">
-          <mat-chip class="ingredient" *ngFor="let ingredient of dish.Ingredients">{{ ingredient.Name }}</mat-chip>
-        </mat-chip-set>
+        <ng-container *ngFor="let item of dish.Ingredients">
+          <p-badge severity="info" value="{{ item.Name }}"></p-badge>
+        </ng-container>
       </section>
 
-      <section>
+      <section class="tfm-list-badges">
         <h2 i18n>Allergens</h2>
-        <mat-chip-set class="allergens">
-          <mat-chip class="allergen" *ngFor="let allergen of dish.Allergens">{{ allergen.Name }}</mat-chip>
-        </mat-chip-set>
+        <ng-container *ngFor="let item of dish.Allergens">
+          <p-badge severity="warning" value="{{ item.Name }}"></p-badge>
+        </ng-container>
       </section>
 
-      <section>
+      <section class="tfm-rating">
         <h2 i18n>Rating</h2>
         <dish-rating [rating]="dish.Likes | rating: dish.Dislikes"></dish-rating>
         <span *ngIf="authenticated">
-          <button mat-mini-fab color="primary" aria-label="I like this" (click)="like()">
-            <mat-icon>thumb_up</mat-icon>
-          </button>
-          <button mat-mini-fab color="accent" aria-label="I don't like this" (click)="dislike()">
-            <mat-icon>thumb_down</mat-icon>
-          </button>
+          <p-button [rounded]="true" severity="primary" icon="pi pi-thumbs-up" severity="secondary" i18n-aria-label
+            aria-label="I like this" i18n-pTooltip pTooltip="I like this" tooltipPosition="bottom" (click)="like()">
+          </p-button>
+          <p-button [rounded]="true" severity="accent" icon="pi pi-thumbs-down" severity="secondary" i18n-aria-label
+            aria-label="I don't like this" i18n-pTooltip pTooltip="I don't like this" tooltipPosition="bottom"
+            (click)="dislike()">
+          </p-button>
         </span>
       </section>
     </div>
@@ -52,38 +50,46 @@
 </ng-container>
 
 <ng-template #loading>
-  <div class="container">
+  <div class="tfm-dish-container">
     <!-- Image -->
-    <ngx-skeleton-loader count="1" appearance="circle"
-      [theme]="{height: '300px', width: '300px'}"></ngx-skeleton-loader>
-    <div class="details">
+    <p-skeleton width="10rem" height="4rem"></p-skeleton>
+    <div class="tfm-dish-details">
       <!-- Name -->
-      <ngx-skeleton-loader count="1" appearance="line"></ngx-skeleton-loader>
+      <p-skeleton width="10rem" styleClass="mb-2"></p-skeleton>
 
       <section>
         <!-- Price -->
-        <ngx-skeleton-loader count="2" appearance="line"></ngx-skeleton-loader>
+        <p-skeleton width="5rem" styleClass="mb-2"></p-skeleton>
         <!-- Add button -->
-        <ngx-skeleton-loader count="1" appearance="circle" [theme]="{width: '150px'}"></ngx-skeleton-loader>
+        <p-skeleton width="8rem" height="2rem" styleClass="mr-2"></p-skeleton>
       </section>
 
       <!-- Description -->
-      <ngx-skeleton-loader count="3" appearance="line"></ngx-skeleton-loader>
+      <p-skeleton styleClass="mb-2"></p-skeleton>
+      <p-skeleton styleClass="mb-2"></p-skeleton>
+      <p-skeleton styleClass="mb-2"></p-skeleton>
 
-      <section>
+      <section style="display: grid; grid-template-columns: repeat(2, 5rem);">
         <!-- Ingredients -->
-        <ngx-skeleton-loader count="2" appearance="line"></ngx-skeleton-loader>
+        <p-skeleton width="5rem" styleClass="mb-2"></p-skeleton>
+        <p-skeleton width="5rem" styleClass="mb-2"></p-skeleton>
       </section>
 
-      <section>
+      <section style="display: grid; grid-template-columns: repeat(2, 5rem);">
         <!-- Allergens -->
-        <ngx-skeleton-loader count="2" appearance="line"></ngx-skeleton-loader>
+        <p-skeleton width="5rem" styleClass="mb-2"></p-skeleton>
+        <p-skeleton width="5rem" styleClass="mb-2"></p-skeleton>
       </section>
 
-      <section>
+      <section style="display: grid; grid-template-columns: repeat(7, 2rem);">
         <!-- Rating -->
-        <ngx-skeleton-loader count="1" appearance="line"></ngx-skeleton-loader>
-        <ngx-skeleton-loader count="7" appearance="circle"></ngx-skeleton-loader>
+        <p-skeleton shape="circle" size="2rem" styleClass="mr-2"></p-skeleton>
+        <p-skeleton shape="circle" size="2rem" styleClass="mr-2"></p-skeleton>
+        <p-skeleton shape="circle" size="2rem" styleClass="mr-2"></p-skeleton>
+        <p-skeleton shape="circle" size="2rem" styleClass="mr-2"></p-skeleton>
+        <p-skeleton shape="circle" size="2rem" styleClass="mr-2"></p-skeleton>
+        <p-skeleton size="2rem" styleClass="mr-2"></p-skeleton>
+        <p-skeleton size="2rem" styleClass="mr-2"></p-skeleton>
       </section>
     </div>
   </div>

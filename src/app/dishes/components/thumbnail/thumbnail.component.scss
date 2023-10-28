@@ -1,0 +1,18 @@
+.tfm-thumbnail {
+  margin: auto;
+  text-align: center;
+}
+
+.tfm-thumbnail-image {
+
+}
+
+.tfm-thumbnail-info {
+  > h4 > a {
+    text-decoration: none;
+  }
+
+  > div > p-button:first-of-type {
+    margin-right: 10px;
+  }
+}

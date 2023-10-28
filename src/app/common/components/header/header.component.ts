@@ -1,10 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatBadgeModule } from '@angular/material/badge';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
   Router,
   RouterLink,
@@ -15,7 +9,6 @@ import { HeaderService } from '../../services/header.service';
 import { LocalStorageService } from '../../services/local-storage.service';
 import { Header } from '../../models/header.dto';
 import { AsyncPipe, NgFor, NgIf } from '@angular/common';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { LoginComponent } from '../login/login.component';
 import { environment } from 'src/environments/environment';
 import { SnackbarService } from '../../services/snackbar.service';
@@ -23,6 +16,12 @@ import { CartService } from 'src/app/cart/services/cart.service';
 import { Observable } from 'rxjs';
 import { Cart } from 'src/app/cart/models/cart.dto';
 import { CountPipe as CountCartProductsPipe } from 'src/app/cart/pipes/count.pipe';
+import { ToolbarModule } from 'primeng/toolbar';
+import { ButtonModule } from 'primeng/button';
+import { DialogModule } from 'primeng/dialog';
+import { MenuModule } from 'primeng/menu';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'app-header',
@@ -30,13 +29,10 @@ import { CountPipe as CountCartProductsPipe } from 'src/app/cart/pipes/count.pip
   styleUrls: ['./header.component.scss'],
   standalone: true,
   imports: [
-    MatToolbarModule,
-    MatTooltipModule,
-    MatButtonModule,
-    MatDialogModule,
-    MatIconModule,
-    MatMenuModule,
-    MatBadgeModule,
+    ToolbarModule,
+    ButtonModule,
+    DialogModule,
+    MenuModule,
     NgIf,
     NgFor,
     RouterModule,
@@ -45,21 +41,28 @@ import { CountPipe as CountCartProductsPipe } from 'src/app/cart/pipes/count.pip
     AsyncPipe,
     CountCartProductsPipe,
   ],
+  providers: [DialogService],
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
   applicationTitle: string = environment.title;
+
+  // Flags controlling menu visibility
   showAdminSection: boolean;
   showAuthSection: boolean;
   showNoAuthSection: boolean;
 
+  // User menu
+  userMenuItems: MenuItem[] | undefined;
+
   cart$: Observable<Cart>;
+  dialogLoginRef: DynamicDialogRef | undefined;
 
   constructor(
     private snackbar: SnackbarService,
     private router: Router,
     private headerService: HeaderService,
     private localStorageService: LocalStorageService,
-    private dialog: MatDialog,
+    private dialogService: DialogService,
     private cartService: CartService
   ) {
     this.showAdminSection = false;
@@ -69,6 +72,8 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.defineUserMenu();
+
     this.headerService.headerManagement.subscribe((status: Header) => {
       if (status) {
         this.showAuthSection = status.showAuthSection;
@@ -76,26 +81,78 @@ export class HeaderComponent implements OnInit {
         this.showAdminSection = status.showAdminSection;
       }
     });
+
+    document.addEventListener('click', (clickEvent: MouseEvent) => {
+      const btn = document.getElementById('tfm-cart-button');
+      const box = document.getElementById('tfm-cart');
+      if (!btn || !box) return;
+
+      if (clickEvent?.target instanceof Node) {
+        if (btn.contains(clickEvent?.target)) {
+          if (box.style.display == 'none') {
+            box.style.display = 'block';
+          } else {
+            box.style.display = 'none';
+          }
+        } else if (!box.contains(clickEvent?.target)) {
+          box.style.display = 'none';
+        }
+      }
+    });
   }
 
-  changePassword(): void {
+  ngOnDestroy(): void {
+    if (this.dialogLoginRef) {
+      this.dialogLoginRef.close();
+    }
+  }
+
+  editCredentials(): void {
     this.router.navigateByUrl('/users/credentials');
   }
 
-  orders(): void {
+  defineUserMenu(): void {
+    this.userMenuItems = [
+      {
+        label: $localize`Orders`,
+        icon: 'pi pi-cog',
+        command: () => this.showOrders(),
+      },
+      {
+        label: $localize`Personal Information`,
+        icon: 'pi pi-user-edit',
+        command: () => this.editProfile(),
+      },
+      {
+        label: $localize`Email and Password`,
+        icon: 'pi pi-lock',
+        command: () => this.editCredentials(),
+      },
+      {
+        label: $localize`Logout`,
+        icon: 'pi pi-sign-out',
+        command: () => this.logout(),
+      },
+    ];
+  }
+
+  showOrders(): void {
     this.router.navigateByUrl('/orders');
   }
 
-  profile(): void {
+  editProfile(): void {
     this.router.navigateByUrl('/users/profile');
   }
 
   login(): void {
-    const dialogRef = this.dialog.open(LoginComponent, {
-      hasBackdrop: true,
+    this.dialogLoginRef = this.dialogService.open(LoginComponent, {
+      header: $localize`User Access`,
+      width: '70%',
+      contentStyle: { overflow: 'auto' },
+      baseZIndex: 10000,
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
+    this.dialogLoginRef.onClose.subscribe((result: boolean | undefined) => {
       console.debug(`Dialog result: ${result}`);
     });
   }

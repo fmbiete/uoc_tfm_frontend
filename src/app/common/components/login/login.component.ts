@@ -8,21 +8,16 @@ import {
   UntypedFormBuilder,
 } from '@angular/forms';
 import { NgIf } from '@angular/common';
-import {
-  MatDialog,
-  MatDialogModule,
-  MatDialogRef,
-} from '@angular/material/dialog';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
 import { AuthService } from '../../services/auth.service';
 import { AuthChallenge } from '../../models/auth.dto';
 import { LocalStorageService } from 'src/app/common/services/local-storage.service';
 import { HeaderService } from 'src/app/common/services/header.service';
 import { RegisterComponent } from '../../../users/components/register/register.component';
 import { SnackbarService } from '../../services/snackbar.service';
+import { ButtonModule } from 'primeng/button';
+import { DialogModule } from 'primeng/dialog';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
   selector: 'app-login',
@@ -30,21 +25,21 @@ import { SnackbarService } from '../../services/snackbar.service';
   styleUrls: ['./login.component.scss'],
   standalone: true,
   imports: [
-    MatButtonModule,
-    MatDialogModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatIconModule,
+    ButtonModule,
+    DialogModule,
     FormsModule,
+    InputTextModule,
     ReactiveFormsModule,
     NgIf,
   ],
+  providers: [DialogService],
 })
 export class LoginComponent implements OnInit {
   hide: boolean;
   loginForm: UntypedFormGroup;
   email: UntypedFormControl;
   password: UntypedFormControl;
+  dialogRegisterRef: DynamicDialogRef | undefined;
 
   constructor(
     private formBuilder: UntypedFormBuilder,
@@ -52,8 +47,8 @@ export class LoginComponent implements OnInit {
     private authService: AuthService,
     private localStorageService: LocalStorageService,
     private headerService: HeaderService,
-    private dialog: MatDialog,
-    private dialogRef: MatDialogRef<LoginComponent>
+    private dialogService: DialogService,
+    public ref: DynamicDialogRef
   ) {
     this.hide = true;
     this.email = new UntypedFormControl('', [
@@ -77,6 +72,14 @@ export class LoginComponent implements OnInit {
     this.password.setValue('password');
   }
 
+  ngOnDestroy(): void {
+    if (this.dialogRegisterRef) this.dialogRegisterRef.close();
+  }
+
+  close(): void {
+    this.ref.close(false);
+  }
+
   async login(): Promise<void> {
     this.localStorageService.resetLogin();
 
@@ -95,8 +98,8 @@ export class LoginComponent implements OnInit {
       );
 
       this.headerService.showAuthenticated(authResponse?.admin);
-      this.dialogRef.close();
       this.snackbar.show(null, $localize`Welcome back!`);
+      this.ref.close(true);
     } catch (error: any) {
       // we stay in the dialog and show error
       this.headerService.showUnauthenticated();
@@ -105,9 +108,11 @@ export class LoginComponent implements OnInit {
   }
 
   register(): void {
-    const dialogRef = this.dialog.open(RegisterComponent);
-    dialogRef.afterClosed().subscribe((result) => {
-      console.debug(`Dialog result: ${result}`);
+    this.dialogRegisterRef = this.dialogService.open(RegisterComponent, {
+      header: $localize`User Registration`,
+      width: '70%',
+      contentStyle: { overflow: 'auto' },
+      baseZIndex: 10000,
     });
   }
 }

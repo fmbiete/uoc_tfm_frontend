@@ -1,81 +1,73 @@
-<mat-toolbar>
-  <button mat-icon-button i18n-aria-label aria-label="Application Menu">
-    <mat-icon>menu</mat-icon>
-  </button>
-  <a routerLink="/">
-    <img class="logo" src="assets/logo.png" alt="Logo {{ applicationTitle }}">
-  </a>
-  <span class="title">{{ applicationTitle }}</span>
+<p-toolbar>
+  <div class="p-toolbar-group-start">
+    <p-button [rounded]="true" [text]="true" icon="pi pi-bars" i18n-aria-label aria-label="Application Menu">
+    </p-button>
+    <a routerLink="/">
+      <img class="logo" src="assets/logo.png" alt="Logo {{ applicationTitle }}">
+    </a>
+    <h1>{{ applicationTitle }}</h1>
+  </div>
 
-  <span class="spacer"></span>
-  <button mat-icon-button i18n-aria-label aria-label="Search Dish" i18n-matTooltip matTooltip="Search Dish">
-    <mat-icon>search</mat-icon>
-  </button>
 
-  <!-- Shopping Cart -->
-  <ng-container *ngIf="cart$ | async as cart; else empty_cart">
-    <ng-container *ngIf="cart.Lines.length > 0; else empty_cart">
-      <button mat-icon-button i18n-aria-label aria-label="Shopping Cart" i18n-matTooltip matTooltip="Shopping Cart"
-        matBadge="{{ cart | countCartProducts }}" matBadgePosition="below after" matBadgeColor="accent"
-        matBadgeSize="medium" [matMenuTriggerFor]="shoppingCart">
-        <mat-icon>shopping_cart</mat-icon>
-      </button>
-      <mat-menu #shoppingCart="matMenu" xPosition="before">
-        <div *ngFor="let line of cart.Lines; index as idx" mat-menu-item (click)="$event.stopPropagation()"
-          class="cart">
-          <span class="cart-line">
-            <span class="remove-line" i18n-aria-label aria-label="Remove Cart Line"
-              (click)="removeCartLine(idx)">x</span>
-            <span>{{ line.Name }}</span>
-            <span class="quantity">
-              <span i18n-aria-label aria-label="Decrease Quantity Cart Line" (click)="reduceCartLine(idx)">-</span>
-              <span i18n-aria-label aria-label="Quantity Cart Line">{{ line.Quantity }}</span>
-              <span i18n-aria-label aria-label="Increase Quantity Cart Line" (click)="increaseCartLine(idx)">+</span>
-            </span>
-          </span>
+  <div class="p-toolbar-group-end">
+    <p-button [rounded]="true" [text]="true" [raised]="true" i18n-aria-label aria-label="Search Dish" i18n-pTooltip
+      pTooltip="Search Dish" tooltipPosition="bottom" icon="pi pi-search">
+    </p-button>
+
+    <!-- Shopping Cart -->
+    <ng-container *ngIf="cart$ | async as cart; else empty_cart">
+      <ng-container *ngIf="cart.Lines.length > 0; else empty_cart">
+        <p-button id="tfm-cart-button" [rounded]="true" [text]="true" [raised]="true" i18n-aria-label
+          aria-label="Shopping Cart" i18n-pTooltip pTooltip="Shopping Cart" tooltipPosition="bottom"
+          icon="pi pi-shopping-cart" badge="{{ cart | countCartProducts }}" badgeClass="p-badge-danger"></p-button>
+        <div id="tfm-cart" class="tfm-cart">
+          <table>
+            <caption i18n style="display: none;">Shopping Cart Content</caption>
+            <thead>
+              <th i18n>Dish</th>
+              <th i18n>Quantity</th>
+              <th></th>
+            </thead>
+            <tbody>
+              <tr *ngFor="let line of cart.Lines; index as idx">
+                <td>{{ line.Name }}</td>
+                <td>
+                  <p-button icon="pi pi-minus" severity="secondary" i18n-aria-label
+                    aria-label="Decrease Quantity Cart Line" (click)="reduceCartLine(idx)"></p-button>
+                  <p-button [outlined]="true" i18n-aria-label aria-label="Quantity Cart Line" i18n-label
+                    label="{{ line.Quantity }}"></p-button>
+                  <p-button icon="pi pi-plus" severity="secondary" i18n-aria-label
+                    aria-label="Increase Quantity Cart Line" (click)="increaseCartLine(idx)"></p-button>
+                </td>
+                <td>
+                  <p-button icon="pi pi-trash" severity="danger" i18n-aria-label aria-label="Remove Cart Line"
+                    (click)="removeCartLine(idx)"></p-button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <hr>
+          <p-button icon="pi pi-shopping-cart" (click)="detailCart()" i18n-label label="Go to Checkout"></p-button>
         </div>
-        <button mat-menu-item class="cart-checkout" (click)="detailCart()">
-          <mat-icon>shopping_cart_checkout</mat-icon>
-          <span i18n>Go to Checkout</span>
-        </button>
-      </mat-menu>
+      </ng-container>
     </ng-container>
-  </ng-container>
 
-  <ng-template #empty_cart>
-    <button mat-icon-button i18n-aria-label aria-label="Shopping Cart" i18n-matTooltip matTooltip="Shopping Cart"
-      class="cart">
-      <mat-icon>shopping_cart</mat-icon>
-    </button>
-  </ng-template>
+    <ng-template #empty_cart>
+      <p-button [rounded]="true" [text]="true" [raised]="true" i18n-aria-label aria-label="Shopping Cart" i18n-pTooltip
+        pTooltip="Shopping Cart" tooltipPosition="bottom" icon="pi pi-shopping-cart"></p-button>
+    </ng-template>
 
-  <span *ngIf="showNoAuthSection">
-    <button mat-icon-button i18n-aria-label aria-label="Login" i18n-matTooltip matTooltip="Login" (click)="login()">
-      <mat-icon>login</mat-icon>
-    </button>
-  </span>
-  <span *ngIf="showAuthSection">
-    <button mat-icon-button i18n-aria-label aria-label="User Menu" i18n-matTooltip matTooltip="User Menu"
-      [matMenuTriggerFor]="userMenu">
-      <mat-icon>face</mat-icon>
-    </button>
-    <mat-menu #userMenu="matMenu">
-      <button mat-menu-item (click)="orders()">
-        <mat-icon>view_list</mat-icon>
-        <span i18n>Orders</span>
-      </button>
-      <button mat-menu-item (click)="profile()">
-        <mat-icon>settings</mat-icon>
-        <span i18n>Personal Information</span>
-      </button>
-      <button mat-menu-item (click)="changePassword()">
-        <mat-icon>password</mat-icon>
-        <span i18n>Email and Password</span>
-      </button>
-      <button mat-menu-item (click)="logout()">
-        <mat-icon>logout</mat-icon>
-        <span i18n>Logout</span>
-      </button>
-    </mat-menu>
-  </span>
-</mat-toolbar>
+    <span *ngIf="showNoAuthSection">
+      <p-button [rounded]="true" [text]="true" [raised]="true" icon="pi pi-sign-in" i18n-aria-label aria-label="Login"
+        i18n-pTooltip pTooltip="Login" tooltipPosition="bottom" (click)="login()">
+      </p-button>
+    </span>
+    <span *ngIf="showAuthSection">
+      <p-menu #userMenu [model]="userMenuItems" [popup]="true"></p-menu>
+      <p-button [rounded]="true" [text]="true" [raised]="true" icon="pi pi-user" i18n-aria-label aria-label="User Menu"
+        i18n-pTooltip pTooltip="User Menu" (click)="userMenu.toggle($event)">
+      </p-button>
+    </span>
+
+  </div>
+</p-toolbar>

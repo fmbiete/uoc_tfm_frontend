@@ -1,6 +1,5 @@
-<ngx-skeleton-loader *ngIf="!loaded" count="1" appearance="circle"
-  [theme]="{height: '300px', width: '300px'}"></ngx-skeleton-loader>
-
-<div *ngFor="let dish of dishes">
-  <dish-thumbnail [dish]="dish"></dish-thumbnail>
-</div>
+<p-carousel [value]="dishes" [numVisible]="1" [numScroll]="1" [circular]="true" [responsiveOptions]="responsiveOptions">
+  <ng-template let-dish pTemplate="item">
+    <dish-thumbnail [dish]="dish"></dish-thumbnail>
+  </ng-template>
+</p-carousel>

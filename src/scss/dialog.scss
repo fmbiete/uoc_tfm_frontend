@@ -1,0 +1,18 @@
+.tfm-dialog-content {
+  padding: 20px;
+
+  .p-float-label {
+    margin-top: 10px;
+  }
+}
+
+.tfm-dialog-footer {
+  border-top: 1px solid $tfm-color-dark;
+  padding-top: 10px;
+  text-align: right;
+
+  > p-button:first-of-type {
+    margin-right: 20px;
+  }
+}
+

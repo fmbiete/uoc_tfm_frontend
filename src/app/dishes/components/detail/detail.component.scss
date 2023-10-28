@@ -1,15 +1,27 @@
-.container {
+.tfm-dish-container {
   display: grid; 
   grid-template-columns: auto auto;
 }
 
-.image {
+.tfm-dish-image {
   height: 300px; 
   width: 300px; 
   background-color: blueviolet;
 }
 
-.details {
+.tfm-dish-details {
   display: grid; 
   grid-template-columns: auto;
+}
+
+.tfm-rating {
+  p-button {
+    margin-left: 10px;
+  }
+}
+
+.tfm-list-badges {
+  p-badge {
+    margin-right: 5px;
+  }
 }

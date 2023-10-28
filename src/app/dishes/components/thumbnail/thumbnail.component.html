@@ -1,3 +1,15 @@
-<div>
-  <a [routerLink]="['/dishes/dish', dish.ID]">{{ dish.Name }}</a>
+<div class="tfm-thumbnail">
+  <div class="tfm-thumbnail-image">
+    <img src="/assets/dishes/generic.png" alt="{{ dish.Name }}">
+  </div>
+  <div class="tfm-thumbnail-info">
+    <h4><a [routerLink]="['/dishes/dish', dish.ID]">{{ dish.Name }}</a></h4>
+    <h6>{{ dish.Cost | currency }}</h6>
+    <div>
+      <p-button type="button" styleClass="p-button p-button-rounded" icon="pi pi-eye"
+        [routerLink]="['/dishes/dish', dish.ID]"></p-button>
+      <p-button type="button" styleClass="p-button-success p-button-rounded" icon="pi pi-cart-plus"
+        (click)="addCart()"></p-button>
+    </div>
+  </div>
 </div>

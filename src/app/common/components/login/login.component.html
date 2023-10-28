@@ -1,41 +1,34 @@
-<h1 i18n mat-dialog-title>User Access</h1>
-<mat-dialog-content [formGroup]="loginForm">
+<div class="tfm-dialog-content">
   <div [formGroup]="loginForm">
-    <mat-form-field>
-      <mat-label i18n>Email</mat-label>
-      <input matInput i18n-placeholder placeholder="your.email@work.com" [formControl]="email" type="email"
-        i18n-aria-label aria-label="email" required maxlength="100">
-      <mat-icon matSuffix>email</mat-icon>
-      <mat-error i18n *ngIf="email.errors?.['required']">You must enter a value</mat-error>
-      <mat-error i18n *ngIf="email.errors?.['pattern']">The value is not a valid email address</mat-error>
-      <mat-error i18n *ngIf="email.errors?.['maxlength']">The value is too long</mat-error>
-    </mat-form-field>
+    <span class="p-float-label">
+      <input id="email" type="email" pInputText [formControl]="email" i18n-aria-label aria-label="Email" required
+        maxlength="100">
+      <label for="email" i18n>Email</label>
+    </span>
+    <div class="tfm-input-error" i18n *ngIf="email.errors?.['required']">You must enter a value</div>
+    <div class="tfm-input-error" i18n *ngIf="email.errors?.['pattern']">The value is not a valid email address</div>
+    <div class="tfm-input-error" i18n *ngIf="email.errors?.['maxlength']">The value is too long</div>
   </div>
 
   <div [formGroup]="loginForm">
-    <mat-form-field>
-      <mat-label i18n>Password</mat-label>
-      <input matInput [type]="hide ? 'password' : 'text'" [formControl]="password" i18n-aria-label aria-label="password"
-        required maxlength="64">
-      <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
-        [attr.aria-pressed]="hide">
-        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-      </button>
-      <mat-error i18n *ngIf="password.errors?.['required']">You must enter a value</mat-error>
-      <mat-error i18n *ngIf="password.errors?.['maxlength']">The value is too long</mat-error>
-    </mat-form-field>
+    <span class="p-float-label p-input-icon-right">
+      <i class="pi {{ hide ? 'pi-eye-slash' : 'pi-eye' }}" (click)="hide = !hide"></i>
+      <input id="password" pInputText [type]="hide ? 'password' : 'text'" [formControl]="password" i18n-aria-label
+        aria-label="Password" required maxlength="64">
+      <label for="password" i18n>Password</label>
+    </span>
+    <div class="tfm-input-error" i18n *ngIf="password.errors?.['required']">You must enter a value</div>
+    <div class="tfm-input-error" i18n *ngIf="password.errors?.['maxlength']">The value is too long</div>
   </div>
 
-  <div>
-    <button mat-button mat-dialog-close i18n (click)="register()">
-      <mat-icon>person_add</mat-icon>
-      Register new user
-    </button>
-  </div>
-</mat-dialog-content>
 
-<mat-dialog-actions align="center">
-  <button mat-raised-button mat-dialog-close i18n type="reset">Cancel</button>
-  <button mat-raised-button color="primary" i18n type="submit" [disabled]="!loginForm.valid"
-    (click)="login()">Login</button>
-</mat-dialog-actions>
+  <div style="margin: 20px 0">
+    <p-button [text]="true" severity="success" icon="pi pi-user-plus" i18n (click)="register()" i18n-label
+      label="Register new user"></p-button>
+  </div>
+</div>
+
+<div class="tfm-dialog-footer">
+  <p-button icon="pi pi-times" severity="danger" (click)="close()" i18n-label label="Cancel"></p-button>
+  <p-button icon="pi pi-check" [disabled]="!loginForm.valid" (click)="login()" i18n-label label="Login"></p-button>
+</div>

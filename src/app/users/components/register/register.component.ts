@@ -8,15 +8,14 @@ import {
   UntypedFormBuilder,
 } from '@angular/forms';
 import { NgIf } from '@angular/common';
-import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
 import { SnackbarService } from 'src/app/common/services/snackbar.service';
 import { User } from '../../models/user.dto';
 import { UserService } from '../../services/user.service';
 import { CustomValidators } from 'src/app/common/validators/custom.validator';
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
+import { DialogModule } from 'primeng/dialog';
+import { DynamicDialogRef } from 'primeng/dynamicdialog';
 
 @Component({
   selector: 'app-register',
@@ -24,11 +23,9 @@ import { CustomValidators } from 'src/app/common/validators/custom.validator';
   styleUrls: ['./register.component.scss'],
   standalone: true,
   imports: [
-    MatButtonModule,
-    MatDialogModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatIconModule,
+    ButtonModule,
+    InputTextModule,
+    DialogModule,
     FormsModule,
     ReactiveFormsModule,
     NgIf,
@@ -54,7 +51,7 @@ export class RegisterComponent implements OnInit {
     private formBuilder: UntypedFormBuilder,
     private snackbar: SnackbarService,
     private userService: UserService,
-    private dialogRef: MatDialogRef<RegisterComponent>
+    private dialogRef: DynamicDialogRef
   ) {
     this.hide = true;
 
@@ -118,6 +115,10 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {
     return;
+  }
+
+  close(): void {
+    this.dialogRef.close();
   }
 
   async register(): Promise<void> {

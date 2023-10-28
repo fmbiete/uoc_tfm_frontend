@@ -2,15 +2,16 @@ import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-
+import { ToastModule } from 'primeng/toast';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { HttpInterceptorService } from './common/services/http-interceptor.service';
 import { HeaderComponent } from './common/components/header/header.component';
 import { FooterComponent } from './common/components/footer/footer.component';
+import { MessageService } from 'primeng/api';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 
 @NgModule({
   declarations: [AppComponent],
@@ -26,9 +27,9 @@ import { FooterComponent } from './common/components/footer/footer.component';
     BrowserAnimationsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    MatSnackBarModule,
     HeaderComponent,
     FooterComponent,
+    ToastModule,
   ],
   providers: [
     {
@@ -36,6 +37,7 @@ import { FooterComponent } from './common/components/footer/footer.component';
       useClass: HttpInterceptorService,
       multi: true,
     },
+    MessageService,
   ],
   bootstrap: [AppComponent],
 })

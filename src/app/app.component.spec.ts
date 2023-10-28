@@ -3,7 +3,6 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './common/components/header/header.component';
 import { FooterComponent } from './common/components/footer/footer.component';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { HttpClient } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
@@ -17,7 +16,7 @@ describe('AppComponent', () => {
         HttpClientTestingModule,
       ],
       declarations: [AppComponent],
-      providers: [MatSnackBar, HttpClient],
+      providers: [HttpClient],
     })
   );
 

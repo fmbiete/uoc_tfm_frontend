@@ -2,7 +2,7 @@
 <ng-container *ngIf="cart$ | async as cart; else empty_cart">
   <ng-container *ngIf="cart.Lines.length > 0; else empty_cart">
     <table>
-      <caption i18n>Shopping Cart Content</caption>
+      <caption i18n style="display: none;">Shopping Cart Content</caption>
       <thead>
         <th i18n>Dish</th>
         <th i18n>Quantity</th>
@@ -11,27 +11,25 @@
       <tbody>
         <tr *ngFor="let line of cart.Lines; index as idx">
           <td>{{ line.Name }}</td>
-          <td class="quantity">
-            <span i18n-aria-label aria-label="Decrease Quantity Cart Line" (click)="reduceCartLine(idx)">-</span>
-            <span i18n-aria-label aria-label="Quantity Cart Line">{{ line.Quantity }}</span>
-            <span i18n-aria-label aria-label="Increase Quantity Cart Line" (click)="increaseCartLine(idx)">+</span>
+          <td>
+            <p-button icon="pi pi-minus" severity="secondary" i18n-aria-label aria-label="Decrease Quantity Cart Line"
+              (click)="reduceCartLine(idx)"></p-button>
+            <p-button i18n-aria-label aria-label="Quantity Cart Line" i18n-label label="{{ line.Quantity }}"
+              [disabled]="true"></p-button>
+            <p-button icon="pi pi-plus" severity="secondary" i18n-aria-label aria-label="Increase Quantity Cart Line"
+              (click)="increaseCartLine(idx)"></p-button>
           </td>
           <td>
-            <span class="remove-line" i18n-aria-label aria-label="Remove Cart Line"
-              (click)="removeCartLine(idx)">x</span>
+            <p-button icon="pi pi-trash" severity="danger" i18n-aria-label aria-label="Remove Cart Line"
+              (click)="removeCartLine(idx)"></p-button>
           </td>
         </tr>
       </tbody>
     </table>
     <div>
-      <button mat-raised-button color="primary" (click)="checkout()">
-        <mat-icon>shopping_cart_checkout</mat-icon>
-        <span i18n>Proceed to Checkout</span>
-      </button>
-      <button mat-raised-button color="warn" (click)="cleanCart()">
-        <mat-icon>remove_shopping_cart</mat-icon>
-        <span i18n>Empty Shopping Cart</span>
-      </button>
+      <p-button icon="pi pi-trash" severity="danger" (click)="cleanCart()" i18n-label
+        label="Empty Shopping Cart"></p-button>
+      <p-button icon="pi pi-shopping-cart" (click)="checkout()" i18n-label label="Proceed to Checkout"></p-button>
     </div>
   </ng-container>
 </ng-container>

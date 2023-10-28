@@ -1,3 +1,1 @@
-<span *ngFor="let star of stars">
-  <mat-icon color="{{ star }}">star</mat-icon>
-</span>
+<p-rating [(ngModel)]="rating" [readonly]="true" [cancel]="false"></p-rating>

@@ -4,14 +4,16 @@ import { SnackbarService } from 'src/app/common/services/snackbar.service';
 import { DishService } from '../../services/dish.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { CurrencyPipe, NgFor, NgIf } from '@angular/common';
-import { MatChipsModule } from '@angular/material/chips';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { LocalStorageService } from 'src/app/common/services/local-storage.service';
 import { RatingComponent } from '../rating/rating.component';
 import { RatingPipe } from '../../pipes/rating.pipe';
 import { CartService } from 'src/app/cart/services/cart.service';
+import { ChipsModule } from 'primeng/chips';
+import { SkeletonModule } from 'primeng/skeleton';
+import { ButtonModule } from 'primeng/button';
+import { FormsModule } from '@angular/forms';
+import { TooltipModule } from 'primeng/tooltip';
+import { BadgeModule } from 'primeng/badge';
 
 @Component({
   selector: 'dish-detail',
@@ -20,14 +22,16 @@ import { CartService } from 'src/app/cart/services/cart.service';
   standalone: true,
   imports: [
     CurrencyPipe,
-    NgxSkeletonLoaderModule,
     NgFor,
     NgIf,
-    MatChipsModule,
-    MatIconModule,
-    MatButtonModule,
     RatingComponent,
     RatingPipe,
+    ChipsModule,
+    ButtonModule,
+    SkeletonModule,
+    FormsModule,
+    TooltipModule,
+    BadgeModule,
   ],
 })
 export class DetailComponent implements OnInit {

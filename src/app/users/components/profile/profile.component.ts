@@ -8,14 +8,12 @@ import {
   UntypedFormBuilder,
 } from '@angular/forms';
 import { NgIf } from '@angular/common';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
 import { SnackbarService } from 'src/app/common/services/snackbar.service';
 import { UserService } from '../../services/user.service';
 import { LocalStorageService } from 'src/app/common/services/local-storage.service';
 import { User } from '../../models/user.dto';
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
   selector: 'app-profile',
@@ -23,10 +21,8 @@ import { User } from '../../models/user.dto';
   styleUrls: ['./profile.component.scss'],
   standalone: true,
   imports: [
-    MatButtonModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatIconModule,
+    ButtonModule,
+    InputTextModule,
     FormsModule,
     ReactiveFormsModule,
     NgIf,

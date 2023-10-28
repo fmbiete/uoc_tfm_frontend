@@ -1,22 +1,31 @@
+@import "/src/scss/variables.scss";
+
+footer {
+  margin-top: 20px;
+}
 .dark {
-  background-color: #343a40;
-  color: white;
+  background-color: $tfm-color-dark;
+  color: $tfm-color-light;
   text-align: center;
   font-size: larger;
   padding-top: 20px;
-  margin-bottom: -18px;
+  margin-bottom: -20px;
 }
 
 .social {
-  > button {
-    margin-left: 10px;
-    background-color: #f8f9fa;
-    border-color: #f8f9fa;
+  > .p-element {
+    margin-right: 10px;
+    background-color: $tfm-color-light;
+    border-color: $tfm-color-light;
+  }
+
+  > .p-element:last-of-type {
+    margin-right: 0;
   }
 }
 
 .light {
-  background-color: var(--mat-toolbar-container-background-color);
+  background-color: $tfm-color-light;
   padding-top: 30px;
   font-size: smaller;
   text-align: center;

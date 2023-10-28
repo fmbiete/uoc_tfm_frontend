@@ -1,0 +1,19 @@
+.tfm-input-error {
+  color: var(--red-800);
+  font-size: smaller;
+}
+
+.tfm-form-footer {
+  margin-top: 20px;
+  p-button {
+    margin-right: 20px;
+  }
+}
+
+form > div {
+  margin-top: 10px;
+}
+
+input {
+  min-width: 300px;
+}

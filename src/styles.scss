@@ -1,13 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+@import "primeng/resources/themes/md-light-indigo/theme.css";
+@import "primeng/resources/primeng.css";
+@import "primeicons/primeicons.css";
 
 // Create new lines in snackbar
 .error-snackbar, .success-snackbar {
   white-space: pre-wrap;
-}
-
-.skeleton-loader {
-  border-radius: 5px !important;
 }
