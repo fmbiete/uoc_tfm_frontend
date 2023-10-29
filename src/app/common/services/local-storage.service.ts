@@ -51,7 +51,10 @@ export class LocalStorageService {
 
   // For 1-off checks
   isLoggedIn(): boolean {
-    return this.get(LocalStorageService.key_token) !== null;
+    const loggedIn = this.get(LocalStorageService.key_token) !== null;
+    // refresh observable value
+    this.authenticatedSubject.next(loggedIn);
+    return loggedIn;
   }
 
   resetLogin() {
