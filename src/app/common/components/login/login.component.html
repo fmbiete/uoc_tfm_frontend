@@ -11,10 +11,9 @@
   </div>
 
   <div [formGroup]="loginForm">
-    <span class="p-float-label p-input-icon-right">
-      <i class="pi {{ hide ? 'pi-eye-slash' : 'pi-eye' }}" (click)="hide = !hide"></i>
-      <input id="password" pInputText [type]="hide ? 'password' : 'text'" [formControl]="password" i18n-aria-label
-        aria-label="Password" required maxlength="64">
+    <span class="p-float-label">
+      <p-password [formControl]="password" i18n-aria-label aria-label="Password" [toggleMask]="true" [feedback]="false"
+        required maxlength="64"></p-password>
       <label for="password" i18n>Password</label>
     </span>
     <div class="tfm-input-error" i18n *ngIf="password.errors?.['required']">You must enter a value</div>

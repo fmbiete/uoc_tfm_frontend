@@ -16,6 +16,7 @@ import { Router } from '@angular/router';
 import { CustomValidators } from 'src/app/common/validators/custom.validator';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
+import { PasswordModule } from 'primeng/password';
 
 @Component({
   selector: 'app-credentials',
@@ -25,14 +26,13 @@ import { InputTextModule } from 'primeng/inputtext';
   imports: [
     ButtonModule,
     InputTextModule,
+    PasswordModule,
     FormsModule,
     ReactiveFormsModule,
     NgIf,
   ],
 })
 export class CredentialsComponent implements OnInit {
-  hide: boolean;
-
   credentialsForm: UntypedFormGroup;
   email: UntypedFormControl;
   password: UntypedFormControl;
@@ -45,8 +45,6 @@ export class CredentialsComponent implements OnInit {
     private localStorage: LocalStorageService,
     private router: Router
   ) {
-    this.hide = true;
-
     this.email = new UntypedFormControl('', [
       Validators.required,
       Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$'),

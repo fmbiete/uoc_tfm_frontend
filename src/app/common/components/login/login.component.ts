@@ -18,6 +18,7 @@ import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { InputTextModule } from 'primeng/inputtext';
+import { PasswordModule } from 'primeng/password';
 
 @Component({
   selector: 'app-login',
@@ -29,13 +30,13 @@ import { InputTextModule } from 'primeng/inputtext';
     DialogModule,
     FormsModule,
     InputTextModule,
+    PasswordModule,
     ReactiveFormsModule,
     NgIf,
   ],
   providers: [DialogService],
 })
 export class LoginComponent implements OnInit {
-  hide: boolean;
   loginForm: UntypedFormGroup;
   email: UntypedFormControl;
   password: UntypedFormControl;
@@ -50,7 +51,6 @@ export class LoginComponent implements OnInit {
     private dialogService: DialogService,
     public ref: DynamicDialogRef
   ) {
-    this.hide = true;
     this.email = new UntypedFormControl('', [
       Validators.required,
       Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$'),
