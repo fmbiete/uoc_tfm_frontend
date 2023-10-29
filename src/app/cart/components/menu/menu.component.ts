@@ -30,21 +30,17 @@ export class MenuComponent implements OnInit {
       if (clickEvent?.target instanceof Node) {
         console.debug(clickEvent.target);
         if (btn.contains(clickEvent?.target)) {
-          if (box.style.display == 'none') {
-            box.style.display = 'block';
-          } else {
-            console.debug(`not display visible`);
-            box.style.display = 'none';
-          }
+          this.togglePanel(box);
         } else if (!box.contains(clickEvent?.target)) {
-          console.debug(`not box contains`);
-          box.style.display = 'none';
+          this.hidePanel(box);
         }
       }
     });
   }
 
   detailCart(): void {
+    this.hidePanel(null);
+
     this.router.navigateByUrl('/cart');
   }
 
@@ -58,5 +54,22 @@ export class MenuComponent implements OnInit {
 
   reduceCartLine(idx: number): void {
     this.cartService.reduceQuantityLine(idx);
+  }
+
+  hidePanel(box: HTMLElement | null) {
+    if (box === null) box = document.getElementById('tfm-cart');
+    if (box) box.style.display = 'none';
+  }
+
+  togglePanel(box: HTMLElement | null) {
+    if (box === null) box = document.getElementById('tfm-cart');
+
+    if (box) {
+      if (box.style.display == 'none') {
+        box.style.display = 'block';
+      } else {
+        box.style.display = 'none';
+      }
+    }
   }
 }
