@@ -4,7 +4,32 @@
 @import "primeng/resources/primeng.css";
 @import "primeicons/primeicons.css";
 
+@import "scss/fonts.scss";
+
+
+// Default styles
+html, body { 
+  height: 100%;
+}
+
+body { 
+  margin: 0;
+  // Material uses Roboto as default font
+  // This project uses Montserrat as the default font
+  font-family: Montserrat, Roboto, "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial," Lucida Grande", sans-serif;
+}
+
 // Create new lines in snackbar
-.error-snackbar, .success-snackbar {
+.p-toast-detail {
   white-space: pre-wrap;
+}
+
+
+// Assistive text for screen readers - we hide it visually
+.tfm-assistive-text {
+  height: 1px; 
+  width: 1px; 
+  position: absolute; 
+  top: -10px; 
+  overflow: hidden; 
 }
