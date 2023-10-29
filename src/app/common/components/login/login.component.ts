@@ -16,7 +16,11 @@ import { RegisterComponent } from '../../../users/components/register/register.c
 import { SnackbarService } from '../../services/snackbar.service';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
-import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import {
+  DialogService,
+  DynamicDialogConfig,
+  DynamicDialogRef,
+} from 'primeng/dynamicdialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 
@@ -110,7 +114,7 @@ export class LoginComponent implements OnInit {
   register(): void {
     this.dialogRegisterRef = this.dialogService.open(RegisterComponent, {
       header: $localize`User Registration`,
-      width: '70%',
+      // width: '75vw',
       contentStyle: { overflow: 'auto' },
       baseZIndex: 10000,
     });

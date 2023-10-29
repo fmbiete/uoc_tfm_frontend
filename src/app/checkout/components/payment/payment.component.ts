@@ -9,6 +9,7 @@ import { Cart } from 'src/app/cart/models/cart.dto';
 import { CartService } from 'src/app/cart/services/cart.service';
 import { LocalStorageService } from 'src/app/common/services/local-storage.service';
 import { TotalPipe } from 'src/app/cart/pipes/total.pipe';
+import { FormActionsComponent } from '../form-actions/form-actions.component';
 
 @Component({
   selector: 'app-payment',
@@ -24,6 +25,7 @@ import { TotalPipe } from 'src/app/cart/pipes/total.pipe';
     ReactiveFormsModule,
     ButtonModule,
     InputTextModule,
+    FormActionsComponent,
   ],
 })
 export class PaymentComponent {

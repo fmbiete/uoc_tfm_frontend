@@ -1,5 +1,5 @@
-<div class="tfm-dialog-content">
-  <div [formGroup]="registerForm">
+<div class="tfm-dialog-content tfm-dialog-register" [formGroup]="registerForm">
+  <div>
     <span class="p-float-label">
       <input id="email" pInputText [formControl]="email" type="email" i18n-placeholder placeholder="user1@tfm.es"
         i18n-aria-label aria-label="email" required maxlength="100">
@@ -10,7 +10,7 @@
     <div class="tfm-input-error" i18n *ngIf="email.errors?.['maxlength']">The value is too long</div>
   </div>
 
-  <div [formGroup]="registerForm">
+  <div>
     <span class="p-float-label p-input-icon-right">
       <i class="pi {{ hide ? 'pi-eye-slash' : 'pi-eye' }}" (click)="hide = !hide"></i>
       <input id="password" pInputText [type]="hide ? 'password' : 'text'" [formControl]="password" i18n-aria-label
@@ -21,7 +21,7 @@
     <div class="tfm-input-error" i18n *ngIf="password.errors?.['maxlength']">The value is too long</div>
   </div>
 
-  <div [formGroup]="registerForm">
+  <div>
     <span class="p-float-label p-input-icon-right">
       <i class="pi {{ hide ? 'pi-eye-slash' : 'pi-eye' }}" (click)="hide = !hide"></i>
       <input id="password2" pInputText [type]="hide ? 'password' : 'text'" [formControl]="password2" i18n-aria-label
@@ -33,7 +33,7 @@
     <div class="tfm-input-error" i18n *ngIf="password2.errors?.['matchValidator']">The password values don't match</div>
   </div>
 
-  <div [formGroup]="registerForm">
+  <div>
     <span class="p-float-label">
       <input id="name" pInputText i18n-placeholder placeholder="John" [formControl]="name" type="text" i18n-aria-label
         aria-label="Name" required maxlength="250">
@@ -43,7 +43,7 @@
     <div class="tfm-input-error" i18n *ngIf="name.errors?.['maxlength']">The value is too long</div>
   </div>
 
-  <div [formGroup]="registerForm">
+  <div>
     <span class="p-float-label">
       <input id="surname" pInputText i18n-placeholder placeholder="Doe" [formControl]="surname" type="text"
         i18n-aria-label aria-label="Surname" required maxlength="250">
@@ -53,7 +53,7 @@
     <div class="tfm-input-error" i18n *ngIf="surname.errors?.['maxlength']">The value is too long</div>
   </div>
 
-  <div [formGroup]="registerForm">
+  <div>
     <span class="p-float-label">
       <input id="address1" pInputText i18n-placeholder placeholder="Address Line 1" [formControl]="address1" type="text"
         i18n-aria-label aria-label="Address Line 1" required maxlength="250">
@@ -63,7 +63,7 @@
     <div class="tfm-input-error" i18n *ngIf="address1.errors?.['maxlength']">The value is too long</div>
   </div>
 
-  <div [formGroup]="registerForm">
+  <div>
     <span class="p-float-label">
       <input id="address2" pInputText i18n-placeholder placeholder="Address Line 2" [formControl]="address2" type="text"
         i18n-aria-label aria-label="Address Line 2" maxlength="250">
@@ -72,7 +72,7 @@
     <div class="tfm-input-error" i18n *ngIf="address2.errors?.['maxlength']">The value is too long</div>
   </div>
 
-  <div [formGroup]="registerForm">
+  <div>
     <span class="p-float-label">
       <input id="address3" pInputText i18n-placeholder placeholder="Address Line 3" [formControl]="address3" type="text"
         i18n-aria-label aria-label="Address Line 3" maxlength="250">
@@ -81,7 +81,7 @@
     <div class="tfm-input-error" i18n *ngIf="address3.errors?.['maxlength']">The value is too long</div>
   </div>
 
-  <div [formGroup]="registerForm">
+  <div>
     <span class="p-float-label">
       <input id="city" pInputText i18n-placeholder placeholder="City" [formControl]="city" type="text" i18n-aria-label
         aria-label="City" required maxlength="250">
@@ -91,7 +91,7 @@
     <div class="tfm-input-error" i18n *ngIf="city.errors?.['maxlength']">The value is too long</div>
   </div>
 
-  <div [formGroup]="registerForm">
+  <div>
     <span class="p-float-label">
       <input id="postal_code" pInputText i18n-placeholder placeholder="Postal Code" [formControl]="postal_code"
         type="text" i18n-aria-label aria-label="Postal Code" required maxlength="10">
@@ -101,7 +101,7 @@
     <div class="tfm-input-error" i18n *ngIf="postal_code.errors?.['maxlength']">The value is too long</div>
   </div>
 
-  <div [formGroup]="registerForm">
+  <div>
     <span class="p-float-label">
       <input id="phone" pInputText i18n-placeholder placeholder="Phone Number" [formControl]="phone" type="text"
         i18n-aria-label aria-label="Phone Number" required maxlength="20">
@@ -112,8 +112,9 @@
   </div>
 </div>
 
-<div class="tfm-dialog-footer">
-  <p-button icon="pi pi-times" severity="danger" (click)="close()" i18n-label label="Cancel"></p-button>
-  <p-button icon="pi pi-check" [disabled]="!registerForm.valid" (click)="register()" i18n-label
-    label="Register"></p-button>
+<div class="mt-2 flex flex-column md:flex-row md:justify-content-end md:mr-5">
+  <p-button icon="pi pi-times" severity="danger" (click)="close()" i18n-label label="Cancel"
+    styleClass="w-11 md:w-max md:mr-2"></p-button>
+  <p-button icon="pi pi-check" [disabled]="!registerForm.valid" (click)="register()" i18n-label label="Register"
+    styleClass="w-11 md:w-max mt-2 md:mt-0"></p-button>
 </div>

@@ -2,7 +2,6 @@ import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { ToastModule } from 'primeng/toast';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
@@ -11,7 +10,7 @@ import { HttpInterceptorService } from './common/services/http-interceptor.servi
 import { HeaderComponent } from './common/components/header/header.component';
 import { FooterComponent } from './common/components/footer/footer.component';
 import { MessageService } from 'primeng/api';
-import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { MessagesModule } from 'primeng/messages';
 
 @NgModule({
   declarations: [AppComponent],
@@ -29,7 +28,7 @@ import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
     HttpClientModule,
     HeaderComponent,
     FooterComponent,
-    ToastModule,
+    MessagesModule,
   ],
   providers: [
     {

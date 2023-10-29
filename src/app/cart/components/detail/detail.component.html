@@ -1,39 +1,47 @@
-<h1 i18n>Shopping Cart Content</h1>
-<ng-container *ngIf="cart$ | async as cart; else empty_cart">
-  <ng-container *ngIf="cart.Lines.length > 0; else empty_cart">
-    <table>
-      <caption i18n style="display: none;">Shopping Cart Content</caption>
-      <thead>
-        <th i18n>Dish</th>
-        <th i18n>Quantity</th>
-        <th></th>
-      </thead>
-      <tbody>
-        <tr *ngFor="let line of cart.Lines; index as idx">
-          <td>{{ line.Name }}</td>
-          <td>
+<div class="m-auto text-center">
+  <h1 i18n>Shopping Cart Content</h1>
+  <ng-container *ngIf="cart$ | async as cart; else empty_cart">
+    <ng-container *ngIf="cart.Lines.length > 0; else empty_cart">
+      <div class="grid align-items-center">
+        <div class="col-6">
+          <strong i18n>Dish</strong>
+        </div>
+        <div class="col">
+          <strong i18n>Quantity</strong>
+        </div>
+        <div class="col">
+          <span></span>
+        </div>
+      </div>
+      <ng-container *ngFor="let line of cart.Lines; index as idx">
+        <p-divider></p-divider>
+        <div class="grid align-items-center">
+          <div class="col-6">
+            <span>{{ line.Name }}</span>
+          </div>
+          <div class="col">
             <p-button icon="pi pi-minus" severity="secondary" i18n-aria-label aria-label="Decrease Quantity Cart Line"
-              (click)="reduceCartLine(idx)"></p-button>
-            <p-button i18n-aria-label aria-label="Quantity Cart Line" i18n-label label="{{ line.Quantity }}"
-              [disabled]="true"></p-button>
+              (click)="reduceCartLine(idx)" size="small"></p-button>
+            <p-button [text]="true" i18n-aria-label aria-label="Quantity Cart Line" i18n-label
+              label="{{ line.Quantity }}" size="small"></p-button>
             <p-button icon="pi pi-plus" severity="secondary" i18n-aria-label aria-label="Increase Quantity Cart Line"
-              (click)="increaseCartLine(idx)"></p-button>
-          </td>
-          <td>
+              (click)="increaseCartLine(idx)" size="small"></p-button>
+          </div>
+          <div class="col">
             <p-button icon="pi pi-trash" severity="danger" i18n-aria-label aria-label="Remove Cart Line"
-              (click)="removeCartLine(idx)"></p-button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <div class="tfm-cart-checkout-actions">
-      <p-button icon="pi pi-trash" severity="danger" (click)="cleanCart()" i18n-label
-        label="Empty Shopping Cart"></p-button>
-      <p-button icon="pi pi-shopping-cart" (click)="checkout()" i18n-label label="Proceed to Checkout"></p-button>
-    </div>
-  </ng-container>
-</ng-container>
+              (click)="removeCartLine(idx)" size="small"></p-button>
+          </div>
+        </div>
+      </ng-container>
 
-<ng-template #empty_cart>
-  <p i18n>Your shopping cart is empty, why not add some delicious dishes to it?</p>
-</ng-template>
+      <checkout-form-actions i18n-secondary-label secondary-label="Empty Shopping Cart" [secondary-function]="cleanCart"
+        i18n-primary-label primary-label="Proceed to Checkout" [primary-disabled]="false"
+        [primary-function]="goCheckout"></checkout-form-actions>
+    </ng-container>
+  </ng-container>
+
+  <ng-template #empty_cart>
+    <p-message severity="info" i18n-text
+      text="Your shopping cart is empty, why not add some delicious dishes to it?"></p-message>
+  </ng-template>
+</div>

@@ -15,14 +15,5 @@ form > div {
 }
 
 input {
-  min-width: 260px;
+  min-width: 100%;
 }
-
-// Bug workaround (https://github.com/primefaces/primeng/issues/13358)
-.p-password {
-  width: inherit !important;
-}
-.p-password-input {
-  width: inherit !important;
-}
-// end bug workaround

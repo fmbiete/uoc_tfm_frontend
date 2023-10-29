@@ -91,7 +91,7 @@ export class MenuComponent implements OnInit {
   login(): void {
     this.dialogLoginRef = this.dialogService.open(LoginComponent, {
       header: $localize`User Access`,
-      width: '70%',
+      // styleClass: 'tfm-dynamic-dialog-responsive-sm',
       contentStyle: { overflow: 'auto' },
       baseZIndex: 10000,
     });

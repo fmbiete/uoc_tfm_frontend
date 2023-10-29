@@ -14,9 +14,10 @@ import { LocalStorageService } from 'src/app/common/services/local-storage.servi
 import { User } from '../../models/user.dto';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
+import { FormActionsComponent } from '../form-actions/form-actions.component';
 
 @Component({
-  selector: 'app-profile',
+  selector: 'users-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss'],
   standalone: true,
@@ -25,6 +26,7 @@ import { InputTextModule } from 'primeng/inputtext';
     InputTextModule,
     FormsModule,
     ReactiveFormsModule,
+    FormActionsComponent,
     NgIf,
   ],
 })

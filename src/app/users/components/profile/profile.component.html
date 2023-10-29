@@ -1,86 +1,86 @@
-<h1 i18n>User Registration</h1>
-<form [formGroup]="profileForm">
-  <div [formGroup]="profileForm">
-    <span class="p-float-label">
-      <input id="name" pInputText i18n-placeholder placeholder="John" [formControl]="name" type="text" i18n-aria-label
-        aria-label="Name" required maxlength="250">
-      <label for="name" i18n>Name</label>
-    </span>
-    <div class="tfm-input-error" i18n *ngIf="name.errors?.['required']">You must enter a value</div>
-    <div class="tfm-input-error" i18n *ngIf="name.errors?.['maxlength']">The value is too long</div>
-  </div>
+<div class="flex flex-column m-auto text-center w-11 md:w-10">
+  <h1 i18n>User Registration</h1>
+  <form [formGroup]="profileForm">
+    <div>
+      <span class="p-float-label">
+        <input id="name" pInputText i18n-placeholder placeholder="John" [formControl]="name" type="text" i18n-aria-label
+          aria-label="Name" required maxlength="250">
+        <label for="name" i18n>Name</label>
+      </span>
+      <div class="tfm-input-error" i18n *ngIf="name.errors?.['required']">You must enter a value</div>
+      <div class="tfm-input-error" i18n *ngIf="name.errors?.['maxlength']">The value is too long</div>
+    </div>
 
-  <div [formGroup]="profileForm">
-    <span class="p-float-label">
-      <input id="surname" pInputText i18n-placeholder placeholder="Doe" [formControl]="surname" type="text"
-        i18n-aria-label aria-label="Surname" required maxlength="250">
-      <label for="surname" i18n>Surname</label>
-    </span>
-    <div class="tfm-input-error" i18n *ngIf="surname.errors?.['required']">You must enter a value</div>
-    <div class="tfm-input-error" i18n *ngIf="surname.errors?.['maxlength']">The value is too long</div>
-  </div>
+    <div>
+      <span class="p-float-label">
+        <input id="surname" pInputText i18n-placeholder placeholder="Doe" [formControl]="surname" type="text"
+          i18n-aria-label aria-label="Surname" required maxlength="250">
+        <label for="surname" i18n>Surname</label>
+      </span>
+      <div class="tfm-input-error" i18n *ngIf="surname.errors?.['required']">You must enter a value</div>
+      <div class="tfm-input-error" i18n *ngIf="surname.errors?.['maxlength']">The value is too long</div>
+    </div>
 
-  <div [formGroup]="profileForm">
-    <span class="p-float-label">
-      <input id="address1" pInputText i18n-placeholder placeholder="Address Line 1" [formControl]="address1" type="text"
-        i18n-aria-label aria-label="Address Line 1" required maxlength="250">
-      <label for="address1" i18n>Address Line 1</label>
-    </span>
-    <div class="tfm-input-error" i18n *ngIf="address1.errors?.['required']">You must enter a value</div>
-    <div class="tfm-input-error" i18n *ngIf="address1.errors?.['maxlength']">The value is too long</div>
-  </div>
+    <div>
+      <span class="p-float-label">
+        <input id="address1" pInputText i18n-placeholder placeholder="Address Line 1" [formControl]="address1"
+          type="text" i18n-aria-label aria-label="Address Line 1" required maxlength="250">
+        <label for="address1" i18n>Address Line 1</label>
+      </span>
+      <div class="tfm-input-error" i18n *ngIf="address1.errors?.['required']">You must enter a value</div>
+      <div class="tfm-input-error" i18n *ngIf="address1.errors?.['maxlength']">The value is too long</div>
+    </div>
 
-  <div [formGroup]="profileForm">
-    <span class="p-float-label">
-      <input id="address2" pInputText i18n-placeholder placeholder="Address Line 2" [formControl]="address2" type="text"
-        i18n-aria-label aria-label="Address Line 2" maxlength="250">
-      <label for="address2" i18n>Address Line 2</label>
-    </span>
-    <div class="tfm-input-error" i18n *ngIf="address2.errors?.['maxlength']">The value is too long</div>
-  </div>
+    <div>
+      <span class="p-float-label">
+        <input id="address2" pInputText i18n-placeholder placeholder="Address Line 2" [formControl]="address2"
+          type="text" i18n-aria-label aria-label="Address Line 2" maxlength="250">
+        <label for="address2" i18n>Address Line 2</label>
+      </span>
+      <div class="tfm-input-error" i18n *ngIf="address2.errors?.['maxlength']">The value is too long</div>
+    </div>
 
-  <div [formGroup]="profileForm">
-    <span class="p-float-label">
-      <input id="address3" pInputText i18n-placeholder placeholder="Address Line 3" [formControl]="address3" type="text"
-        i18n-aria-label aria-label="Address Line 3" maxlength="250">
-      <label for="address3" i18n>Address Line 3</label>
-    </span>
-    <div class="tfm-input-error" i18n *ngIf="address3.errors?.['maxlength']">The value is too long</div>
-  </div>
+    <div>
+      <span class="p-float-label">
+        <input id="address3" pInputText i18n-placeholder placeholder="Address Line 3" [formControl]="address3"
+          type="text" i18n-aria-label aria-label="Address Line 3" maxlength="250">
+        <label for="address3" i18n>Address Line 3</label>
+      </span>
+      <div class="tfm-input-error" i18n *ngIf="address3.errors?.['maxlength']">The value is too long</div>
+    </div>
 
-  <div [formGroup]="profileForm">
-    <span class="p-float-label">
-      <input id="city" pInputText i18n-placeholder placeholder="City" [formControl]="city" type="text" i18n-aria-label
-        aria-label="City" required maxlength="250">
-      <label for="city" i18n>City</label>
-    </span>
-    <div class="tfm-input-error" i18n *ngIf="city.errors?.['required']">You must enter a value</div>
-    <div class="tfm-input-error" i18n *ngIf="city.errors?.['maxlength']">The value is too long</div>
-  </div>
+    <div>
+      <span class="p-float-label">
+        <input id="city" pInputText i18n-placeholder placeholder="City" [formControl]="city" type="text" i18n-aria-label
+          aria-label="City" required maxlength="250">
+        <label for="city" i18n>City</label>
+      </span>
+      <div class="tfm-input-error" i18n *ngIf="city.errors?.['required']">You must enter a value</div>
+      <div class="tfm-input-error" i18n *ngIf="city.errors?.['maxlength']">The value is too long</div>
+    </div>
 
-  <div [formGroup]="profileForm">
-    <span class="p-float-label">
-      <input id="postal_code" pInputText i18n-placeholder placeholder="Postal Code" [formControl]="postalCode"
-        type="text" i18n-aria-label aria-label="Postal Code" required maxlength="10">
-      <label for="postal_code" i18n>Postal Code</label>
-    </span>
-    <div class="tfm-input-error" i18n *ngIf="postalCode.errors?.['required']">You must enter a value</div>
-    <div class="tfm-input-error" i18n *ngIf="postalCode.errors?.['maxlength']">The value is too long</div>
-  </div>
+    <div>
+      <span class="p-float-label">
+        <input id="postal_code" pInputText i18n-placeholder placeholder="Postal Code" [formControl]="postalCode"
+          type="text" i18n-aria-label aria-label="Postal Code" required maxlength="10">
+        <label for="postal_code" i18n>Postal Code</label>
+      </span>
+      <div class="tfm-input-error" i18n *ngIf="postalCode.errors?.['required']">You must enter a value</div>
+      <div class="tfm-input-error" i18n *ngIf="postalCode.errors?.['maxlength']">The value is too long</div>
+    </div>
 
-  <div [formGroup]="profileForm">
-    <span class="p-float-label">
-      <input id="phone" pInputText i18n-placeholder placeholder="Phone Number" [formControl]="phone" type="text"
-        i18n-aria-label aria-label="Phone Number" required maxlength="20">
-      <label for="phone" i18n>Phone Number</label>
-    </span>
-    <div class="tfm-input-error" i18n *ngIf="phone.errors?.['required']">You must enter a value</div>
-    <div class="tfm-input-error" i18n *ngIf="phone.errors?.['maxlength']">The value is too long</div>
-  </div>
+    <div>
+      <span class="p-float-label">
+        <input id="phone" pInputText i18n-placeholder placeholder="Phone Number" [formControl]="phone" type="text"
+          i18n-aria-label aria-label="Phone Number" required maxlength="20">
+        <label for="phone" i18n>Phone Number</label>
+      </span>
+      <div class="tfm-input-error" i18n *ngIf="phone.errors?.['required']">You must enter a value</div>
+      <div class="tfm-input-error" i18n *ngIf="phone.errors?.['maxlength']">The value is too long</div>
+    </div>
 
-  <div class="tfm-form-footer">
-    <p-button icon="pi pi-times" type="reset" severity="danger" i18n-label label="Clear Form"></p-button>
-    <p-button icon="pi pi-check" type="submit" [disabled]="!profileForm.valid" (click)="update()" i18n-label
-      label="Update Profile"></p-button>
-  </div>
-</form>
+    <users-form-actions i18n-secondary-label secondary-label="Clear Form" i18n-primary-label
+      primary-label="Update Profile" [primary-disabled]="!profileForm.valid"
+      [primary-function]="update"></users-form-actions>
+  </form>
+</div>

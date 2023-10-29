@@ -9,13 +9,25 @@ import { LoginComponent } from 'src/app/common/components/login/login.component'
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { DialogService } from 'primeng/dynamicdialog';
+import { DividerModule } from 'primeng/divider';
+import { MessageModule } from 'primeng/message';
+import { FormActionsComponent } from 'src/app/checkout/components/form-actions/form-actions.component';
 
 @Component({
   selector: 'app-detail',
   templateUrl: './detail.component.html',
   styleUrls: ['./detail.component.scss'],
   standalone: true,
-  imports: [AsyncPipe, NgIf, NgFor, ButtonModule, DialogModule],
+  imports: [
+    AsyncPipe,
+    NgIf,
+    NgFor,
+    ButtonModule,
+    DialogModule,
+    DividerModule,
+    MessageModule,
+    FormActionsComponent,
+  ],
   providers: [DialogService],
 })
 export class DetailComponent implements OnInit {
@@ -46,7 +58,7 @@ export class DetailComponent implements OnInit {
     this.cartService.reduceQuantityLine(idx);
   }
 
-  checkout(): void {
+  goCheckout(): void {
     if (this.localStorageService.isLoggedIn()) {
       // if logged in
       this.router.navigate(['checkout', 'address']);
@@ -54,6 +66,9 @@ export class DetailComponent implements OnInit {
       // if not logged in - request login
       const dialogRef = this.dialogService.open(LoginComponent, {
         header: $localize`Login to proceed`,
+        // styleClass: 'tfm-dynamic-dialog-responsive-sm',
+        contentStyle: { overflow: 'auto' },
+        baseZIndex: 10000,
       });
 
       dialogRef.onClose.subscribe((result) => {

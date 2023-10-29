@@ -1,14 +1,16 @@
 <ng-container *ngIf="loaded; else loading">
-  <div class="tfm-dish-container">
-    <div class="tfm-dish-image">
+  <div class="flex flex-column md:flex-row justify-content-center align-items-center">
+    <div class="">
+      <p-skeleton width="30rem" height="20rem"></p-skeleton>
     </div>
-    <div class="tfm-dish-details">
+    <div class="md:ml-5">
       <h1>{{ dish.Name }}</h1>
 
-      <section>
-        <h3 i18n>Price</h3>
-        <div>{{ dish.Cost | currency }}</div>
-
+      <section class="flex flex-row align-content-top">
+        <div class="mr-5">
+          <h3 class="m-0" i18n>Price</h3>
+          <div class="bg-primary-reverse font-bold">{{ dish.Cost | currency }}</div>
+        </div>
         <p-button *ngIf="loaded" icon="pi pi-cart-plus" (click)="addCart()" i18n-label label="Add to Cart"></p-button>
       </section>
 
@@ -18,31 +20,34 @@
       </section>
 
       <section class="tfm-list-badges">
-        <h2 i18n>Ingredients</h2>
+        <h2 class="mb-1" i18n>Ingredients</h2>
         <ng-container *ngFor="let item of dish.Ingredients">
-          <p-badge severity="info" value="{{ item.Name }}"></p-badge>
+          <p-badge severity="info" value="{{ item.Name }}" styleClass="mr-1"></p-badge>
         </ng-container>
       </section>
 
       <section class="tfm-list-badges">
-        <h2 i18n>Allergens</h2>
+        <h2 class="mb-1" i18n>Allergens</h2>
         <ng-container *ngFor="let item of dish.Allergens">
-          <p-badge severity="warning" value="{{ item.Name }}"></p-badge>
+          <p-badge severity="warning" value="{{ item.Name }}" styleClass="mr-1"></p-badge>
         </ng-container>
       </section>
 
-      <section class="tfm-rating">
-        <h2 i18n>Rating</h2>
-        <dish-rating [rating]="dish.Likes | rating: dish.Dislikes"></dish-rating>
-        <span *ngIf="authenticated">
-          <p-button [rounded]="true" severity="primary" icon="pi pi-thumbs-up" severity="secondary" i18n-aria-label
-            aria-label="I like this" i18n-pTooltip pTooltip="I like this" tooltipPosition="bottom" (click)="like()">
-          </p-button>
-          <p-button [rounded]="true" severity="accent" icon="pi pi-thumbs-down" severity="secondary" i18n-aria-label
-            aria-label="I don't like this" i18n-pTooltip pTooltip="I don't like this" tooltipPosition="bottom"
-            (click)="dislike()">
-          </p-button>
-        </span>
+      <section class="flex flex-column">
+        <h2 class="mb-1" i18n>Rating</h2>
+        <div class="flex flex-row align-items-center">
+          <dish-rating [rating]="dish.Likes | rating: dish.Dislikes"></dish-rating>
+          <span *ngIf="authenticated" class="ml-3">
+            <p-button [rounded]="true" severity="primary" icon="pi pi-thumbs-up" severity="secondary" i18n-aria-label
+              aria-label="I like this" i18n-pTooltip pTooltip="I like this" tooltipPosition="bottom" (click)="like()"
+              styleClass="mr-2">
+            </p-button>
+            <p-button [rounded]="true" severity="accent" icon="pi pi-thumbs-down" severity="secondary" i18n-aria-label
+              aria-label="I don't like this" i18n-pTooltip pTooltip="I don't like this" tooltipPosition="bottom"
+              (click)="dislike()">
+            </p-button>
+          </span>
+        </div>
       </section>
     </div>
   </div>

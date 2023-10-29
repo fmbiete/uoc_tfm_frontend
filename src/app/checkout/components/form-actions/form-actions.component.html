@@ -1,0 +1,7 @@
+<p-divider></p-divider>
+<div class="mt-2 flex flex-column md:flex-row md:justify-content-end md:mr-5">
+  <p-button icon="pi pi-arrow-left" type="submit" severity="danger" i18n-label [label]="secondaryLabel"
+    (click)="secondaryFunction()" styleClass="w-11 md:w-max md:mr-2"></p-button>
+  <p-button icon="pi pi-shopping-cart" type="submit" [disabled]="primaryDisabled" (click)="primaryFunction()" i18n-label
+    [label]="primaryLabel" styleClass="w-11 md:w-max mt-2 md:mt-0"></p-button>
+</div>

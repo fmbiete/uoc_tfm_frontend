@@ -17,6 +17,7 @@ import { CustomValidators } from 'src/app/common/validators/custom.validator';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
+import { FormActionsComponent } from '../form-actions/form-actions.component';
 
 @Component({
   selector: 'app-credentials',
@@ -29,6 +30,7 @@ import { PasswordModule } from 'primeng/password';
     PasswordModule,
     FormsModule,
     ReactiveFormsModule,
+    FormActionsComponent,
     NgIf,
   ],
 })

@@ -1,9 +1,10 @@
 <!-- Shopping Cart -->
 <ng-container *ngIf="cart$ | async as cart; else empty_cart">
   <ng-container *ngIf="cart.Lines.length > 0; else empty_cart">
-    <p-button id="tfm-cart-button" [rounded]="true" [text]="true" [raised]="true" i18n-aria-label
+    <p-button id="tfm-cart-button" size="small" [rounded]="true" [text]="true" [raised]="true" i18n-aria-label
       aria-label="Shopping Cart" i18n-pTooltip pTooltip="Shopping Cart" tooltipPosition="bottom"
-      icon="pi pi-shopping-cart" badge="{{ cart | countCartProducts }}" badgeClass="p-badge-danger"></p-button>
+      icon="pi pi-shopping-cart" badge="{{ cart | countCartProducts }}" badgeClass="p-badge-danger"
+      class="mr-1 md:mr-2"></p-button>
     <div id="tfm-cart">
       <table>
         <caption i18n style="display: none;">Shopping Cart Content</caption>
@@ -17,15 +18,15 @@
             <td>{{ line.Name }}</td>
             <td>
               <p-button icon="pi pi-minus" severity="secondary" i18n-aria-label aria-label="Decrease Quantity Cart Line"
-                (click)="reduceCartLine(idx)"></p-button>
+                (click)="reduceCartLine(idx)" size="small"></p-button>
               <p-button [outlined]="true" i18n-aria-label aria-label="Quantity Cart Line" i18n-label
-                label="{{ line.Quantity }}"></p-button>
+                label="{{ line.Quantity }}" size="small"></p-button>
               <p-button icon="pi pi-plus" severity="secondary" i18n-aria-label aria-label="Increase Quantity Cart Line"
-                (click)="increaseCartLine(idx)"></p-button>
+                (click)="increaseCartLine(idx)" size="small"></p-button>
             </td>
             <td>
               <p-button icon="pi pi-trash" severity="danger" i18n-aria-label aria-label="Remove Cart Line"
-                (click)="removeCartLine(idx)"></p-button>
+                (click)="removeCartLine(idx)" size="small"></p-button>
             </td>
           </tr>
         </tbody>
@@ -37,7 +38,7 @@
 </ng-container>
 
 <ng-template #empty_cart>
-  <p-button id="tfm-cart-button" [rounded]="true" [text]="true" [raised]="true" i18n-aria-label
+  <p-button id="tfm-cart-button" size="small" [rounded]="true" [text]="true" [raised]="true" i18n-aria-label
     aria-label="Shopping Cart" i18n-pTooltip pTooltip="Shopping Cart" tooltipPosition="bottom"
-    icon="pi pi-shopping-cart"></p-button>
+    icon="pi pi-shopping-cart" class="mr-1 md:mr-2"></p-button>
 </ng-template>

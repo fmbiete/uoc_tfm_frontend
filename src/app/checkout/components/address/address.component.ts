@@ -16,6 +16,7 @@ import { UserService } from 'src/app/users/services/user.service';
 import { CheckboxModule } from 'primeng/checkbox';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
+import { FormActionsComponent } from '../form-actions/form-actions.component';
 
 @Component({
   selector: 'checkout-address',
@@ -27,6 +28,7 @@ import { ButtonModule } from 'primeng/button';
     ButtonModule,
     CheckboxModule,
     InputTextModule,
+    FormActionsComponent,
   ],
   templateUrl: './address.component.html',
   styleUrls: ['./address.component.scss'],

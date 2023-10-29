@@ -1,8 +1,8 @@
-<div class="tfm-dialog-content">
-  <div [formGroup]="loginForm">
+<form class="flex flex-column" [formGroup]="loginForm">
+  <div>
     <span class="p-float-label">
       <input id="email" type="email" pInputText [formControl]="email" i18n-aria-label aria-label="Email" required
-        maxlength="100">
+        maxlength="100" class="max-w-full">
       <label for="email" i18n>Email</label>
     </span>
     <div class="tfm-input-error" i18n *ngIf="email.errors?.['required']">You must enter a value</div>
@@ -10,10 +10,10 @@
     <div class="tfm-input-error" i18n *ngIf="email.errors?.['maxlength']">The value is too long</div>
   </div>
 
-  <div [formGroup]="loginForm">
+  <div>
     <span class="p-float-label">
       <p-password [formControl]="password" i18n-aria-label aria-label="Password" [toggleMask]="true" [feedback]="false"
-        required maxlength="64"></p-password>
+        required maxlength="64" class="max-w-full"></p-password>
       <label for="password" i18n>Password</label>
     </span>
     <div class="tfm-input-error" i18n *ngIf="password.errors?.['required']">You must enter a value</div>
@@ -21,13 +21,15 @@
   </div>
 
 
-  <div style="margin: 20px 0">
+  <div class="mt-2">
     <p-button [text]="true" severity="success" icon="pi pi-user-plus" i18n (click)="register()" i18n-label
       label="Register new user"></p-button>
   </div>
-</div>
 
-<div class="tfm-dialog-footer">
-  <p-button icon="pi pi-times" severity="danger" (click)="close()" i18n-label label="Cancel"></p-button>
-  <p-button icon="pi pi-check" [disabled]="!loginForm.valid" (click)="login()" i18n-label label="Login"></p-button>
-</div>
+  <div class="flex flex-column md:flex-row">
+    <p-button icon="pi pi-times" severity="danger" (click)="close()" i18n-label label="Cancel"
+      styleClass="mb-2 w-full md:mr-2 md:max-w-max"></p-button>
+    <p-button icon="pi pi-check" [disabled]="!loginForm.valid" (click)="login()" i18n-label label="Login"
+      styleClass="w-full md:max-w-max"></p-button>
+  </div>
+</form>

@@ -1,3 +1,9 @@
 @import "/src/scss/variables.scss";
 @import "/src/scss/dialog.scss";
 @import "/src/scss/form.scss";
+
+@media only screen and (min-width: $md) {
+  .tfm-dialog-register {
+    min-width: 500px;
+  }
+}
