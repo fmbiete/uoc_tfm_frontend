@@ -12,5 +12,7 @@ import { RatingModule } from 'primeng/rating';
 export class RatingComponent implements OnInit {
   @Input() rating: number = 0;
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    return;
+  }
 }
