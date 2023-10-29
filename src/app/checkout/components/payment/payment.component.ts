@@ -10,6 +10,10 @@ import { CartService } from 'src/app/cart/services/cart.service';
 import { LocalStorageService } from 'src/app/common/services/local-storage.service';
 import { TotalPipe } from 'src/app/cart/pipes/total.pipe';
 import { FormActionsComponent } from '../form-actions/form-actions.component';
+import { TabViewModule } from 'primeng/tabview';
+import { MessageModule } from 'primeng/message';
+import { TableModule } from 'primeng/table';
+import { DividerModule } from 'primeng/divider';
 
 @Component({
   selector: 'app-payment',
@@ -26,11 +30,20 @@ import { FormActionsComponent } from '../form-actions/form-actions.component';
     ButtonModule,
     InputTextModule,
     FormActionsComponent,
+    TabViewModule,
+    MessageModule,
+    TableModule,
+    DividerModule,
   ],
 })
 export class PaymentComponent {
   cart$: Observable<Cart>;
   subvention: number;
+
+  ccName!: string;
+  ccNumber!: string;
+  ccExpiration!: string;
+  ccCcv!: string;
 
   constructor(
     private router: Router,

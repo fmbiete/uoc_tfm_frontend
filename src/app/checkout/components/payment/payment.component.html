@@ -6,41 +6,88 @@
   <ng-container *ngIf="cart$ | async as cart; else empty_cart">
     <ng-container *ngIf="cart.Lines.length > 0; else empty_cart">
       <div class="flex flex-column md:flex-row">
-        <div class="tfm-payment-pay">
 
+        <!-- Payment Info -->
+        <div class="mx-1 md:mx-5 md:w-full">
+          <p-tabView>
+            <p-tabPanel i18n-header header="Credit Card">
+              <form>
+                <div class="p-float-label">
+                  <input pInputText id="cc_name" [(ngModel)]="ccName" [ngModelOptions]="{standalone: true}" />
+                  <label for="cc_name" i18n>Name</label>
+                </div>
+                <div class="p-float-label">
+                  <input pInputText id="cc_number" [(ngModel)]="ccNumber" [ngModelOptions]="{standalone: true}" />
+                  <label for="cc_number" i18n>Number</label>
+                </div>
+                <div class="p-float-label">
+                  <input pInputText id="cc_expiration" [(ngModel)]="ccExpiration"
+                    [ngModelOptions]="{standalone: true}" />
+                  <label for="cc_expiration" i18n>Expiration Date</label>
+                </div>
+                <div class="p-float-label">
+                  <input pInputText id="cc_ccv" [(ngModel)]="ccCcv" [ngModelOptions]="{standalone: true}" />
+                  <label for="cc_ccv" i18n>CCV</label>
+                </div>
+
+                <checkout-form-actions i18n-secondary-label secondary-label="Go back to Cart"
+                  [secondary-function]="goCart" i18n-primary-label primary-label="Complete Purchase"
+                  [primary-disabled]="false" [primary-function]="purchase"></checkout-form-actions>
+              </form>
+            </p-tabPanel>
+            <p-tabPanel i18n-header header="Paypal">
+              <p-message severity="info" i18n-text text="You will be redirected to Paypal during payment"></p-message>
+
+              <checkout-form-actions i18n-secondary-label secondary-label="Go back to Cart"
+                [secondary-function]="goCart" i18n-primary-label primary-label="Complete Purchase"
+                [primary-disabled]="false" [primary-function]="purchase"></checkout-form-actions>
+            </p-tabPanel>
+            <p-tabPanel i18n-header header="Salary Reduction">
+              <p-message severity="info" i18n-text
+                text="Your company Human Resources team will deduct the cost from your next salary payment"></p-message>
+
+              <checkout-form-actions i18n-secondary-label secondary-label="Go back to Cart"
+                [secondary-function]="goCart" i18n-primary-label primary-label="Complete Purchase"
+                [primary-disabled]="false" [primary-function]="purchase"></checkout-form-actions>
+            </p-tabPanel>
+          </p-tabView>
         </div>
 
-        <div class="tfm-payment-cart">
-          <table>
-            <caption i18n style="display: none;">Shopping Cart Content</caption>
-            <thead>
-              <th i18n>Dish</th>
-              <th i18n>Quantity</th>
-              <th i18n>Total Cost</th>
-            </thead>
-            <tbody>
-              <tr *ngFor="let line of cart.Lines; index as idx">
-                <td>{{ line.Name }}</td>
-                <td>{{ line.Quantity }}</td>
-                <td>{{ line.CostUnit * line.Quantity | currency }}</td>
+        <!-- horizontal divider for mobiles -->
+        <p-divider class="md:hidden"></p-divider>
+        <!-- vertical divider for tablets -->
+        <p-divider layout="vertical" class="hidden md:block"></p-divider>
+
+        <!-- Cart Content -->
+        <div class="mx-1 md:mx-5 md:w-full">
+          <p-table [value]="cart.Lines" [tableStyle]="{ 'min-width': '90%' }">
+            <ng-template pTemplate="header">
+              <tr>
+                <th scope="col" i18n>Dish</th>
+                <th scope="col" class="text-right" i18n>Quantity</th>
+                <th scope="col" class="text-right" i18n>Total Cost</th>
               </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-line>
+              <tr>
+                <td>{{ line.Name }}</td>
+                <td class="text-right">{{ line.Quantity }}</td>
+                <td class="text-right">{{ line.CostUnit * line.Quantity | currency }}</td>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="footer">
               <tr>
                 <td i18n>Subvention</td>
-                <td colspan="2">{{ subvention | currency }}</td>
+                <td colspan="2" class="text-right">{{ subvention | currency }}</td>
               </tr>
-            </tbody>
-            <tfoot>
               <tr>
                 <td i18n>Total</td>
-                <td colspan="2">{{ cart | total: subvention | currency }}</td>
+                <td colspan="2" class="text-right">{{ cart | total: subvention | currency }}</td>
               </tr>
-            </tfoot>
-          </table>
+            </ng-template>
+          </p-table>
         </div>
       </div>
-      <checkout-form-actions i18n-secondary-label secondary-label="Go back to Cart" [secondary-function]="goCart"
-        i18n-primary-label primary-label="Complete Purchase" [primary-disabled]="false"
-        [primary-function]="purchase"></checkout-form-actions>
     </ng-container>
   </ng-container>
 

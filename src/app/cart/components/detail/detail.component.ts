@@ -36,7 +36,7 @@ export class DetailComponent implements OnInit {
   constructor(
     private router: Router,
     private cartService: CartService,
-    private localStorageService: LocalStorageService,
+    private localStorage: LocalStorageService,
     private dialogService: DialogService
   ) {
     this.cart$ = this.cartService.getCart$();
@@ -59,7 +59,7 @@ export class DetailComponent implements OnInit {
   }
 
   goCheckout(): void {
-    if (this.localStorageService.isLoggedIn()) {
+    if (this.localStorage.isLoggedIn()) {
       // if logged in
       this.router.navigate(['checkout', 'address']);
     } else {

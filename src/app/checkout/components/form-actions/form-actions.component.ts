@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { DividerModule } from 'primeng/divider';
+import { DialogService } from 'primeng/dynamicdialog';
 import { LocalStorageService } from 'src/app/common/services/local-storage.service';
 
 @Component({
@@ -10,6 +11,7 @@ import { LocalStorageService } from 'src/app/common/services/local-storage.servi
   styleUrls: ['./form-actions.component.scss'],
   standalone: true,
   imports: [ButtonModule, DividerModule],
+  providers: [DialogService],
 })
 export class FormActionsComponent {
   @Input('primary-label') primaryLabel!: string;
@@ -20,6 +22,7 @@ export class FormActionsComponent {
 
   constructor(
     private router: Router,
-    private localStorage: LocalStorageService
+    private localStorage: LocalStorageService,
+    private dialogService: DialogService
   ) {}
 }
