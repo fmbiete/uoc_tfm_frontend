@@ -64,6 +64,7 @@ export class PaymentComponent {
   async purchase(): Promise<void> {
     // TODO: create order
     // TODO: clear cart
+    this.cartService.reset();
     // TODO: goto error
     this.router.navigate(['checkout', 'success']);
   }
