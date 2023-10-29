@@ -12,16 +12,13 @@ import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { LoginComponent } from '../login/login.component';
 import { environment } from 'src/environments/environment';
 import { SnackbarService } from '../../services/snackbar.service';
-import { CartService } from 'src/app/cart/services/cart.service';
-import { Observable } from 'rxjs';
-import { Cart } from 'src/app/cart/models/cart.dto';
-import { CountPipe as CountCartProductsPipe } from 'src/app/cart/pipes/count.pipe';
 import { ToolbarModule } from 'primeng/toolbar';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { MenuModule } from 'primeng/menu';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { MenuItem } from 'primeng/api';
+import { MenuComponent } from 'src/app/cart/components/menu/menu.component';
 
 @Component({
   selector: 'app-header',
@@ -34,12 +31,9 @@ import { MenuItem } from 'primeng/api';
     DialogModule,
     MenuModule,
     NgIf,
-    NgFor,
-    RouterModule,
     RouterLink,
     RouterLinkActive,
-    AsyncPipe,
-    CountCartProductsPipe,
+    MenuComponent,
   ],
   providers: [DialogService],
 })
@@ -54,7 +48,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   // User menu
   userMenuItems: MenuItem[] | undefined;
 
-  cart$: Observable<Cart>;
   dialogLoginRef: DynamicDialogRef | undefined;
 
   constructor(
@@ -62,13 +55,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private router: Router,
     private headerService: HeaderService,
     private localStorageService: LocalStorageService,
-    private dialogService: DialogService,
-    private cartService: CartService
+    private dialogService: DialogService
   ) {
     this.showAdminSection = false;
     this.showAuthSection = false;
     this.showNoAuthSection = true;
-    this.cart$ = this.cartService.getCart$();
   }
 
   ngOnInit(): void {
@@ -79,24 +70,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.showAuthSection = status.showAuthSection;
         this.showNoAuthSection = status.showNoAuthSection;
         this.showAdminSection = status.showAdminSection;
-      }
-    });
-
-    document.addEventListener('click', (clickEvent: MouseEvent) => {
-      const btn = document.getElementById('tfm-cart-button');
-      const box = document.getElementById('tfm-cart');
-      if (!btn || !box) return;
-
-      if (clickEvent?.target instanceof Node) {
-        if (btn.contains(clickEvent?.target)) {
-          if (box.style.display == 'none') {
-            box.style.display = 'block';
-          } else {
-            box.style.display = 'none';
-          }
-        } else if (!box.contains(clickEvent?.target)) {
-          box.style.display = 'none';
-        }
       }
     });
   }
@@ -162,21 +135,5 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.headerService.showUnauthenticated();
     this.router.navigateByUrl('/');
     this.snackbar.show(null, $localize`See you soon!`);
-  }
-
-  detailCart(): void {
-    this.router.navigateByUrl('/cart');
-  }
-
-  removeCartLine(idx: number): void {
-    this.cartService.removeLine(idx);
-  }
-
-  increaseCartLine(idx: number): void {
-    this.cartService.increaseQuantityLine(idx);
-  }
-
-  reduceCartLine(idx: number): void {
-    this.cartService.reduceQuantityLine(idx);
   }
 }
