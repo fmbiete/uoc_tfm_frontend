@@ -7,10 +7,24 @@ import { BehaviorSubject, Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class CartService {
+  static readonly key_cart = 'cart';
+
   private cartSubject: BehaviorSubject<Cart>;
 
   constructor() {
-    this.cartSubject = new BehaviorSubject<Cart>(new Cart());
+    let cart = new Cart();
+    const value = localStorage.getItem(CartService.key_cart);
+    if (value != null) {
+      try {
+        cart = JSON.parse(value);
+      } catch (error) {
+        console.error(error);
+        console.error(
+          `Failed to deserialize cart from localStorage, discarding content`
+        );
+      }
+    }
+    this.cartSubject = new BehaviorSubject<Cart>(cart);
   }
 
   getCart$(): Observable<Cart> {
@@ -59,7 +73,8 @@ export class CartService {
   }
 
   publishCart(cart: Cart) {
-    console.debug(cart);
+    // Save cart to localStorage
+    localStorage.setItem('cart', JSON.stringify(cart));
     this.cartSubject.next(cart);
   }
 }
