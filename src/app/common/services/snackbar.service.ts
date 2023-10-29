@@ -11,13 +11,23 @@ export class SnackbarService {
     if (error !== null) {
       console.error(error);
 
-      this.messageService.add({
-        key: 'tc',
-        sticky: true,
-        severity: 'error',
-        summary: $localize`Error`,
-        detail: `${message}\n${error.error?.message} (Code: ${error.error?.reflection})`,
-      });
+      if (error.error) {
+        this.messageService.add({
+          key: 'tc',
+          sticky: true,
+          severity: 'error',
+          summary: $localize`Error`,
+          detail: `${message}\n${error.error.message} (Code: ${error.error.reflection})`,
+        });
+      } else {
+        this.messageService.add({
+          key: 'tc',
+          sticky: true,
+          severity: 'error',
+          summary: $localize`Error`,
+          detail: `${message}\nFailed to connect to remote server (Code: -1)`,
+        });
+      }
     } else {
       this.messageService.add({
         key: 'tc',
