@@ -14,6 +14,7 @@ import { TabViewModule } from 'primeng/tabview';
 import { MessageModule } from 'primeng/message';
 import { TableModule } from 'primeng/table';
 import { DividerModule } from 'primeng/divider';
+import { InputMaskModule } from 'primeng/inputmask';
 
 @Component({
   selector: 'app-payment',
@@ -34,6 +35,7 @@ import { DividerModule } from 'primeng/divider';
     MessageModule,
     TableModule,
     DividerModule,
+    InputMaskModule,
   ],
 })
 export class PaymentComponent {

@@ -13,20 +13,23 @@
             <p-tabPanel i18n-header header="Credit Card">
               <form>
                 <div class="p-float-label">
-                  <input pInputText id="cc_name" [(ngModel)]="ccName" [ngModelOptions]="{standalone: true}" />
+                  <input pInputText id="cc_name" [(ngModel)]="ccName" [ngModelOptions]="{standalone: true}" required
+                    maxlength="250" />
                   <label for="cc_name" i18n>Name</label>
                 </div>
                 <div class="p-float-label">
-                  <input pInputText id="cc_number" [(ngModel)]="ccNumber" [ngModelOptions]="{standalone: true}" />
+                  <p-inputMask id="cc_number" [(ngModel)]="ccNumber" [ngModelOptions]="{standalone: true}"
+                    mask="9999 9999 9999 9?999" placeholder="9999 9999 9999 9999"></p-inputMask>
                   <label for="cc_number" i18n>Number</label>
                 </div>
                 <div class="p-float-label">
-                  <input pInputText id="cc_expiration" [(ngModel)]="ccExpiration"
-                    [ngModelOptions]="{standalone: true}" />
+                  <p-inputMask id="cc_expiration" [(ngModel)]="ccExpiration" [ngModelOptions]="{standalone: true}"
+                    mask="99/99" placeholder="99/99" slotChar="mm/yy"></p-inputMask>
                   <label for="cc_expiration" i18n>Expiration Date</label>
                 </div>
                 <div class="p-float-label">
-                  <input pInputText id="cc_ccv" [(ngModel)]="ccCcv" [ngModelOptions]="{standalone: true}" />
+                  <p-inputMask id="cc_ccv" [(ngModel)]="ccCcv" [ngModelOptions]="{standalone: true}" mask="999"
+                    placeholder="999"></p-inputMask>
                   <label for="cc_ccv" i18n>CCV</label>
                 </div>
 
