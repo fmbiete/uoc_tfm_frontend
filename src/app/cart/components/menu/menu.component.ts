@@ -28,7 +28,6 @@ export class MenuComponent implements OnInit {
       if (!btn || !box) return;
 
       if (clickEvent?.target instanceof Node) {
-        console.debug(clickEvent.target);
         if (btn.contains(clickEvent?.target)) {
           this.togglePanel(box);
         } else if (!box.contains(clickEvent?.target)) {
