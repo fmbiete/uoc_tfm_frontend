@@ -4,7 +4,9 @@
 }
 
 .tfm-thumbnail-image {
-
+  > img {
+    max-width: 250px;
+  }
 }
 
 .tfm-thumbnail-info {
