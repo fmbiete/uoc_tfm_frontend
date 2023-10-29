@@ -32,7 +32,16 @@ import { GridItemComponent } from '../grid-item/grid-item.component';
   styleUrls: ['./search.component.scss'],
 })
 export class SearchComponent implements OnInit {
-  @Input('searchTerm') searchTerm!: string;
+  _searchTerm!: string;
+
+  @Input('searchTerm') set searchTerm(value: string) {
+    this._searchTerm = value;
+    // TODO: search by new term
+    this.pageDishes$ = this.dishService.favourites();
+  }
+  get searchTerm(): string {
+    return this._searchTerm;
+  }
 
   pageDishes$: Observable<PageDishes>;
 
@@ -46,7 +55,6 @@ export class SearchComponent implements OnInit {
     this.pageDishes$ = this.dishService.favourites();
   }
   ngOnInit(): void {
-    // TODO: listen to searchTerm changes and search again
     return;
   }
 }

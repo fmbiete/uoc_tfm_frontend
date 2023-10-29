@@ -1,0 +1,16 @@
+<div class="m-auto text-center">
+  <h1>{{ category }}</h1>
+</div>
+
+<ng-container *ngIf="pageDishes$ | async as pageDishes; else no_dishes">
+  <p-dataView #dv [value]="pageDishes.dishes" layout="grid">
+    <ng-template let-dish pTemplate="gridItem">
+      <dishes-grid-item [dish]="dish" class="col-12 md:col-4"></dishes-grid-item>
+    </ng-template>
+  </p-dataView>
+</ng-container>
+
+<ng-template #no_dishes>
+  <p-message severity="info" i18n-text
+    text="Sorry, we didn't find dishes matching the category, why don't you check our delicious recommendations?"></p-message>
+</ng-template>

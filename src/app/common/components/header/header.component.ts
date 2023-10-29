@@ -9,6 +9,7 @@ import { ButtonModule } from 'primeng/button';
 import { MenuModule } from 'primeng/menu';
 import { MenuComponent as CartMenuComponent } from 'src/app/cart/components/menu/menu.component';
 import { MenuComponent as UserMenuComponent } from 'src/app/users/components/menu/menu.component';
+import { MenuComponent as DishesMenuComponent } from 'src/app/dishes/components/menu/menu.component';
 
 @Component({
   selector: 'app-header',
@@ -24,6 +25,7 @@ import { MenuComponent as UserMenuComponent } from 'src/app/users/components/men
     RouterLinkActive,
     CartMenuComponent,
     UserMenuComponent,
+    DishesMenuComponent,
   ],
 })
 export class HeaderComponent implements OnInit {

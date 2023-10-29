@@ -1,0 +1,4 @@
+<p-menu #menuDishes [model]="categories" [popup]="true"></p-menu>
+<p-button size="small" [rounded]="true" [text]="true" icon="pi pi-bars" i18n-aria-label aria-label="Dishes Types"
+  styleClass="text-white" (click)="menuDishes.toggle($event)">
+</p-button>

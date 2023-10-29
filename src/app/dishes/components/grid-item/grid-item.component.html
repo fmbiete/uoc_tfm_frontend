@@ -10,13 +10,15 @@
       </span>
     </div>
     <div class="flex flex-column align-items-center gap-3 py-5">
-      <img class="w-9 shadow-2 border-round" src="/assets/dishes/generic.png" alt="{{ dish.Name }}" />
-      <div class="text-2xl font-bold">{{ dish.Name }}</div>
+      <img class="w-9 shadow-2 border-round" src="/assets/dishes/generic.png" alt="{{ dish.Name }}"
+        [routerLink]="['/dishes', 'dish', dish.ID]" style="cursor: pointer;" />
+      <div class="text-2xl font-bold" [routerLink]="['dishes', 'dish', dish.ID]" style="cursor: pointer;">{{ dish.Name
+        }}</div>
       <dish-rating [rating]="dish.Likes | rating: dish.Dislikes"></dish-rating>
     </div>
     <div class="flex align-items-center justify-content-between">
       <span class="text-2xl font-semibold">{{ dish.Cost | currency }}</span>
-      <button pButton icon="pi pi-cart-plus" class="p-button"></button>
+      <button pButton icon="pi pi-cart-plus" class="p-button" (click)="addCart()"></button>
     </div>
   </div>
 </div>
