@@ -1,6 +1,7 @@
 <div class="tfm-thumbnail">
   <div class="tfm-thumbnail-image">
-    <img src="/assets/dishes/generic.png" alt="{{ dish.Name }}">
+    <img src="/assets/dishes/generic.png" alt="Go to details for {{ dish.Name }}"
+      [routerLink]="['dishes', 'dish', dish.ID]" style="cursor: pointer;">
   </div>
   <div class="tfm-thumbnail-info">
     <h4><a [routerLink]="['dishes', 'dish', dish.ID]" class="text-white no-underline">{{ dish.Name }}</a></h4>

@@ -3,10 +3,8 @@
     <p-button size="small" [rounded]="true" [text]="true" icon="pi pi-bars" i18n-aria-label
       aria-label="Application Menu">
     </p-button>
-    <a routerLink="/">
-      <img class="max-w-5rem md:max-w-8rem" src="assets/logo.png" alt="Link to {{ applicationTitle }} homepage">
-      <span class="tfm-assistive-text">Link to {{ applicationTitle }} homepage</span>
-    </a>
+    <img class="max-w-5rem md:max-w-8rem" src="assets/logo.png" alt="Link to {{ applicationTitle }} homepage"
+      [routerLink]="['']" style="cursor: pointer;">
     <h1 class="hidden md:inline-block">{{ applicationTitle }}</h1>
   </div>
 

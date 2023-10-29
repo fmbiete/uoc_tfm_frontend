@@ -1,7 +1,7 @@
 <ng-container *ngIf="loaded; else loading">
   <div class="flex flex-column md:flex-row justify-content-center align-items-center">
     <div class="">
-      <p-skeleton width="30rem" height="20rem"></p-skeleton>
+      <img src="/assets/dishes/generic.png" alt="{{ dish.Name }}" class="max-w-full">
     </div>
     <div class="md:ml-5">
       <h1>{{ dish.Name }}</h1>
