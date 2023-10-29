@@ -1,44 +1,7 @@
-.quantity {
-  text-align: center; 
-  font-size: larger; 
-  font-weight: 800;
-  margin-left: 10px;
-
-  span {
-    display: inline-block;
-    min-width: 30px;
+.tfm-cart-checkout-actions {
+  margin-top: 20px;
+  
+  > p-button:first-of-type {
+    margin-right: 20px;
   }
-
-  span:first-of-type {
-    background-color:rgba(255, 0, 0, 0.4); 
-    box-shadow: 2px 2px #888888; 
-    border: 1px solid rgba(255, 0, 0, 1); 
-    border-top-left-radius: 15px; 
-    border-bottom-left-radius: 15px; 
-    border-right: none;
-    cursor: pointer;
-  }
-
-  span:nth-of-type(3) {
-    background-color:rgba(255, 0, 0, 0.4); 
-    box-shadow: 2px 2px #888888; 
-    border: 1px solid rgba(255, 0, 0, 1); 
-    border-top-right-radius: 15px; 
-    border-bottom-right-radius: 15px; 
-    border-left: none;
-    cursor: pointer;
-  }
-}
-
-.remove-line {
-  text-align: center; 
-  font-size: larger; 
-  font-weight: 800;
-  display: inline-block;
-  min-width: 20px;
-  background-color:rgba(255, 0, 0, 0.4);
-  box-shadow: 2px 2px #888888;
-  border: 1px solid rgba(255, 0, 0, 1);
-  margin-right: 10px;
-  cursor: pointer;
 }
