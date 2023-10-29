@@ -49,4 +49,15 @@ export class HeaderComponent implements OnInit {
       }
     });
   }
+
+  toggleSearch(): void {
+    const searchBox = document.getElementById('searchBox');
+    if (searchBox) {
+      if (searchBox.classList.contains('hidden')) {
+        searchBox.classList.remove('hidden');
+      } else {
+        searchBox.classList.add('hidden');
+      }
+    }
+  }
 }

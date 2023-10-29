@@ -11,7 +11,7 @@
   <div class="p-toolbar-group-end">
     <p-button size="small" [rounded]="true" [raised]="true" i18n-aria-label aria-label="Search Dish" i18n-pTooltip
       pTooltip="Search Dish" tooltipPosition="bottom" tooltipZIndex="10000" icon="pi pi-search"
-      styleClass="mr-1 md:mr-2">
+      styleClass="mr-1 md:mr-2" (click)="toggleSearch()">
     </p-button>
 
     <cart-menu></cart-menu>
