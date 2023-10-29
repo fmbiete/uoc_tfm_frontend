@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -7,6 +8,12 @@ export class LocalStorageService {
   static readonly key_id: string = 'user_id';
   static readonly key_email: string = 'user_email';
   static readonly key_token: string = 'user_token';
+
+  private authenticatedSubject: BehaviorSubject<boolean>;
+
+  constructor() {
+    this.authenticatedSubject = new BehaviorSubject<boolean>(false);
+  }
 
   set(key: string, value: string) {
     localStorage.setItem(key, value);
@@ -37,6 +44,12 @@ export class LocalStorageService {
     return `${this.get(LocalStorageService.key_token)}`;
   }
 
+  // For components
+  isLoggedIn$(): Observable<boolean> {
+    return this.authenticatedSubject.asObservable();
+  }
+
+  // For 1-off checks
   isLoggedIn(): boolean {
     return this.get(LocalStorageService.key_token) !== null;
   }
@@ -45,6 +58,7 @@ export class LocalStorageService {
     this.remove(LocalStorageService.key_id);
     this.remove(LocalStorageService.key_token);
     this.remove(LocalStorageService.key_email);
+    this.authenticatedSubject.next(false);
   }
 
   saveLogin(
@@ -65,6 +79,7 @@ export class LocalStorageService {
       this.set(LocalStorageService.key_email, email);
       this.set(LocalStorageService.key_token, token);
       this.set('user_admin', admin.toString());
+      this.authenticatedSubject.next(true);
     }
   }
 }

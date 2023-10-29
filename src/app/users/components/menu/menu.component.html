@@ -1,0 +1,14 @@
+<ng-container *ngIf="authenticated$ | async as authenticated; else unauthenticated">
+  <ng-container *ngIf="authenticated === true; else unauthenticated">
+    <p-menu #userMenu [model]="userMenuItems" [popup]="true"></p-menu>
+    <p-button [rounded]="true" [text]="true" [raised]="true" icon="pi pi-user" i18n-aria-label aria-label="User Menu"
+      i18n-pTooltip pTooltip="User Menu" (click)="userMenu.toggle($event)">
+    </p-button>
+  </ng-container>
+</ng-container>
+
+<ng-template #unauthenticated>
+  <p-button [rounded]="true" [text]="true" [raised]="true" icon="pi pi-sign-in" i18n-aria-label aria-label="Login"
+    i18n-pTooltip pTooltip="Login" tooltipPosition="bottom" (click)="login()">
+  </p-button>
+</ng-template>
