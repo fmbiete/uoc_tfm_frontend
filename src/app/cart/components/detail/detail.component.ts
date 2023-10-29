@@ -49,7 +49,7 @@ export class DetailComponent implements OnInit {
   checkout(): void {
     if (this.localStorageService.isLoggedIn()) {
       // if logged in
-      this.router.navigateByUrl('/checkout/address');
+      this.router.navigate(['checkout', 'address']);
     } else {
       // if not logged in - request login
       const dialogRef = this.dialogService.open(LoginComponent, {

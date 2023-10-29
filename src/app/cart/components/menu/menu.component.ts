@@ -40,7 +40,7 @@ export class MenuComponent implements OnInit {
   detailCart(): void {
     this.hidePanel(null);
 
-    this.router.navigateByUrl('/cart');
+    this.router.navigate(['cart']);
   }
 
   removeCartLine(idx: number): void {

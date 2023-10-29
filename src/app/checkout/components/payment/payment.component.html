@@ -1,1 +1,47 @@
-<p>payment works!</p>
+<h1 i18n>Payment</h1>
+<div class="tfm-payment">
+  <div class="tfm-payment-pay">
+
+  </div>
+
+  <div class="tfm-payment-cart">
+    <ng-container *ngIf="cart$ | async as cart; else empty_cart">
+      <ng-container *ngIf="cart.Lines.length > 0; else empty_cart">
+        <table>
+          <caption i18n style="display: none;">Shopping Cart Content</caption>
+          <thead>
+            <th i18n>Dish</th>
+            <th i18n>Quantity</th>
+            <th i18n>Total Cost</th>
+          </thead>
+          <tbody>
+            <tr *ngFor="let line of cart.Lines; index as idx">
+              <td>{{ line.Name }}</td>
+              <td>{{ line.Quantity }}</td>
+              <td>{{ line.CostUnit * line.Quantity | currency }}</td>
+            </tr>
+            <tr>
+              <td i18n>Subvention</td>
+              <td colspan="2">{{ subvention | currency }}</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td i18n>Total</td>
+              <td colspan="2">{{ cart | total: subvention | currency }}</td>
+            </tr>
+          </tfoot>
+        </table>
+        <div class="tfm-cart-checkout-actions">
+          <p-button icon="pi pi-trash" severity="danger" (click)="goCart()" i18n-label
+            label="Go back to Cart"></p-button>
+          <p-button icon="pi pi-shopping-cart" (click)="purchase()" i18n-label label="Complete Purchase"></p-button>
+        </div>
+      </ng-container>
+    </ng-container>
+
+    <ng-template #empty_cart>
+      <p i18n>Your shopping cart is empty, why not add some delicious dishes to it?</p>
+    </ng-template>
+  </div>
+</div>
