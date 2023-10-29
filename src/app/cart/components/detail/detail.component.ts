@@ -12,6 +12,7 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { DividerModule } from 'primeng/divider';
 import { MessageModule } from 'primeng/message';
 import { FormActionsComponent } from 'src/app/checkout/components/form-actions/form-actions.component';
+import { TooltipModule } from 'primeng/tooltip';
 
 @Component({
   selector: 'app-detail',
@@ -27,6 +28,7 @@ import { FormActionsComponent } from 'src/app/checkout/components/form-actions/f
     DividerModule,
     MessageModule,
     FormActionsComponent,
+    TooltipModule,
   ],
   providers: [DialogService],
 })
@@ -79,5 +81,6 @@ export class DetailComponent implements OnInit {
 
   cleanCart(): void {
     this.cartService.reset();
+    this.router.navigate(['']);
   }
 }

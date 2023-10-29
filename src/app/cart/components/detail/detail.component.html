@@ -3,7 +3,7 @@
   <ng-container *ngIf="cart$ | async as cart; else empty_cart">
     <ng-container *ngIf="cart.Lines.length > 0; else empty_cart">
       <div class="grid align-items-center">
-        <div class="col-6">
+        <div class="col-6 text-right">
           <strong i18n>Dish</strong>
         </div>
         <div class="col">
@@ -16,20 +16,23 @@
       <ng-container *ngFor="let line of cart.Lines; index as idx">
         <p-divider></p-divider>
         <div class="grid align-items-center">
-          <div class="col-6">
+          <div class="col-6 text-right">
             <span>{{ line.Name }}</span>
           </div>
           <div class="col">
             <p-button icon="pi pi-minus" severity="secondary" i18n-aria-label aria-label="Decrease Quantity Cart Line"
+              i18n-pTooltip pTooltip="Decrease Quantity Cart Line" tooltipPosition="bottom"
               (click)="reduceCartLine(idx)" size="small"></p-button>
             <p-button [text]="true" i18n-aria-label aria-label="Quantity Cart Line" i18n-label
               label="{{ line.Quantity }}" size="small"></p-button>
             <p-button icon="pi pi-plus" severity="secondary" i18n-aria-label aria-label="Increase Quantity Cart Line"
+              i18n-pTooltip pTooltip="Increase Quantity Cart Line" tooltipPosition="bottom"
               (click)="increaseCartLine(idx)" size="small"></p-button>
           </div>
-          <div class="col">
-            <p-button icon="pi pi-trash" severity="danger" i18n-aria-label aria-label="Remove Cart Line"
-              (click)="removeCartLine(idx)" size="small"></p-button>
+          <div class="col text-left">
+            <p-button icon="pi pi-trash" severity="danger" i18n-aria-label aria-label="Remove Cart Line" i18n-pTooltip
+              pTooltip="Remove Cart Line" tooltipPosition="bottom" (click)="removeCartLine(idx)"
+              size="small"></p-button>
           </div>
         </div>
       </ng-container>

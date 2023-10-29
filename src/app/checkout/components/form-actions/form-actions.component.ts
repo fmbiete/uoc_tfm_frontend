@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { DividerModule } from 'primeng/divider';
 import { DialogService } from 'primeng/dynamicdialog';
+import { CartService } from 'src/app/cart/services/cart.service';
 import { LocalStorageService } from 'src/app/common/services/local-storage.service';
 
 @Component({
@@ -23,6 +24,7 @@ export class FormActionsComponent {
   constructor(
     private router: Router,
     private localStorage: LocalStorageService,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private cartService: CartService
   ) {}
 }

@@ -6,13 +6,21 @@ import { Router } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { CountPipe as CountCartProductsPipe } from 'src/app/cart/pipes/count.pipe';
+import { TooltipModule } from 'primeng/tooltip';
 
 @Component({
   selector: 'cart-menu',
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.scss'],
   standalone: true,
-  imports: [NgIf, NgFor, ButtonModule, AsyncPipe, CountCartProductsPipe],
+  imports: [
+    NgIf,
+    NgFor,
+    ButtonModule,
+    AsyncPipe,
+    CountCartProductsPipe,
+    TooltipModule,
+  ],
 })
 export class MenuComponent implements OnInit {
   cart$: Observable<Cart>;
