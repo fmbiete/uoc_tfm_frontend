@@ -1,4 +1,4 @@
-import { NgModule, isDevMode } from '@angular/core';
+import { DEFAULT_CURRENCY_CODE, NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
@@ -36,6 +36,7 @@ import { MessagesModule } from 'primeng/messages';
       useClass: HttpInterceptorService,
       multi: true,
     },
+    { provide: DEFAULT_CURRENCY_CODE, useValue: 'EUR' },
     MessageService,
   ],
   bootstrap: [AppComponent],
