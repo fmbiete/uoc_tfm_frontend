@@ -11,13 +11,13 @@ export class SnackbarService {
     if (error !== null) {
       console.error(error);
 
-      if (error.error) {
+      if (error.message) {
         this.messageService.add({
           key: 'tc',
           sticky: true,
           severity: 'error',
           summary: $localize`Error`,
-          detail: `${message}\n${error.error.message} (Code: ${error.error.reflection})`,
+          detail: `${message}\n${error.message} (Code: ${error.reflection})`,
         });
       } else {
         this.messageService.add({
