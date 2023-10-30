@@ -11,6 +11,12 @@ export class SnackbarService {
     if (error !== null) {
       console.error(error);
 
+      // Case error object with nested error
+      if (error.error) {
+        error = error.error;
+      }
+
+      // Case error object with message
       if (error.message) {
         this.messageService.add({
           key: 'tc',
@@ -20,6 +26,7 @@ export class SnackbarService {
           detail: `${message}\n${error.message} (Code: ${error.reflection})`,
         });
       } else {
+        // anything else
         this.messageService.add({
           key: 'tc',
           sticky: true,
@@ -29,6 +36,7 @@ export class SnackbarService {
         });
       }
     } else {
+      // No error
       this.messageService.add({
         key: 'tc',
         life: 5000,
