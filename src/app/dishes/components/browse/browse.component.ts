@@ -38,7 +38,8 @@ import { RatingComponent } from '../rating/rating.component';
   styleUrls: ['./browse.component.scss'],
 })
 export class BrowseComponent implements OnInit {
-  category!: string;
+  categoryId!: number;
+  categoryName!: string;
   pageDishes$!: Observable<PageDishes>;
 
   constructor(
@@ -50,7 +51,8 @@ export class BrowseComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.category = this.route.snapshot.queryParams['category'];
+    this.categoryId = this.route.snapshot.queryParams['categoryId'];
+    this.categoryName = this.route.snapshot.queryParams['categoryName'];
 
     // TODO: browse by category
     this.pageDishes$ = this.route.queryParams.pipe(
