@@ -13,4 +13,11 @@ export class CategoryService {
   listCategories$(): Observable<Category[]> {
     return this.http.get<Category[]>(`${environment.apiUrl}/categories`);
   }
+
+  modifyCategory$(category: Category): Observable<Category> {
+    return this.http.patch<Category>(
+      `${environment.apiUrl}/category/${category.ID}`,
+      category
+    );
+  }
 }
