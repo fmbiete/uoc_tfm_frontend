@@ -26,12 +26,11 @@ export class HttpInterceptorService implements HttpInterceptor {
       req = req.clone({ headers });
     }
 
-    if (this.localStorage.isLoggedIn()) {
+    const token = this.localStorage.getUserToken();
+
+    if (token && token.length > 0) {
       // Add token key
-      const headers = req.headers.append(
-        'Authorization',
-        `Bearer ${this.localStorage.getUserToken()}`
-      );
+      const headers = req.headers.append('Authorization', `Bearer ${token}`);
       req = req.clone({ headers });
     }
 

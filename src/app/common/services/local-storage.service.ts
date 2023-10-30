@@ -67,7 +67,7 @@ export class LocalStorageService {
     const authResponse = this._getAuthResponseFromStorage();
     // refresh observable value
     this.authenticatedSubject.next(authResponse);
-    return authResponse.token.length > 0;
+    return authResponse.id > 0;
   }
 
   resetLogin() {
