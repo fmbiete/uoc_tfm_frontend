@@ -12,7 +12,11 @@ PWA Angular
 
 Angular
   - [Angular](https://angular.io)
-  - [Angular Material](https://material.angular.io)
+  - [PrimeNG](https://primeng.org)
+
+CSS Utilities
+  - [PrimeFlex](https://primeflex.org)
 
 Multimedia
+  - [Prime Icons](https://primeng.org/icons)
   - [Material Design Icons](https://pictogrammers.com/library/mdi)
