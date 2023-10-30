@@ -40,13 +40,18 @@ export class DetailComponent implements OnInit {
   loaded: boolean = false;
   authenticated: boolean = false;
   dish: Dish = new Dish();
+  liked: boolean;
+  disliked: boolean;
 
   constructor(
     private snackbar: SnackbarService,
     private dishService: DishService,
     private localStorage: LocalStorageService,
     private cartService: CartService
-  ) {}
+  ) {
+    this.liked = false;
+    this.disliked = false;
+  }
 
   ngOnInit(): void {
     this.authenticated = this.localStorage.isLoggedIn();
@@ -69,7 +74,10 @@ export class DetailComponent implements OnInit {
 
   like(): void {
     this.dishService.like(this.dish.ID).subscribe({
-      next: () => {},
+      next: () => {
+        this.liked = true;
+        this.disliked = false;
+      },
       error: (err: HttpErrorResponse) => {
         this.snackbar.show(err.error, $localize`Like Dish Failed`);
       },
@@ -78,7 +86,10 @@ export class DetailComponent implements OnInit {
 
   dislike(): void {
     this.dishService.dislike(this.dish.ID).subscribe({
-      next: () => {},
+      next: () => {
+        this.liked = false;
+        this.disliked = true;
+      },
       error: (err: HttpErrorResponse) => {
         this.snackbar.show(err.error, $localize`Dislike Dish Failed`);
       },
