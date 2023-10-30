@@ -1,0 +1,24 @@
+<div class="flex flex-column">
+
+  <div id="searchBox" class="p-inputgroup w-11 md:w-8 m-auto my-2 md:my-5 hidden">
+    <input type="text" pInputText placeholder="Keyword" [(ngModel)]="searchTerm" />
+    <button type="button" pButton i18n-label label="Search" icon="pi pi-search" (click)="searchDishes()"></button>
+  </div>
+
+  <ng-container *ngIf="searchTerm; else no_search">
+    <dishes-search [searchTerm]="searchTerm"></dishes-search>
+  </ng-container>
+
+  <ng-template #no_search>
+    <div class="flex flex-column align-items-center justify-content-center bg-primary border-round m-2">
+      <h2 i18n>Promotions</h2>
+      <app-carousel filter="promotions"></app-carousel>
+    </div>
+
+    <div class="flex flex-column align-items-center justify-content-center bg-primary border-round m-2">
+      <h2 i18n>Favourites</h2>
+      <app-carousel filter="favourites"></app-carousel>
+    </div>
+  </ng-template>
+
+</div>

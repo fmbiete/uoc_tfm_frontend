@@ -8,6 +8,7 @@ import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { MenuModule } from 'primeng/menu';
 import { Observable } from 'rxjs';
 import { LoginComponent } from 'src/app/common/components/login/login.component';
+import { AuthResponse } from 'src/app/common/models/auth.dto';
 import { LocalStorageService } from 'src/app/common/services/local-storage.service';
 import { SnackbarService } from 'src/app/common/services/snackbar.service';
 
@@ -27,7 +28,7 @@ import { SnackbarService } from 'src/app/common/services/snackbar.service';
   providers: [DialogService],
 })
 export class MenuComponent implements OnInit {
-  authenticated$: Observable<boolean>;
+  authenticated: boolean;
 
   userMenuItems: MenuItem[] | undefined;
 
@@ -39,10 +40,11 @@ export class MenuComponent implements OnInit {
     private snackbar: SnackbarService,
     private dialogService: DialogService
   ) {
-    this.authenticated$ = this.localStorage.isLoggedIn$();
+    this.authenticated = false;
   }
   ngOnInit(): void {
-    this.defineUserMenu();
+    this._subscribeAuthentication();
+    this._defineUserMenu();
   }
 
   ngOnDestroy(): void {
@@ -55,7 +57,21 @@ export class MenuComponent implements OnInit {
     this.router.navigateByUrl('/users/credentials');
   }
 
-  defineUserMenu(): void {
+  private _subscribeAuthentication(): void {
+    this.localStorage.authenticationResponse$().subscribe({
+      next: (value: AuthResponse) => {
+        this.authenticated = value.id > 0;
+      },
+      error: (err: any) => {
+        this.snackbar.show(
+          err,
+          $localize`Failed to receive authentication status`
+        );
+      },
+    });
+  }
+
+  private _defineUserMenu(): void {
     this.userMenuItems = [
       {
         label: $localize`Orders`,
