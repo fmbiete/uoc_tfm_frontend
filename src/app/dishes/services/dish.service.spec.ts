@@ -11,7 +11,7 @@ describe('DishService', () => {
     TestBed.configureTestingModule({
       declarations: [],
       imports: [HttpClientTestingModule],
-      providers: [DishService, HttpClient],
+      providers: [HttpClient],
     });
     service = TestBed.inject(DishService);
   });

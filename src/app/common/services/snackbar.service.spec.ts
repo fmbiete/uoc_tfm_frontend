@@ -1,14 +1,14 @@
 import { TestBed } from '@angular/core/testing';
 
 import { SnackbarService } from './snackbar.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MessageService } from 'primeng/api';
 
 describe('SnackbarService', () => {
   let service: SnackbarService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [MatSnackBar],
+      providers: [MessageService],
     });
     service = TestBed.inject(SnackbarService);
   });

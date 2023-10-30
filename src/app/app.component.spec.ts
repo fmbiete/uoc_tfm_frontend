@@ -5,6 +5,8 @@ import { HeaderComponent } from './common/components/header/header.component';
 import { FooterComponent } from './common/components/footer/footer.component';
 import { HttpClient } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { MessageService } from 'primeng/api';
+import { MessagesModule } from 'primeng/messages';
 
 describe('AppComponent', () => {
   beforeEach(() =>
@@ -14,9 +16,10 @@ describe('AppComponent', () => {
         HeaderComponent,
         FooterComponent,
         HttpClientTestingModule,
+        MessagesModule,
       ],
       declarations: [AppComponent],
-      providers: [HttpClient],
+      providers: [HttpClient, MessageService],
     })
   );
 

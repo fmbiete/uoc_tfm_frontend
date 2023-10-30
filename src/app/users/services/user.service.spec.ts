@@ -11,7 +11,7 @@ describe('UserService', () => {
     TestBed.configureTestingModule({
       declarations: [],
       imports: [HttpClientTestingModule],
-      providers: [UserService, HttpClient],
+      providers: [HttpClient],
     });
     service = TestBed.inject(UserService);
   });

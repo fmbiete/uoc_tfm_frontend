@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SearchComponent } from './search.component';
+import { MessageService } from 'primeng/api';
+import { HttpClient } from '@angular/common/http';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('SearchComponent', () => {
   let component: SearchComponent;
@@ -8,7 +11,8 @@ describe('SearchComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [SearchComponent]
+      imports: [SearchComponent, HttpClientTestingModule],
+      providers: [HttpClient, MessageService],
     });
     fixture = TestBed.createComponent(SearchComponent);
     component = fixture.componentInstance;

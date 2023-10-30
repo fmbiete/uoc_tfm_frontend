@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { GridItemComponent } from './grid-item.component';
+import { MessageService } from 'primeng/api';
+import { HttpClient } from '@angular/common/http';
 
 describe('GridItemComponent', () => {
   let component: GridItemComponent;
@@ -8,7 +10,8 @@ describe('GridItemComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [GridItemComponent]
+      imports: [GridItemComponent],
+      providers: [HttpClient, MessageService],
     });
     fixture = TestBed.createComponent(GridItemComponent);
     component = fixture.componentInstance;
