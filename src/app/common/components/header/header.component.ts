@@ -59,11 +59,7 @@ export class HeaderComponent implements OnInit {
 
   toggleSearch(): void {
     if (this.router.url.split('?')[0] != '/') {
-      this.headerService.update(
-        this.localStorage.isUserLogged(),
-        this.localStorage.isUserAdmin(),
-        true
-      );
+      this.headerService.showSearch();
       this.router.navigate(['/']);
     } else {
       const searchBox = document.getElementById('searchBox');

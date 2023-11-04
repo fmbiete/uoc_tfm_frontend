@@ -40,13 +40,7 @@ export class HomeUserComponent implements OnInit {
     this.headerService.headerManagement.pipe(first()).subscribe({
       next: (value: Header) => {
         this.showSearch = value.showSearch;
-        if (this.showSearch) {
-          this.headerService.update(
-            this.localStorage.isUserLogged(),
-            this.localStorage.isUserAdmin(),
-            false
-          );
-        }
+        if (this.showSearch) this.headerService.hideSearch();
       },
     });
   }
