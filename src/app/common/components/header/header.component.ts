@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { HeaderService } from '../../services/header.service';
 import { Header } from '../../models/header.dto';
-import { NgIf } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { environment } from 'src/environments/environment';
 import { ToolbarModule } from 'primeng/toolbar';
 import { ButtonModule } from 'primeng/button';
@@ -10,6 +10,7 @@ import { MenuModule } from 'primeng/menu';
 import { MenuComponent as CartMenuComponent } from 'src/app/cart/components/menu/menu.component';
 import { MenuComponent as UserMenuComponent } from 'src/app/users/components/menu/menu.component';
 import { MenuComponent as DishesMenuComponent } from 'src/app/dishes/components/menu/menu.component';
+import { LocalStorageService } from '../../services/local-storage.service';
 
 @Component({
   selector: 'app-header',
@@ -20,7 +21,7 @@ import { MenuComponent as DishesMenuComponent } from 'src/app/dishes/components/
     ToolbarModule,
     ButtonModule,
     MenuModule,
-    NgIf,
+    CommonModule,
     RouterLink,
     RouterLinkActive,
     CartMenuComponent,
@@ -36,7 +37,11 @@ export class HeaderComponent implements OnInit {
   showAuthSection: boolean;
   showNoAuthSection: boolean;
 
-  constructor(private headerService: HeaderService) {
+  constructor(
+    private router: Router,
+    private headerService: HeaderService,
+    private localStorage: LocalStorageService
+  ) {
     this.showAdminSection = false;
     this.showAuthSection = false;
     this.showNoAuthSection = true;
@@ -53,12 +58,21 @@ export class HeaderComponent implements OnInit {
   }
 
   toggleSearch(): void {
-    const searchBox = document.getElementById('searchBox');
-    if (searchBox) {
-      if (searchBox.classList.contains('hidden')) {
-        searchBox.classList.remove('hidden');
-      } else {
-        searchBox.classList.add('hidden');
+    if (this.router.url.split('?')[0] != '/') {
+      this.headerService.update(
+        this.localStorage.isLoggedIn(),
+        this.localStorage.getUserIsAdmin(),
+        true
+      );
+      this.router.navigate(['/']);
+    } else {
+      const searchBox = document.getElementById('searchBox');
+      if (searchBox) {
+        if (searchBox.classList.contains('hidden')) {
+          searchBox.classList.remove('hidden');
+        } else {
+          searchBox.classList.add('hidden');
+        }
       }
     }
   }

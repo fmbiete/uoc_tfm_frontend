@@ -10,21 +10,23 @@ export class HeaderService {
     showNoAuthSection: true,
     showAuthSection: false,
     showAdminSection: false,
+    showSearch: false,
   });
 
   showAuthenticated(admin: boolean | undefined): void {
-    this.update(true, admin ?? false);
+    this.update(true, admin ?? false, false);
   }
 
   showUnauthenticated(): void {
-    this.update(false, false);
+    this.update(false, false, false);
   }
 
-  private update(auhtenticated: boolean, admin: boolean) {
+  update(auhtenticated: boolean, admin: boolean, search: boolean) {
     const status: Header = {
       showNoAuthSection: !auhtenticated,
       showAuthSection: auhtenticated,
       showAdminSection: admin,
+      showSearch: search,
     };
 
     this.headerManagement.next(status);

@@ -1,7 +1,8 @@
 <div class="flex flex-column">
 
-  <div id="searchBox" class="p-inputgroup w-11 md:w-8 m-auto my-2 md:my-5 hidden">
-    <input type="text" pInputText placeholder="Keyword" [(ngModel)]="searchTerm" />
+  <div id="searchBox" class="p-inputgroup w-11 md:w-8 m-auto my-2 md:my-5 {{ showSearch ? '' : 'hidden' }}">
+    <input type="text" pInputText placeholder="Keyword" [(ngModel)]="searchTerm" i18n-aria-label
+      aria-label="Search dish by Keyword" />
     <button type="button" pButton i18n-label label="Search" icon="pi pi-search" (click)="searchDishes()"></button>
   </div>
 
