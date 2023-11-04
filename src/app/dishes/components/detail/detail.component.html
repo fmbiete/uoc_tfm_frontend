@@ -1,7 +1,12 @@
 <ng-container *ngIf="loaded; else loading">
   <div class="flex flex-column md:flex-row justify-content-center align-items-center">
-    <div class="">
-      <img src="/assets/dishes/generic.png" alt="{{ dish.Name }}" class="max-w-full">
+    <div class="flex flex-column">
+      <span class="flex flex-row justify-content-end" *ngFor="let category of dish.Categories">
+        <i class="pi pi-tag"></i>
+        <span class="ml-2 font-semibold">{{ category.Name | titlecase }}</span>
+      </span>
+
+      <img src="/assets/dishes/generic.png" alt="{{ dish.Name | titlecase }}" class="max-w-full">
     </div>
     <div class="md:ml-5">
       <h1>{{ dish.Name }}</h1>
@@ -19,14 +24,14 @@
         <div class="border-left-2 border-primary-500 p-3">{{ dish.Description }}</div>
       </section>
 
-      <section class="tfm-list-badges">
+      <section>
         <h2 class="mb-1 bg-primary-reverse" i18n>Ingredients</h2>
         <ng-container *ngFor="let item of dish.Ingredients">
           <p-badge severity="info" value="{{ item.Name }}" styleClass="mr-1"></p-badge>
         </ng-container>
       </section>
 
-      <section class="tfm-list-badges">
+      <section>
         <h2 class="mb-1 bg-primary-reverse" i18n>Allergens</h2>
         <ng-container *ngFor="let item of dish.Allergens">
           <p-badge severity="warning" value="{{ item.Name }}" styleClass="mr-1"></p-badge>

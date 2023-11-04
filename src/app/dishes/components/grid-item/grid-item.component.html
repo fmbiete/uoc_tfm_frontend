@@ -3,14 +3,14 @@
     <div class="flex flex-wrap align-items-center justify-content-between gap-2">
       <span class="flex align-items-center gap-2">
         <i class="pi pi-tag"></i>
-        <span class="font-semibold"> todo_dish_category </span>
+        <span class="font-semibold" *ngFor="let category of dish.Categories">{{ category.Name | titlecase }} </span>
       </span>
       <span class="flex align-items-end gap-1">
         <p-tag *ngFor="let allergen of dish.Allergens" [value]="allergen.Name" severity="warning"></p-tag>
       </span>
     </div>
     <div class="flex flex-column align-items-center gap-3 py-5">
-      <img class="w-9 shadow-2 border-round" src="/assets/dishes/generic.png" alt="{{ dish.Name }}"
+      <img class="w-9 shadow-2 border-round" src="/assets/dishes/generic.png" alt="{{ dish.Name | titlecase }}"
         [routerLink]="['/dishes', 'dish', dish.ID]" style="cursor: pointer;" />
       <div class="text-2xl font-bold" [routerLink]="['/dishes', 'dish', dish.ID]" style="cursor: pointer;">{{ dish.Name
         }}</div>

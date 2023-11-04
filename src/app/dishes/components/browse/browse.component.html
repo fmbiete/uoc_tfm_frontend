@@ -1,5 +1,5 @@
 <div class="m-auto text-center">
-  <h1>{{ categoryName }}</h1>
+  <h1>{{ categoryName | titlecase }}</h1>
 </div>
 
 <ng-container *ngIf="pageDishes$ | async as pageDishes; else no_dishes">

@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, TitleCasePipe } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { TagModule } from 'primeng/tag';
 import { Dish } from '../../models/dish.dto';
@@ -13,6 +13,7 @@ import { RouterLink } from '@angular/router';
   selector: 'dishes-grid-item',
   standalone: true,
   imports: [
+    TitleCasePipe,
     RatingPipe,
     CommonModule,
     ButtonModule,

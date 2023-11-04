@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AsyncPipe, CommonModule } from '@angular/common';
+import { AsyncPipe, CommonModule, TitleCasePipe } from '@angular/common';
 import {
   Observable,
   debounceTime,
@@ -19,12 +19,14 @@ import { TagModule } from 'primeng/tag';
 import { RatingPipe } from '../../pipes/rating.pipe';
 import { GridItemComponent } from '../grid-item/grid-item.component';
 import { RatingComponent } from '../rating/rating.component';
+import { CategoryService } from '../../services/category.service';
 
 @Component({
   selector: 'app-browse',
   standalone: true,
   imports: [
     AsyncPipe,
+    TitleCasePipe,
     RatingPipe,
     CommonModule,
     ButtonModule,
@@ -46,21 +48,23 @@ export class BrowseComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private dishService: DishService,
+    private categoryService: CategoryService,
     private localStorage: LocalStorageService,
     private cartService: CartService
   ) {}
 
   ngOnInit(): void {
-    this.categoryId = this.route.snapshot.queryParams['categoryId'];
-    this.categoryName = this.route.snapshot.queryParams['categoryName'];
-
-    // TODO: browse by category
+    // TODO: pagination
     this.pageDishes$ = this.route.queryParams.pipe(
       // take the search term from the query string
       map((query) => query['category']),
       // switch to new search observable each time the term changes
       // switchMap((term: string) => this.dishService.browse(term)),
-      switchMap((term: string) => this.dishService.favourites())
+      switchMap((term: string) => {
+        this.categoryId = this.route.snapshot.queryParams['categoryId'];
+        this.categoryName = this.route.snapshot.queryParams['categoryName'];
+        return this.categoryService.listDishes$(this.categoryId);
+      })
     );
   }
 }

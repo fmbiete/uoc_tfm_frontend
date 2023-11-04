@@ -3,7 +3,7 @@ import { Dish } from '../../models/dish.dto';
 import { SnackbarService } from 'src/app/common/services/snackbar.service';
 import { DishService } from '../../services/dish.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { CurrencyPipe, NgFor, NgIf } from '@angular/common';
+import { CommonModule, CurrencyPipe, TitleCasePipe } from '@angular/common';
 import { LocalStorageService } from 'src/app/common/services/local-storage.service';
 import { RatingComponent } from '../rating/rating.component';
 import { RatingPipe } from '../../pipes/rating.pipe';
@@ -22,8 +22,8 @@ import { BadgeModule } from 'primeng/badge';
   standalone: true,
   imports: [
     CurrencyPipe,
-    NgFor,
-    NgIf,
+    TitleCasePipe,
+    CommonModule,
     RatingComponent,
     RatingPipe,
     ChipsModule,
