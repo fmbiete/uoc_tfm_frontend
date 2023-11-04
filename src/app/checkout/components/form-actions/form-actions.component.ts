@@ -20,11 +20,14 @@ export class FormActionsComponent {
   @Input('primary-disabled') primaryDisabled!: boolean;
   @Input('secondary-label') secondaryLabel!: string;
   @Input('secondary-function') secondaryFunction!: any;
+  @Input('secondary-icon') secondaryIcon: any;
 
   constructor(
     private router: Router,
     private localStorage: LocalStorageService,
     private dialogService: DialogService,
     private cartService: CartService
-  ) {}
+  ) {
+    this.secondaryIcon = 'arrow-left';
+  }
 }
