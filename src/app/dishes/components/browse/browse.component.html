@@ -2,15 +2,10 @@
   <h1>{{ categoryName | titlecase }}</h1>
 </div>
 
-<ng-container *ngIf="pageDishes$ | async as pageDishes; else no_dishes">
-  <p-dataView #dv [value]="pageDishes.dishes" layout="grid">
-    <ng-template let-dish pTemplate="gridItem">
-      <dishes-grid-item [dish]="dish" class="col-12 md:col-4"></dishes-grid-item>
-    </ng-template>
-  </p-dataView>
-</ng-container>
-
-<ng-template #no_dishes>
-  <p-message severity="info" i18n-text
-    text="Sorry, we didn't find dishes matching the category, why don't you check our delicious recommendations?"></p-message>
-</ng-template>
+<p-dataView #dv [value]="dishes" layout="grid" class="tfm-dish-grid" infiniteScroll [infiniteScrollDistance]="2"
+  [infiniteScrollThrottle]="50" (scrolled)="onScroll()" [scrollWindow]="false">
+  [scrollWindow]="false">
+  <ng-template let-dish pTemplate="gridItem">
+    <dishes-grid-item [dish]="dish" class="col-12 md:col-4"></dishes-grid-item>
+  </ng-template>
+</p-dataView>

@@ -22,9 +22,13 @@ export class CategoryService {
     );
   }
 
-  listDishes$(categoryId: number): Observable<PageDishes> {
+  listDishes$(
+    categoryId: number,
+    pageSize: number,
+    pageCount: number
+  ): Observable<PageDishes> {
     return this.http.get<PageDishes>(
-      `${environment.apiUrl}/category/${categoryId}/dishes`
+      `${environment.apiUrl}/category/${categoryId}/dishes?limit=${pageSize}&page=${pageCount}`
     );
   }
 }
