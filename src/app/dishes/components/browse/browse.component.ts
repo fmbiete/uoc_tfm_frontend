@@ -83,7 +83,9 @@ export class BrowseComponent implements OnInit {
 
   private _subscribeDishes() {
     if (this.route.snapshot.queryParams['categoryId'] != this.categoryId) {
+      // Change of category - reset dishes
       this.dishes.length = 0;
+      this.pageCount = 1;
     }
 
     this.categoryId = this.route.snapshot.queryParams['categoryId'];
