@@ -1,6 +1,6 @@
-import { AsyncPipe, NgFor, NgIf } from '@angular/common';
+import { AsyncPipe, CommonModule, NgFor, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { Observable } from 'rxjs';
 import { CartService } from '../../services/cart.service';
 import { Cart } from '../../models/cart.dto';
@@ -21,8 +21,8 @@ import { TooltipModule } from 'primeng/tooltip';
   standalone: true,
   imports: [
     AsyncPipe,
-    NgIf,
-    NgFor,
+    CommonModule,
+    RouterLink,
     ButtonModule,
     DialogModule,
     DividerModule,
