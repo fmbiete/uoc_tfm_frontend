@@ -75,6 +75,10 @@ export class DetailComponent implements OnInit {
 
       dialogRef.onClose.subscribe((result) => {
         console.debug(`Dialog result: ${result}`);
+        if (this.localStorage.isLoggedIn()) {
+          // if logged in
+          this.router.navigate(['checkout', 'address']);
+        }
       });
     }
   }
