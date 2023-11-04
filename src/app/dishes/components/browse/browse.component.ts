@@ -5,6 +5,7 @@ import {
   Subscription,
   debounceTime,
   distinctUntilChanged,
+  first,
   map,
   switchMap,
 } from 'rxjs';
@@ -47,7 +48,7 @@ export class BrowseComponent implements OnInit {
   categoryId: number;
   categoryName!: string;
   dishes: Array<Dish>;
-  refSubscription!: Subscription;
+  // refSubscription!: Subscription;
   pageSize: number;
   pageCount: number;
 
@@ -68,20 +69,16 @@ export class BrowseComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.queryParams.subscribe((params) => {
-      this._subscribeDishes();
+      this.listDishes();
     });
-
-    this._subscribeDishes();
   }
 
   onScroll(): void {
     this.pageCount++;
-    if (this.refSubscription) this.refSubscription.unsubscribe();
-
-    this._subscribeDishes();
+    this.listDishes();
   }
 
-  private _subscribeDishes() {
+  private listDishes() {
     if (this.route.snapshot.queryParams['categoryId'] != this.categoryId) {
       // Change of category - reset dishes
       this.dishes.length = 0;
@@ -91,12 +88,12 @@ export class BrowseComponent implements OnInit {
     this.categoryId = this.route.snapshot.queryParams['categoryId'];
     this.categoryName = this.route.snapshot.queryParams['categoryName'];
 
-    this.refSubscription = this.categoryService
+    this.categoryService
       .listDishes$(this.categoryId, this.pageSize, this.pageCount)
+      .pipe(first())
       .subscribe({
         next: (page: PageDishes) => {
           this.dishes = this.dishes.concat(page.dishes);
-          if (this.refSubscription) this.refSubscription.unsubscribe();
         },
         error: (err: any) => {
           this.snackbar.show(err, $localize`Failed to load dishes`);
