@@ -2,17 +2,19 @@ import { Component, Input, OnInit } from '@angular/core';
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { DataViewModule } from 'primeng/dataview';
-import { Observable } from 'rxjs';
+import { first } from 'rxjs';
 import { Router } from '@angular/router';
 import { CartService } from 'src/app/cart/services/cart.service';
 import { LocalStorageService } from 'src/app/common/services/local-storage.service';
-import { PageDishes } from '../../models/dish.dto';
+import { Dish, PageDishes } from '../../models/dish.dto';
 import { DishService } from '../../services/dish.service';
 import { MessageModule } from 'primeng/message';
 import { TagModule } from 'primeng/tag';
 import { RatingComponent } from '../rating/rating.component';
 import { RatingPipe } from '../../pipes/rating.pipe';
 import { GridItemComponent } from '../grid-item/grid-item.component';
+import { SnackbarService } from 'src/app/common/services/snackbar.service';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @Component({
   selector: 'dishes-search',
@@ -27,34 +29,59 @@ import { GridItemComponent } from '../grid-item/grid-item.component';
     TagModule,
     RatingComponent,
     GridItemComponent,
+    DataViewModule,
+    InfiniteScrollModule,
   ],
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss'],
 })
 export class SearchComponent implements OnInit {
+  pageCount: number;
   _searchTerm!: string;
+  dishes: Array<Dish>;
 
   @Input('searchTerm') set searchTerm(value: string) {
+    this.dishes.length = 0;
+    this.pageCount = 1;
     this._searchTerm = value;
-    // TODO: search by new term
-    this.pageDishes$ = this.dishService.favourites();
+    this.searchByTerm();
   }
   get searchTerm(): string {
     return this._searchTerm;
   }
 
-  pageDishes$: Observable<PageDishes>;
-
   constructor(
     private router: Router,
+    private snackbar: SnackbarService,
     private dishService: DishService,
     private localStorage: LocalStorageService,
     private cartService: CartService
   ) {
-    // TODO: search dishes
-    this.pageDishes$ = this.dishService.favourites();
+    this.pageCount = 1;
+    this.dishes = new Array<Dish>();
   }
+
   ngOnInit(): void {
-    return;
+    this.searchByTerm();
+  }
+
+  onScroll(): void {
+    this.pageCount++;
+    this.searchByTerm();
+  }
+
+  private searchByTerm(): void {
+    console.debug(this._searchTerm);
+    this.dishService
+      .favourites()
+      .pipe(first())
+      .subscribe({
+        next: (value: PageDishes) => {
+          this.dishes = value.dishes;
+        },
+        error: (err: any) => {
+          this.snackbar.show(err, $localize`Failed to search dishes`);
+        },
+      });
   }
 }
