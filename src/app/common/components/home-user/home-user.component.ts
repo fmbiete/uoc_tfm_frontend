@@ -42,8 +42,8 @@ export class HomeUserComponent implements OnInit {
         this.showSearch = value.showSearch;
         if (this.showSearch) {
           this.headerService.update(
-            this.localStorage.isLoggedIn(),
-            this.localStorage.getUserIsAdmin(),
+            this.localStorage.isUserLogged(),
+            this.localStorage.isUserAdmin(),
             false
           );
         }

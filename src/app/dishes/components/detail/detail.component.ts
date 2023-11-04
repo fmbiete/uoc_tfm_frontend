@@ -54,7 +54,7 @@ export class DetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.authenticated = this.localStorage.isLoggedIn();
+    this.authenticated = this.localStorage.isUserLogged();
     if (this.id !== undefined) {
       this.dishService.detail(parseInt(this.id)).subscribe({
         next: (dish: Dish) => {

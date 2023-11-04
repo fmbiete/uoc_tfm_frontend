@@ -44,7 +44,7 @@ export class LocalStorageService {
     return `${this.get(LocalStorageService.key_email)}`;
   }
 
-  getUserIsAdmin(): boolean {
+  isUserAdmin(): boolean {
     const value = this.get(LocalStorageService.key_admin);
     if (value === null) {
       return false;
@@ -63,7 +63,7 @@ export class LocalStorageService {
   }
 
   // For 1-off checks
-  isLoggedIn(): boolean {
+  isUserLogged(): boolean {
     const authResponse = this._getAuthResponseFromStorage();
     // refresh observable value
     this.authenticatedSubject.next(authResponse);
@@ -104,7 +104,7 @@ export class LocalStorageService {
     const authResponse = new AuthResponse();
     authResponse.id = this.getUserId();
     authResponse.email = this.getUserEmail();
-    authResponse.admin = this.getUserIsAdmin();
+    authResponse.admin = this.isUserAdmin();
     authResponse.token = '';
     return authResponse;
   }

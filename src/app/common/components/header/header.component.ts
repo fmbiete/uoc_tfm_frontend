@@ -60,8 +60,8 @@ export class HeaderComponent implements OnInit {
   toggleSearch(): void {
     if (this.router.url.split('?')[0] != '/') {
       this.headerService.update(
-        this.localStorage.isLoggedIn(),
-        this.localStorage.getUserIsAdmin(),
+        this.localStorage.isUserLogged(),
+        this.localStorage.isUserAdmin(),
         true
       );
       this.router.navigate(['/']);

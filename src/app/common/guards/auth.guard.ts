@@ -27,7 +27,7 @@ export class AuthGuard {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    if (!this.localStorageService.isLoggedIn()) {
+    if (!this.localStorageService.isUserLogged()) {
       this.snackbar.show(null, $localize`Please Log In`);
       this.router.navigateByUrl('/');
       return false;
