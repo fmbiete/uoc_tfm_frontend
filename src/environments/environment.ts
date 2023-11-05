@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  apiUrl: 'http://uoc_tfm_backend.railway.internal:8080',
+  apiUrl: 'https://uoctfmbackend-production.up.railway.app',
   title: 'Eating at the Office',
   company: 'ACME ltd',
 };
