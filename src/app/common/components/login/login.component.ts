@@ -71,7 +71,10 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    return;
+    // Speedup development
+    // this.email.setValue('user1@tfm.es');
+    this.email.setValue('admin@tfm.es');
+    this.password.setValue('password');
   }
 
   ngOnDestroy(): void {
