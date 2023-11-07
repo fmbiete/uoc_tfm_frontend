@@ -1,5 +1,14 @@
 <footer>
   <section class="dark">
+    <div class="text-left mt-0">
+      <p-selectButton [options]="flags" [(ngModel)]="language" optionLabel="language" optionValue="value"
+        (onChange)="languageChange($event)">
+        <ng-template let-item pTemplate>
+          <img src="/assets/flags/{{ item.flag }}.png" i18n-alt alt="Change Language to {{ item.language }}"
+            height="16px">
+        </ng-template>
+      </p-selectButton>
+    </div>
     <div i18n>For the latest news and updates</div>
     <h2 i18n>Visit us on</h2>
     <div class="social">

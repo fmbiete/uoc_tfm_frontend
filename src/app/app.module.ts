@@ -1,4 +1,10 @@
-import { DEFAULT_CURRENCY_CODE, NgModule, isDevMode } from '@angular/core';
+import {
+  APP_INITIALIZER,
+  DEFAULT_CURRENCY_CODE,
+  LOCALE_ID,
+  NgModule,
+  isDevMode,
+} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
@@ -11,6 +17,10 @@ import { HeaderComponent } from './common/components/header/header.component';
 import { FooterComponent } from './common/components/footer/footer.component';
 import { MessageService } from 'primeng/api';
 import { MessagesModule } from 'primeng/messages';
+import {
+  initializeLanguage,
+  initializeSupportedLocales,
+} from './app.initializer';
 
 @NgModule({
   declarations: [AppComponent],
@@ -37,6 +47,12 @@ import { MessagesModule } from 'primeng/messages';
       multi: true,
     },
     { provide: DEFAULT_CURRENCY_CODE, useValue: 'EUR' },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: () => initializeLanguage,
+      multi: true,
+    },
+    { provide: LOCALE_ID, useFactory: initializeSupportedLocales },
     MessageService,
   ],
   bootstrap: [AppComponent],
