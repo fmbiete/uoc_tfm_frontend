@@ -44,7 +44,7 @@ export class MenuComponent implements OnInit {
   }
   ngOnInit(): void {
     this._subscribeAuthentication();
-    this._defineUserMenu();
+    this._defineUserMenu(this.localStorage.isUserAdmin());
   }
 
   ngOnDestroy(): void {
@@ -61,6 +61,7 @@ export class MenuComponent implements OnInit {
     this.localStorage.authenticationResponse$().subscribe({
       next: (value: AuthResponse) => {
         this.authenticated = value.id > 0;
+        this._defineUserMenu(value.admin);
       },
       error: (err: any) => {
         this.snackbar.show(
@@ -71,13 +72,8 @@ export class MenuComponent implements OnInit {
     });
   }
 
-  private _defineUserMenu(): void {
+  private _defineUserMenu(isAdmin: boolean): void {
     this.userMenuItems = [
-      {
-        label: $localize`Orders`,
-        icon: 'pi pi-cog',
-        command: () => this.showOrders(),
-      },
       {
         label: $localize`Personal Information`,
         icon: 'pi pi-user-edit',
@@ -94,6 +90,15 @@ export class MenuComponent implements OnInit {
         command: () => this.logout(),
       },
     ];
+
+    // Admin should not make orders - hide this option
+    if (!isAdmin) {
+      this.userMenuItems.unshift({
+        label: $localize`Orders`,
+        icon: 'pi pi-cog',
+        command: () => this.showOrders(),
+      });
+    }
   }
 
   showOrders(): void {

@@ -1,14 +1,11 @@
-<div class="m-auto">
+<div class="flex flex-column m-auto text-center w-11">
   <h1>Administrative Console</h1>
 
-  <h2>Orders</h2>
+  <div class="flex flex-column md:flex-row">
+    <admin-dashboard-orders class="flex-grow-1"></admin-dashboard-orders>
 
-  <h2>Dishes</h2>
+    <admin-dashboard-promotions class="flex-grow-1"></admin-dashboard-promotions>
+  </div>
 
-  <h3>Ingredients</h3>
-
-  <h3>Allergens</h3>
-
-  <h3>Categories</h3>
-  <admin-category-list></admin-category-list>
+  <admin-dashboard-sales></admin-dashboard-sales>
 </div>

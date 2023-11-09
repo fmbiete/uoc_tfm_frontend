@@ -1,4 +1,4 @@
-<p-toolbar styleClass="p-0 bg-bluegray-800 border-noround">
+<p-toolbar styleClass="p-0 bg-bluegray-800 border-none border-noround">
   <div class="p-toolbar-group-start">
     <dishes-menu></dishes-menu>
     <img class="max-w-5rem md:max-w-8rem" src="assets/logo_2.png" alt="Link to {{ applicationTitle }} homepage"
@@ -12,8 +12,8 @@
       styleClass="mr-1 md:mr-2" (click)="toggleSearch()">
     </p-button>
 
-    <cart-menu></cart-menu>
+    <cart-menu class="mr-1 md:mr-2"></cart-menu>
 
-    <users-menu></users-menu>
+    <users-menu class="mr-2 md:mr-3"></users-menu>
   </div>
 </p-toolbar>

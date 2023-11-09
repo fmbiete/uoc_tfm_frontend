@@ -1,15 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { CarouselComponent } from '../carousel/carousel.component';
-import { ButtonModule } from 'primeng/button';
-import { InputTextModule } from 'primeng/inputtext';
-import { CommonModule, NgIf } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { SearchComponent } from 'src/app/dishes/components/search/search.component';
+import { CommonModule } from '@angular/common';
 import { LocalStorageService } from '../../services/local-storage.service';
 import { AuthResponse } from '../../models/auth.dto';
 import { SnackbarService } from '../../services/snackbar.service';
-import { HomeAdminComponent } from '../home-admin/home-admin.component';
 import { HomeUserComponent } from '../home-user/home-user.component';
+import { HomeAdminComponent } from '../home-admin/home-admin.component';
 
 @Component({
   selector: 'app-home',
@@ -26,8 +21,8 @@ export class HomeComponent implements OnInit {
     private snackbar: SnackbarService,
     private localStorage: LocalStorageService
   ) {
-    this.authenticated = false;
-    this.admin = false;
+    this.authenticated = this.localStorage.isUserLogged();
+    this.admin = this.localStorage.isUserAdmin();
   }
 
   ngOnInit(): void {

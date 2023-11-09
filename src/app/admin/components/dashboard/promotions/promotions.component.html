@@ -1,0 +1,16 @@
+<div class="card flex justify-content-center">
+  <p-fieldset i18n-legend legend="Active Promotions">
+    <div class="flex flex-column md:flex-row">
+      <div class="p-3 border-1 border-round-xl border-green-500 bg-green-200 mb-3 md:mb-0 md:mr-2">
+        <span class="font-bold uppercase" i18n>Number Active Promotions:</span>
+      </div>
+      <div class="p-3 border-1 border-round-xl border-orange-500 bg-orange-200 mb-3 md:mb-0 md:mr-5">
+        <span class="font-bold mx-3">{{ numPromotions }}</span>
+      </div>
+      <div>
+        <p-button i18n-label label="Active Promotions" icon="pi pi-pencil" size="large" i18n-pTooltip
+          pTooltip="Edit Active Promotions" tooltipPosition="bottom"></p-button>
+      </div>
+    </div>
+  </p-fieldset>
+</div>

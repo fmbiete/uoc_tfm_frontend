@@ -21,10 +21,13 @@ import {
   initializeLanguage,
   initializeSupportedLocales,
 } from './app.initializer';
+import { CommonModule } from '@angular/common';
+import { MenubarComponent as AdminMenubarComponent } from './admin/components/menubar/menubar.component';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
+    CommonModule,
     BrowserModule,
     AppRoutingModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
@@ -36,6 +39,7 @@ import {
     BrowserAnimationsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    AdminMenubarComponent,
     HeaderComponent,
     FooterComponent,
     MessagesModule,

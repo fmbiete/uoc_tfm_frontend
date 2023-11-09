@@ -1,0 +1,16 @@
+@import 'primeflex/core/_variables.scss';
+@import "/src/scss/variables.scss";
+
+@media only screen and (min-width: $md) {
+  ::ng-deep li.text-white > div > a {
+    & > .p-menuitem-icon, 
+    & > .p-menuitem-text, 
+    & > angledownicon > svg {
+      color: #ffffff !important;
+    }
+  }
+}
+
+::ng-deep admin-menubar barsicon > svg {
+  color: #ffffff !important;
+}

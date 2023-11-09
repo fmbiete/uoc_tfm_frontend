@@ -16,7 +16,7 @@
   <ng-template pTemplate="header">
     <tr>
       <th scope="col">Name<p-columnFilter type="text" field="Name" display="menu"></p-columnFilter></th>
-      <th></th>
+      <th scope="col"></th>
     </tr>
   </ng-template>
   <ng-template pTemplate="body" let-category let-editing="editing" let-ri="rowIndex">
@@ -24,7 +24,8 @@
       <td>
         <p-cellEditor>
           <ng-template pTemplate="input">
-            <input pInputText type="text" [(ngModel)]="category.Name" required>
+            <input pInputText type="text" [(ngModel)]="category.Name" required i18n-aria-label
+              aria-label="Category Name">
           </ng-template>
           <ng-template pTemplate="output">
             {{category.Name}}
