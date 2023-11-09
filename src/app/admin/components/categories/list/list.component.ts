@@ -1,16 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { EditableRow, Table, TableModule } from 'primeng/table';
-import { ButtonModule } from 'primeng/button';
-import { SnackbarService } from 'src/app/common/services/snackbar.service';
 import { Router } from '@angular/router';
-import { CategoryService } from 'src/app/dishes/services/category.service';
+import { Table, TableModule } from 'primeng/table';
+import { SnackbarService } from 'src/app/common/services/snackbar.service';
 import { Category } from 'src/app/dishes/models/category.dto';
-import { InputTextModule } from 'primeng/inputtext';
+import { CategoryService } from 'src/app/dishes/services/category.service';
 import { FormsModule } from '@angular/forms';
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
-  selector: 'admin-category-list',
+  selector: 'admin-categories-list',
   standalone: true,
   imports: [
     CommonModule,
@@ -19,15 +19,21 @@ import { FormsModule } from '@angular/forms';
     InputTextModule,
     TableModule,
   ],
-  providers: [EditableRow],
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
 })
-export class ListComponent implements OnInit {
+export class ListComponent {
   categories: Category[];
   loading: boolean;
   // Backup for edits
   clonedCategories: { [s: string]: Category } = {};
+
+  @Input('newCategory') set newCategory(value: Category) {
+    console.debug(value);
+    if (value) {
+      this._addCategory(value);
+    }
+  }
 
   constructor(
     private snackbar: SnackbarService,
@@ -40,6 +46,22 @@ export class ListComponent implements OnInit {
 
   ngOnInit(): void {
     this._subscribeCategories();
+  }
+
+  private _addCategory(value: Category) {
+    const found = this.categories.find((c) => c.ID == value.ID);
+    if (!found) {
+      this.categories.push(value);
+      this.categories.sort((a, b) => {
+        if (a.Name < b.Name) {
+          return -1;
+        }
+        if (a.Name > b.Name) {
+          return 1;
+        }
+        return 0;
+      });
+    }
   }
 
   private _subscribeCategories(): void {
@@ -88,9 +110,6 @@ export class ListComponent implements OnInit {
         delete this.clonedCategories[category.ID.toString()];
       },
     });
-    // TODO: API modify
-    // Replace in memory category??
-    // delete this.clonedCategories[category.ID as unknown as string];
   }
 
   onRowEditCancel(category: Category, index: number) {

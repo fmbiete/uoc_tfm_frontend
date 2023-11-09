@@ -11,6 +11,13 @@ import { PageDishes } from '../models/dish.dto';
 export class CategoryService {
   constructor(private http: HttpClient) {}
 
+  create$(category: Category): Observable<Category> {
+    return this.http.post<Category>(
+      `${environment.apiUrl}/category/`,
+      category
+    );
+  }
+
   listCategories$(): Observable<Category[]> {
     return this.http.get<Category[]>(`${environment.apiUrl}/categories`);
   }
