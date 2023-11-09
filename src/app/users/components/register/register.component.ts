@@ -7,7 +7,7 @@ import {
   UntypedFormControl,
   UntypedFormBuilder,
 } from '@angular/forms';
-import { NgIf } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { SnackbarService } from 'src/app/common/services/snackbar.service';
 import { User } from '../../models/user.dto';
 import { UserService } from '../../services/user.service';
@@ -23,12 +23,12 @@ import { DynamicDialogRef } from 'primeng/dynamicdialog';
   styleUrls: ['./register.component.scss'],
   standalone: true,
   imports: [
+    CommonModule,
     ButtonModule,
     InputTextModule,
     DialogModule,
     FormsModule,
     ReactiveFormsModule,
-    NgIf,
   ],
 })
 export class RegisterComponent implements OnInit {
