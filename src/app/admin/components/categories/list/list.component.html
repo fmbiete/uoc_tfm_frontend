@@ -1,64 +1,70 @@
-<p-confirmDialog></p-confirmDialog>
+<div class="tfm-main-page">
+  <h1 i18n>Categories</h1>
 
-<p-table #table styleClass="p-datatable-sm p-datatable-striped" [value]="categories" dataKey="ID" editMode="row"
-  [paginator]="true" [rows]="5" [showCurrentPageReport]="true" [loading]="loading" i18n-currentPageReportTemplate
-  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [rowsPerPageOptions]="[5, 10, 25, 50]"
-  [globalFilterFields]="['Name']">
-  <ng-template pTemplate="caption">
-    <div class="flex">
-      <p-button type="button" i18n-label label="Reset Filter" [outlined]="true" size="small" icon="pi pi-filter-slash"
-        (click)="resetFilter(table)"></p-button>
-      <span class="p-input-icon-left ml-auto">
-        <i class="pi pi-search"></i>
-        <input pInputText type="text" class="p-inputtext-sm" (input)="applyFilterGlobal(table, $event, 'contains')"
-          i18n-placeholder placeholder="Search Name" />
-      </span>
-    </div>
-  </ng-template>
-  <ng-template pTemplate="header">
-    <tr>
-      <th scope="col">Name<p-columnFilter type="text" field="Name" display="menu"></p-columnFilter></th>
-      <th scope="col"></th>
-    </tr>
-  </ng-template>
-  <ng-template pTemplate="body" let-category let-editing="editing" let-ri="rowIndex">
-    <tr [pEditableRow]="category">
-      <td>
-        <p-cellEditor>
-          <ng-template pTemplate="input">
-            <input pInputText type="text" [(ngModel)]="category.Name" required i18n-aria-label
-              aria-label="Category Name">
-          </ng-template>
-          <ng-template pTemplate="output">
-            {{category.Name}}
-          </ng-template>
-        </p-cellEditor>
-      </td>
-      <td>
-        <div class="flex align-items-center justify-content-center gap-2">
-          <p-button *ngIf="!editing" type="button" pInitEditableRow icon="pi pi-pencil"
-            (click)="onRowEditInit(category)" [text]="true" size="small" i18n-pTooltip pTooltip="Modify Category"
-            tooltipPosition="bottom"></p-button>
-          <p-button *ngIf="!editing" type="button" icon="pi pi-trash" (click)="onRowDelete(category)" [text]="true"
-            size="small" class="p-button-danger" i18n-pTooltip pTooltip="Delete Category"
-            tooltipPosition="bottom"></p-button>
-          <p-button *ngIf="editing" type="button" pSaveEditableRow icon="pi pi-check" (click)="onRowEditSave(category)"
-            [text]="true" size="small" class="mr-2" i18n-pTooltip pTooltip="Save Category"
-            tooltipPosition="bottom"></p-button>
-          <p-button *ngIf="editing" type="button" pCancelEditableRow icon="pi pi-times"
-            (click)="onRowEditCancel(category, ri)" [text]="true" size="small" class="p-button-danger" i18n-pTooltip
-            pTooltip="Cancel Edit Category" tooltipPosition="bottom"></p-button>
-        </div>
-      </td>
-    </tr>
-  </ng-template>
-  <ng-template pTemplate="paginatorleft">
-    <p-button type="button" icon="pi pi-plus" size="small" styleClass="p-button-text" i18n-label label="Create Category"
-      i18n-pTooltip pTooltip="Create Category" tooltipPosition="bottom" (click)="openCreate()"></p-button>
-  </ng-template>
-  <ng-template pTemplate="emptymessage">
-    <tr>
-      <td colspan="2" i18n>No categories found.</td>
-    </tr>
-  </ng-template>
-</p-table>
+  <p-confirmDialog></p-confirmDialog>
+
+  <p-table #table styleClass="p-datatable-sm p-datatable-striped" [value]="categories" dataKey="ID" editMode="row"
+    [paginator]="true" [rows]="5" [showCurrentPageReport]="true" [loading]="loading" i18n-currentPageReportTemplate
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [rowsPerPageOptions]="[5, 10, 25, 50]" [globalFilterFields]="['Name']">
+    <ng-template pTemplate="caption">
+      <div class="flex">
+        <p-button type="button" i18n-label label="Reset Filter" [outlined]="true" size="small" icon="pi pi-filter-slash"
+          (click)="resetFilter(table)"></p-button>
+        <span class="p-input-icon-left ml-auto">
+          <i class="pi pi-search"></i>
+          <input pInputText type="text" class="p-inputtext-sm" (input)="applyFilterGlobal(table, $event, 'contains')"
+            i18n-placeholder placeholder="Search Name" />
+        </span>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th scope="col">Name<p-columnFilter type="text" field="Name" display="menu"></p-columnFilter></th>
+        <th scope="col"></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-category let-editing="editing" let-ri="rowIndex">
+      <tr [pEditableRow]="category">
+        <td>
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input pInputText type="text" [(ngModel)]="category.Name" required i18n-aria-label
+                aria-label="Category Name">
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{category.Name}}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td>
+          <div class="flex align-items-center justify-content-center gap-2">
+            <p-button *ngIf="!editing" type="button" pInitEditableRow icon="pi pi-pencil"
+              (click)="onRowEditInit(category)" [text]="true" size="small" i18n-pTooltip pTooltip="Modify Category"
+              tooltipPosition="bottom"></p-button>
+            <p-button *ngIf="!editing" type="button" icon="pi pi-trash" (click)="onRowDelete(category)" [text]="true"
+              size="small" class="p-button-danger" i18n-pTooltip pTooltip="Delete Category"
+              tooltipPosition="bottom"></p-button>
+            <p-button *ngIf="editing" type="button" pSaveEditableRow icon="pi pi-check"
+              (click)="onRowEditSave(category)" [text]="true" size="small" class="mr-2" i18n-pTooltip
+              pTooltip="Save Category" tooltipPosition="bottom"></p-button>
+            <p-button *ngIf="editing" type="button" pCancelEditableRow icon="pi pi-times"
+              (click)="onRowEditCancel(category, ri)" [text]="true" size="small" class="p-button-danger" i18n-pTooltip
+              pTooltip="Cancel Edit Category" tooltipPosition="bottom"></p-button>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="paginatorleft">
+      <p-button type="button" icon="pi pi-plus" size="small" styleClass="p-button-text" i18n-label
+        label="Create Category" i18n-pTooltip pTooltip="Create Category" tooltipPosition="bottom"
+        (click)="openCreate()"></p-button>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="2" i18n>No categories found.</td>
+      </tr>
+    </ng-template>
+  </p-table>
+
+</div>
