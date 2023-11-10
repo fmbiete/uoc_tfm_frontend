@@ -1,0 +1,6 @@
+@import 'primeflex/core/_variables.scss';
+
+// Class for the main div in each component
+.tfm-main-page {
+  @include styleclass('flex flex-column m-auto text-center w-11');
+}
