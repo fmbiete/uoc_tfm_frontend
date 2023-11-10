@@ -28,6 +28,7 @@ export class MenubarComponent implements OnInit {
         label: 'Allergens',
         icon: 'pi pi-fw pi-exclamation-triangle',
         styleClass: 'text-white',
+        routerLink: ['/admin/allergens'],
       },
       {
         label: 'Ingredients',
