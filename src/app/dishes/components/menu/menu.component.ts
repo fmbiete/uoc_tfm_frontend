@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { CategoryService } from '../../services/category.service';
 import { SnackbarService } from 'src/app/common/services/snackbar.service';
 import { Category } from '../../models/category.dto';
+import { first } from 'rxjs';
 
 @Component({
   selector: 'dishes-menu',
@@ -27,24 +28,27 @@ export class MenuComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.categoryService.listCategories$().subscribe({
-      next: (value: Category[]) => {
-        value.forEach((v: Category) => {
-          this.categories.push({
-            label: v.Name,
-            command: () => {
-              this.browseDishes(v.ID, v.Name);
-            },
+    this.categoryService
+      .list$()
+      .pipe(first())
+      .subscribe({
+        next: (value: Category[]) => {
+          value.forEach((v: Category) => {
+            this.categories.push({
+              label: v.Name,
+              command: () => {
+                this.browseDishes(v.ID, v.Name);
+              },
+            });
           });
-        });
-      },
-      error: (err: any) => {
-        this.snackbarService.show(
-          err,
-          $localize`Failed to list dish categories`
-        );
-      },
-    });
+        },
+        error: (err: any) => {
+          this.snackbarService.show(
+            err,
+            $localize`Failed to list dish categories`
+          );
+        },
+      });
   }
 
   browseDishes(id: number, name: string) {

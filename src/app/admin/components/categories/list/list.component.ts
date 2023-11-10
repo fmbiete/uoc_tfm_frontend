@@ -1,9 +1,8 @@
-import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Table, TableModule } from 'primeng/table';
 import { SnackbarService } from 'src/app/common/services/snackbar.service';
 import { Category } from 'src/app/dishes/models/category.dto';
-import { CategoryService } from 'src/app/dishes/services/category.service';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
@@ -14,6 +13,7 @@ import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { TooltipModule } from 'primeng/tooltip';
 import { NewComponent } from '../new/new.component';
 import { DialogModule } from 'primeng/dialog';
+import { CategoryService } from 'src/app/admin/services/category.service';
 
 @Component({
   selector: 'admin-categories-list',
@@ -40,13 +40,6 @@ export class ListComponent implements OnInit, OnDestroy {
   // Backup for edits
   private clonedCategories: { [s: string]: Category } = {};
   private dialogRef: DynamicDialogRef | undefined;
-
-  @Input('newCategory') set newCategory(value: Category) {
-    console.debug(value);
-    if (value) {
-      this._addCategory(value);
-    }
-  }
 
   constructor(
     private snackbar: SnackbarService,
@@ -99,7 +92,7 @@ export class ListComponent implements OnInit, OnDestroy {
   }
 
   onRowEditSave(category: Category) {
-    this.categoryService.modifyCategory$(category).subscribe({
+    this.categoryService.modify$(category).subscribe({
       next: (value: Category) => {
         // row is already updated in memory
         // delete backup
@@ -165,7 +158,7 @@ export class ListComponent implements OnInit, OnDestroy {
 
   private _subscribeCategories(): void {
     this.categoryService
-      .listCategories$()
+      .list$()
       .pipe(first())
       .subscribe({
         next: (value: Category[]) => {
