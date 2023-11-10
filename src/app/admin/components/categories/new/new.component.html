@@ -1,4 +1,4 @@
-<div [formGroup]="createForm">
+<div [formGroup]="createForm" class="mt-2">
   <div>
     <span class="p-float-label">
       <input id="name" pInputText [formControl]="name" type="text" i18n-placeholder placeholder="Category Name"
@@ -10,9 +10,9 @@
   </div>
 </div>
 
-<div class="mt-2 flex flex-column">
+<div class="flex flex-column md:flex-row mt-5">
+  <p-button icon="pi pi-times" severity="danger" (click)="cancel()" i18n-label label="Cancel"
+    styleClass="mb-2 w-full md:mr-2 md:max-w-max"></p-button>
   <p-button icon="pi pi-check" [disabled]="!createForm.valid" (click)="create()" i18n-label label="Create Category"
-    styleClass="w-11 mt-3"></p-button>
-  <p-button icon="pi pi-times" severity="danger" type="reset" i18n-label label="Cancel"
-    styleClass="w-11 mt-3"></p-button>
+    styleClass="w-full md:max-w-max"></p-button>
 </div>

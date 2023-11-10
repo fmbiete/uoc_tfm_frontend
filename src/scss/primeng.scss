@@ -1,0 +1,15 @@
+// ConfirmDialog service
+.p-confirm-dialog-message {
+  // Allow new lines
+  white-space: pre-line;
+  // Align text to left - instead of center
+  text-align: left;
+}
+
+// Message service
+.p-message-detail {
+  // extra left margin
+  margin-left: 30px;
+  // Allow new lines
+  white-space: pre-line;
+}

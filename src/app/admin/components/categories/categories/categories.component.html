@@ -1,7 +1,4 @@
 <div class="flex flex-column m-auto text-center w-11">
   <h1 i18n>Categories</h1>
-  <div class="flex flex-column md:flex-row md:justify-content-between">
-    <admin-categories-list [newCategory]="newCategory"></admin-categories-list>
-    <admin-categories-new class="mt-5" (newCategory)="newCategory=$event"></admin-categories-new>
-  </div>
+  <admin-categories-list></admin-categories-list>
 </div>

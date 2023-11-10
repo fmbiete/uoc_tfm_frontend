@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
   Validators,
   FormsModule,
@@ -7,7 +7,7 @@ import {
   UntypedFormControl,
   UntypedFormBuilder,
 } from '@angular/forms';
-import { NgIf } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
 import { AuthChallenge } from '../../models/auth.dto';
 import { LocalStorageService } from 'src/app/common/services/local-storage.service';
@@ -16,11 +16,7 @@ import { RegisterComponent } from '../../../users/components/register/register.c
 import { SnackbarService } from '../../services/snackbar.service';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
-import {
-  DialogService,
-  DynamicDialogConfig,
-  DynamicDialogRef,
-} from 'primeng/dynamicdialog';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 
@@ -30,17 +26,17 @@ import { PasswordModule } from 'primeng/password';
   styleUrls: ['./login.component.scss'],
   standalone: true,
   imports: [
+    CommonModule,
+    FormsModule,
     ButtonModule,
     DialogModule,
-    FormsModule,
     InputTextModule,
     PasswordModule,
     ReactiveFormsModule,
-    NgIf,
   ],
   providers: [DialogService],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
   loginForm: UntypedFormGroup;
   email: UntypedFormControl;
   password: UntypedFormControl;

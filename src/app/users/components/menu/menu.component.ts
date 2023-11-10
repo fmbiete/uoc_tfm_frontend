@@ -1,12 +1,11 @@
-import { AsyncPipe, NgIf } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { MenuModule } from 'primeng/menu';
-import { Observable } from 'rxjs';
 import { LoginComponent } from 'src/app/common/components/login/login.component';
 import { AuthResponse } from 'src/app/common/models/auth.dto';
 import { LocalStorageService } from 'src/app/common/services/local-storage.service';
@@ -18,8 +17,7 @@ import { SnackbarService } from 'src/app/common/services/snackbar.service';
   styleUrls: ['./menu.component.scss'],
   standalone: true,
   imports: [
-    NgIf,
-    AsyncPipe,
+    CommonModule,
     ButtonModule,
     DialogModule,
     MenuModule,
@@ -27,7 +25,7 @@ import { SnackbarService } from 'src/app/common/services/snackbar.service';
   ],
   providers: [DialogService],
 })
-export class MenuComponent implements OnInit {
+export class MenuComponent implements OnInit, OnDestroy {
   authenticated: boolean;
 
   userMenuItems: MenuItem[] | undefined;
@@ -42,15 +40,14 @@ export class MenuComponent implements OnInit {
   ) {
     this.authenticated = false;
   }
+
   ngOnInit(): void {
     this._subscribeAuthentication();
     this._defineUserMenu(this.localStorage.isUserAdmin());
   }
 
   ngOnDestroy(): void {
-    if (this.dialogLoginRef) {
-      this.dialogLoginRef.close();
-    }
+    if (this.dialogLoginRef) this.dialogLoginRef.close();
   }
 
   editCredentials(): void {

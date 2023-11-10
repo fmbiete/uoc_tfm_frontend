@@ -23,7 +23,7 @@ export class SnackbarService {
           sticky: true,
           severity: 'error',
           summary: $localize`Error`,
-          detail: `${message}\n${error.message} (Code: ${error.reflection})`,
+          detail: `${message}\n${error.message}\nReflection Code: ${error.reflection}`,
         });
       } else {
         // anything else

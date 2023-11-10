@@ -18,6 +18,12 @@ export class CategoryService {
     );
   }
 
+  delete$(categoryId: number): Observable<void> {
+    return this.http.delete<void>(
+      `${environment.apiUrl}/category/${categoryId}`
+    );
+  }
+
   listCategories$(): Observable<Category[]> {
     return this.http.get<Category[]>(`${environment.apiUrl}/categories`);
   }

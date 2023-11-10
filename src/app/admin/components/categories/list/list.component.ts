@@ -1,6 +1,5 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
 import { Table, TableModule } from 'primeng/table';
 import { SnackbarService } from 'src/app/common/services/snackbar.service';
 import { Category } from 'src/app/dishes/models/category.dto';
@@ -8,6 +7,13 @@ import { CategoryService } from 'src/app/dishes/services/category.service';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { first } from 'rxjs';
+import { ConfirmationService } from 'primeng/api';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { TooltipModule } from 'primeng/tooltip';
+import { NewComponent } from '../new/new.component';
+import { DialogModule } from 'primeng/dialog';
 
 @Component({
   selector: 'admin-categories-list',
@@ -16,17 +22,24 @@ import { InputTextModule } from 'primeng/inputtext';
     CommonModule,
     FormsModule,
     ButtonModule,
+    ConfirmDialogModule,
+    DialogModule,
     InputTextModule,
     TableModule,
+    TooltipModule,
   ],
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
+  providers: [ConfirmationService, DialogService],
 })
-export class ListComponent {
+export class ListComponent implements OnInit, OnDestroy {
+  @ViewChild('table') table!: Table;
+
   categories: Category[];
   loading: boolean;
   // Backup for edits
-  clonedCategories: { [s: string]: Category } = {};
+  private clonedCategories: { [s: string]: Category } = {};
+  private dialogRef: DynamicDialogRef | undefined;
 
   @Input('newCategory') set newCategory(value: Category) {
     console.debug(value);
@@ -37,7 +50,8 @@ export class ListComponent {
 
   constructor(
     private snackbar: SnackbarService,
-    private router: Router,
+    private confirmationService: ConfirmationService,
+    private dialogService: DialogService,
     private categoryService: CategoryService
   ) {
     this.categories = new Array<Category>();
@@ -48,32 +62,8 @@ export class ListComponent {
     this._subscribeCategories();
   }
 
-  private _addCategory(value: Category) {
-    const found = this.categories.find((c) => c.ID == value.ID);
-    if (!found) {
-      this.categories.push(value);
-      this.categories.sort((a, b) => {
-        if (a.Name < b.Name) {
-          return -1;
-        }
-        if (a.Name > b.Name) {
-          return 1;
-        }
-        return 0;
-      });
-    }
-  }
-
-  private _subscribeCategories(): void {
-    this.categoryService.listCategories$().subscribe({
-      next: (value: Category[]) => {
-        this.categories = value;
-        this.loading = false;
-      },
-      error: (err: any) => {
-        this.snackbar.show(err, $localize`Failed to list categories`);
-      },
-    });
+  ngOnDestroy(): void {
+    if (this.dialogRef) this.dialogRef.close();
   }
 
   // Filters
@@ -85,6 +75,23 @@ export class ListComponent {
     table.clear();
   }
 
+  onRowDelete(category: Category) {
+    this.confirmationService.confirm({
+      message: $localize`Do you want to delete this Category?\n${category.Name}`,
+      header: $localize`Delete Confirmation`,
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        this._deleteCategory(category);
+      },
+    });
+  }
+
+  onRowEditCancel(category: Category, index: number) {
+    // restore original row
+    this.categories[index] = this.clonedCategories[category.ID.toString()];
+    delete this.clonedCategories[category.ID.toString()];
+  }
+
   // Edit
   onRowEditInit(category: Category) {
     // save original row
@@ -92,9 +99,6 @@ export class ListComponent {
   }
 
   onRowEditSave(category: Category) {
-    console.debug(`Modified`);
-    console.debug(category);
-
     this.categoryService.modifyCategory$(category).subscribe({
       next: (value: Category) => {
         // row is already updated in memory
@@ -112,9 +116,65 @@ export class ListComponent {
     });
   }
 
-  onRowEditCancel(category: Category, index: number) {
-    // restore original row
-    this.categories[index] = this.clonedCategories[category.ID.toString()];
-    delete this.clonedCategories[category.ID.toString()];
+  openCreate(): void {
+    this.dialogRef = this.dialogService.open(NewComponent, {
+      header: $localize`Create Category`,
+      contentStyle: { overflow: 'auto' },
+      baseZIndex: 10000,
+    });
+
+    this.dialogRef.onClose.subscribe((result: Category | undefined) => {
+      if (result) this._addCategory(result);
+    });
+  }
+
+  private _addCategory(value: Category) {
+    const found = this.categories.find((c) => c.ID == value.ID);
+    if (!found) {
+      this.categories.push(value);
+      this.categories.sort((a, b) => {
+        if (a.Name < b.Name) {
+          return -1;
+        }
+        if (a.Name > b.Name) {
+          return 1;
+        }
+        return 0;
+      });
+      this.table.reset();
+    }
+  }
+
+  private _deleteCategory(category: Category): void {
+    this.categoryService
+      .delete$(category.ID)
+      .pipe(first())
+      .subscribe({
+        next: () => {
+          this.snackbar.show(null, $localize`Category was deleted`);
+          this.categories = this.categories.filter(
+            (c: Category) => c.ID !== category.ID
+          );
+          this.table.reset();
+        },
+        error: (err: any) => {
+          this.snackbar.show(err, $localize`Failed to delete Category`);
+        },
+      });
+  }
+
+  private _subscribeCategories(): void {
+    this.categoryService
+      .listCategories$()
+      .pipe(first())
+      .subscribe({
+        next: (value: Category[]) => {
+          this.categories = value;
+          this.loading = false;
+        },
+        error: (err: any) => {
+          this.snackbar.show(err, $localize`Failed to list categories`);
+        },
+      });
   }
 }
