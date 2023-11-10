@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CategoryService } from 'src/app/dishes/services/category.service';
 import { Category } from 'src/app/dishes/models/category.dto';
@@ -29,9 +29,7 @@ import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
   styleUrls: ['./new.component.scss'],
   providers: [DialogService],
 })
-export class NewComponent implements OnInit {
-  @Output() newCategory: EventEmitter<Category> = new EventEmitter();
-
+export class NewComponent {
   createForm: UntypedFormGroup;
   name: UntypedFormControl;
 
@@ -51,14 +49,6 @@ export class NewComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-    return;
-  }
-
-  ngOnDestroy(): void {
-    return;
-  }
-
   cancel(): void {
     this.ref.close(null);
   }
@@ -71,7 +61,6 @@ export class NewComponent implements OnInit {
 
     this.categoryService.create$(category).subscribe({
       next: (value: Category) => {
-        // this.newCategory.emit(value);
         this.snackbar.show(null, $localize`Category Creation succeded`);
         this.ref.close(value);
       },
