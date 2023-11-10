@@ -34,6 +34,7 @@ export class MenubarComponent implements OnInit {
         label: 'Ingredients',
         icon: 'pi pi-list',
         styleClass: 'text-white',
+        routerLink: ['/admin/ingredients'],
       },
       {
         label: `Dishes`,

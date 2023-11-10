@@ -1,0 +1,70 @@
+<div class="tfm-main-page">
+  <h1 i18n>Ingredients</h1>
+
+  <p-confirmDialog></p-confirmDialog>
+
+  <p-table #table styleClass="p-datatable-sm p-datatable-striped" [value]="ingredients" dataKey="ID" editMode="row"
+    [paginator]="true" [rows]="5" [showCurrentPageReport]="true" [loading]="loading" i18n-currentPageReportTemplate
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [rowsPerPageOptions]="[5, 10, 25, 50]" [globalFilterFields]="['Name']">
+    <ng-template pTemplate="caption">
+      <div class="flex">
+        <p-button type="button" i18n-label label="Reset Filter" [outlined]="true" size="small" icon="pi pi-filter-slash"
+          (click)="resetFilter(table)"></p-button>
+        <span class="p-input-icon-left ml-auto">
+          <i class="pi pi-search"></i>
+          <input pInputText type="text" class="p-inputtext-sm" (input)="applyFilterGlobal(table, $event, 'contains')"
+            i18n-placeholder placeholder="Search Name" />
+        </span>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th scope="col">Name<p-columnFilter type="text" field="Name" display="menu"></p-columnFilter></th>
+        <th scope="col"></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-ingredient let-editing="editing" let-ri="rowIndex">
+      <tr [pEditableRow]="ingredient">
+        <td>
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input pInputText type="text" [(ngModel)]="ingredient.Name" required i18n-aria-label
+                aria-label="Ingredient Name">
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{ingredient.Name}}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td>
+          <div class="flex align-items-center justify-content-center gap-2">
+            <p-button *ngIf="!editing" type="button" pInitEditableRow icon="pi pi-pencil"
+              (click)="onRowEditInit(ingredient)" [text]="true" size="small" i18n-pTooltip pTooltip="Modify Ingredient"
+              tooltipPosition="bottom"></p-button>
+            <p-button *ngIf="!editing" type="button" icon="pi pi-trash" (click)="onRowDelete(ingredient)" [text]="true"
+              size="small" class="p-button-danger" i18n-pTooltip pTooltip="Delete Ingredient"
+              tooltipPosition="bottom"></p-button>
+            <p-button *ngIf="editing" type="button" pSaveEditableRow icon="pi pi-check"
+              (click)="onRowEditSave(ingredient)" [text]="true" size="small" class="mr-2" i18n-pTooltip
+              pTooltip="Save Ingredient" tooltipPosition="bottom"></p-button>
+            <p-button *ngIf="editing" type="button" pCancelEditableRow icon="pi pi-times"
+              (click)="onRowEditCancel(ingredient, ri)" [text]="true" size="small" class="p-button-danger" i18n-pTooltip
+              pTooltip="Cancel Edit Ingredient" tooltipPosition="bottom"></p-button>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="paginatorleft">
+      <p-button type="button" icon="pi pi-plus" size="small" styleClass="p-button-text" i18n-label
+        label="Create Ingredient" i18n-pTooltip pTooltip="Create Ingredient" tooltipPosition="bottom"
+        (click)="openCreate()"></p-button>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="2" i18n>No categories found.</td>
+      </tr>
+    </ng-template>
+  </p-table>
+
+</div>
