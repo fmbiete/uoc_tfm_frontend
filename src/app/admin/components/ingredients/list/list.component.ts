@@ -52,7 +52,7 @@ export class ListComponent {
   }
 
   ngOnInit(): void {
-    this._subscribeCategories();
+    this._subscribeIngredients();
   }
 
   ngOnDestroy(): void {
@@ -68,44 +68,44 @@ export class ListComponent {
     table.clear();
   }
 
-  onRowDelete(category: Ingredient) {
+  onRowDelete(ingredient: Ingredient) {
     this.confirmationService.confirm({
-      message: $localize`Do you want to delete this Ingredient?\n${category.Name}`,
+      message: $localize`Do you want to delete this Ingredient?\n${ingredient.Name}`,
       header: $localize`Delete Confirmation`,
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-        this._deleteIngredient(category);
+        this._deleteIngredient(ingredient);
       },
     });
   }
 
-  onRowEditCancel(category: Ingredient, index: number) {
+  onRowEditCancel(ingredient: Ingredient, index: number) {
     // restore original row
-    this.ingredients[index] = this.clonedIngredients[category.ID.toString()];
-    delete this.clonedIngredients[category.ID.toString()];
+    this.ingredients[index] = this.clonedIngredients[ingredient.ID.toString()];
+    delete this.clonedIngredients[ingredient.ID.toString()];
   }
 
   // Edit
-  onRowEditInit(category: Ingredient) {
+  onRowEditInit(ingredient: Ingredient) {
     // save original row
-    this.clonedIngredients[category.ID.toString()] = { ...category };
+    this.clonedIngredients[ingredient.ID.toString()] = { ...ingredient };
   }
 
-  onRowEditSave(category: Ingredient) {
-    this.ingredientService.modify$(category).subscribe({
+  onRowEditSave(ingredient: Ingredient) {
+    this.ingredientService.modify$(ingredient).subscribe({
       next: (value: Ingredient) => {
         // row is already updated in memory
         // delete backup
-        delete this.clonedIngredients[category.ID.toString()];
+        delete this.clonedIngredients[ingredient.ID.toString()];
       },
       error: (err: any) => {
-        this.snackbar.show(err, $localize`Failed to modify category`);
+        this.snackbar.show(err, $localize`Failed to modify ingredient`);
         // find original id
-        const index = this.ingredients.findIndex((v) => v.ID == category.ID);
+        const index = this.ingredients.findIndex((v) => v.ID == ingredient.ID);
         // restore original row
         this.ingredients[index] =
-          this.clonedIngredients[category.ID.toString()];
-        delete this.clonedIngredients[category.ID.toString()];
+          this.clonedIngredients[ingredient.ID.toString()];
+        delete this.clonedIngredients[ingredient.ID.toString()];
       },
     });
   }
@@ -139,15 +139,15 @@ export class ListComponent {
     }
   }
 
-  private _deleteIngredient(category: Ingredient): void {
+  private _deleteIngredient(ingredient: Ingredient): void {
     this.ingredientService
-      .delete$(category.ID)
+      .delete$(ingredient.ID)
       .pipe(first())
       .subscribe({
         next: () => {
           this.snackbar.show(null, $localize`Ingredient was deleted`);
           this.ingredients = this.ingredients.filter(
-            (c: Ingredient) => c.ID !== category.ID
+            (c: Ingredient) => c.ID !== ingredient.ID
           );
           this.table.reset();
         },
@@ -157,7 +157,7 @@ export class ListComponent {
       });
   }
 
-  private _subscribeCategories(): void {
+  private _subscribeIngredients(): void {
     this.ingredientService
       .list$()
       .pipe(first())
@@ -167,7 +167,7 @@ export class ListComponent {
           this.loading = false;
         },
         error: (err: any) => {
-          this.snackbar.show(err, $localize`Failed to list categories`);
+          this.snackbar.show(err, $localize`Failed to list Ingredients`);
         },
       });
   }
