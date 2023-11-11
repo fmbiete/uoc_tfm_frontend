@@ -135,6 +135,7 @@ export class RegisterComponent implements OnInit {
         City: this.city.value,
         PostalCode: this.postal_code.value,
         Phone: this.phone.value,
+        IsAdmin: false,
       };
 
       await this.userService.create(user);

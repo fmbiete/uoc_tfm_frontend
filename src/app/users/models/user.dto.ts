@@ -10,4 +10,11 @@ export class User {
   City!: string;
   PostalCode!: string;
   Phone!: string;
+  IsAdmin!: boolean;
+}
+
+export class PageUsers {
+  users!: User[];
+  page!: number;
+  limit!: number;
 }
