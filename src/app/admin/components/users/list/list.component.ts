@@ -68,11 +68,11 @@ export class ListComponent implements OnInit {
     this._subscribeUsers(pageSize, pageCount);
   }
 
-  resetFilter(table: Table) {
+  resetFilter(table: Table): void {
     table.clear();
   }
 
-  onRowDelete(user: User) {
+  onRowDelete(user: User): void {
     this.confirmationService.confirm({
       message: $localize`Do you want to delete this User?\n${user.Name}`,
       header: $localize`Delete Confirmation`,
@@ -83,7 +83,7 @@ export class ListComponent implements OnInit {
     });
   }
 
-  onRowResetPassword(user: User) {
+  onRowResetPassword(user: User): void {
     this.confirmationService.confirm({
       message: $localize`Do you want to reset the password for this User?\n${user.Name}`,
       header: $localize`Reset User Password`,
@@ -94,7 +94,7 @@ export class ListComponent implements OnInit {
     });
   }
 
-  onRowToggleAdmin(user: User, idx: number) {
+  onRowToggleAdmin(user: User, idx: number): void {
     this.confirmationService.confirm({
       message: $localize`Do you want to toggle the Administrator flag for this User?\n${user.Name}`,
       header: $localize`Toggle Aministrator Access`,
