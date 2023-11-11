@@ -4,9 +4,9 @@ import { ButtonModule } from 'primeng/button';
 import { MenuModule } from 'primeng/menu';
 import { MenuItem } from 'primeng/api';
 import { Router } from '@angular/router';
-import { CategoryService } from '../../services/category.service';
-import { SnackbarService } from 'src/app/common/services/snackbar.service';
-import { Category } from '../../models/category.dto';
+import { CategoryService } from 'src/app/shared/services/category.service';
+import { SnackbarService } from 'src/app/shared/services/snackbar.service';
+import { Category } from 'src/app/shared/models/category.dto';
 import { first } from 'rxjs';
 
 @Component({

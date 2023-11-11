@@ -4,7 +4,7 @@ import { MessagesModule } from 'primeng/messages';
 import { CardModule } from 'primeng/card';
 
 @Component({
-  selector: 'app-failure',
+  selector: 'checkout-failure',
   standalone: true,
   // Adding a visual module (CardModule), makes the messages visible
   imports: [CommonModule, MessagesModule, CardModule],

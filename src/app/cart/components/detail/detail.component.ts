@@ -2,16 +2,15 @@ import { AsyncPipe, CommonModule, NgFor, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { Observable } from 'rxjs';
-import { CartService } from '../../services/cart.service';
-import { Cart } from '../../models/cart.dto';
-import { LocalStorageService } from 'src/app/common/services/local-storage.service';
-import { LoginComponent } from 'src/app/common/components/login/login.component';
+import { CartService } from 'src/app/shared/services/cart.service';
+import { Cart } from 'src/app/shared/models/cart.dto';
+import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
+import { LoginComponent } from 'src/app/users/components/login/login.component';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { DialogService } from 'primeng/dynamicdialog';
 import { DividerModule } from 'primeng/divider';
 import { MessageModule } from 'primeng/message';
-import { FormActionsComponent } from 'src/app/checkout/components/form-actions/form-actions.component';
 import { TooltipModule } from 'primeng/tooltip';
 
 @Component({
@@ -27,7 +26,6 @@ import { TooltipModule } from 'primeng/tooltip';
     DialogModule,
     DividerModule,
     MessageModule,
-    FormActionsComponent,
     TooltipModule,
   ],
   providers: [DialogService],

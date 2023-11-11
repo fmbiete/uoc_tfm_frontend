@@ -11,9 +11,9 @@ import {
 import { ButtonModule } from 'primeng/button';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { InputTextModule } from 'primeng/inputtext';
-import { AllergenService } from 'src/app/admin/services/allergen.service';
-import { SnackbarService } from 'src/app/common/services/snackbar.service';
-import { Allergen } from 'src/app/dishes/models/allergen.dto';
+import { AllergenService } from 'src/app/shared/services/allergen.service';
+import { SnackbarService } from 'src/app/shared/services/snackbar.service';
+import { Allergen } from 'src/app/shared/models/allergen.dto';
 
 @Component({
   selector: 'app-new',

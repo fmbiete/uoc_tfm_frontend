@@ -2,11 +2,11 @@ import { Component, Input } from '@angular/core';
 import { CommonModule, TitleCasePipe } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { TagModule } from 'primeng/tag';
-import { Dish } from '../../models/dish.dto';
+import { Dish } from 'src/app/shared/models/dish.dto';
 import { RatingPipe } from '../../pipes/rating.pipe';
 import { RatingComponent } from '../rating/rating.component';
 import { MessageModule } from 'primeng/message';
-import { CartService } from 'src/app/cart/services/cart.service';
+import { CartService } from 'src/app/shared/services/cart.service';
 import { RouterLink } from '@angular/router';
 
 @Component({

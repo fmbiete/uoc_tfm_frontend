@@ -8,13 +8,14 @@ import {
   UntypedFormBuilder,
 } from '@angular/forms';
 import { NgIf } from '@angular/common';
-import { SnackbarService } from 'src/app/common/services/snackbar.service';
-import { UserService } from '../../services/user.service';
-import { LocalStorageService } from 'src/app/common/services/local-storage.service';
-import { User } from '../../models/user.dto';
+import { SnackbarService } from 'src/app/shared/services/snackbar.service';
+import { UserService } from 'src/app/shared/services/user.service';
+import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
+import { User } from 'src/app/shared/models/user.dto';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { FormActionsComponent } from '../form-actions/form-actions.component';
+import { first } from 'rxjs';
 
 @Component({
   selector: 'users-profile',
@@ -91,16 +92,21 @@ export class ProfileComponent {
     });
   }
 
-  async ngOnInit(): Promise<void> {
+  ngOnInit(): void {
     // load user data
     const userId = this.localStorage.getUserId();
 
-    try {
-      const data = await this.userService.get(userId);
-      this.setProfile(data);
-    } catch (error: any) {
-      this.snackbar.show(error, $localize`User Retrieval Failed`);
-    }
+    this.userService
+      .get$(userId)
+      .pipe(first())
+      .subscribe({
+        next: (value: User) => {
+          this.setProfile(value);
+        },
+        error: (err: any) => {
+          this.snackbar.show(err, $localize`User Retrieval Failed`);
+        },
+      });
   }
 
   private setProfile(data: User | undefined) {
@@ -119,18 +125,23 @@ export class ProfileComponent {
     }
   }
 
-  async update(): Promise<void> {
+  update(): void {
     const userId = this.localStorage.getUserId();
 
-    try {
-      this.profileUser = this.profileForm.value;
-      this.profileUser.ID = userId;
-      this.profileUser.Email = this.localStorage.getUserEmail();
+    this.profileUser = this.profileForm.value;
+    this.profileUser.ID = userId;
+    this.profileUser.Email = this.localStorage.getUserEmail();
 
-      await this.userService.update(this.profileUser);
-      this.snackbar.show(null, $localize`User Modified Successfully`);
-    } catch (error: any) {
-      this.snackbar.show(error, $localize`User Modification Failed`);
-    }
+    this.userService
+      .modify$(this.profileUser)
+      .pipe(first())
+      .subscribe({
+        next: (value: User) => {
+          this.snackbar.show(null, $localize`User Modified Successfully`);
+        },
+        error: (err: any) => {
+          this.snackbar.show(err, $localize`User Modification Failed`);
+        },
+      });
   }
 }

@@ -8,14 +8,15 @@ import {
   UntypedFormBuilder,
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { SnackbarService } from 'src/app/common/services/snackbar.service';
-import { User } from '../../models/user.dto';
-import { UserService } from '../../services/user.service';
-import { CustomValidators } from 'src/app/common/validators/custom.validator';
+import { SnackbarService } from 'src/app/shared/services/snackbar.service';
+import { User } from 'src/app/shared/models/user.dto';
+import { UserService } from 'src/app/shared/services/user.service';
+import { CustomValidators } from 'src/app/shared/validators/custom.validator';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { DialogModule } from 'primeng/dialog';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
+import { first } from 'rxjs';
 
 @Component({
   selector: 'app-register',
@@ -121,32 +122,37 @@ export class RegisterComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  async register(): Promise<void> {
-    try {
-      const user: User = {
-        ID: -1,
-        Email: this.email.value,
-        Password: this.password.value,
-        Name: this.name.value,
-        Surname: this.surname.value,
-        Address1: this.address1.value,
-        Address2: this.address2.value,
-        Address3: this.address3.value,
-        City: this.city.value,
-        PostalCode: this.postal_code.value,
-        Phone: this.phone.value,
-        IsAdmin: false,
-      };
+  register(): void {
+    const user: User = {
+      ID: -1,
+      Email: this.email.value,
+      Password: this.password.value,
+      Name: this.name.value,
+      Surname: this.surname.value,
+      Address1: this.address1.value,
+      Address2: this.address2.value,
+      Address3: this.address3.value,
+      City: this.city.value,
+      PostalCode: this.postal_code.value,
+      Phone: this.phone.value,
+      IsAdmin: false,
+    };
 
-      await this.userService.create(user);
-      this.dialogRef.close();
-      this.snackbar.show(
-        null,
-        $localize`User Creation succeded\nYou can now login`
-      );
-    } catch (error: any) {
-      // we stay in the dialog and show the error
-      this.snackbar.show(error, $localize`User Creation failed`);
-    }
+    this.userService
+      .create$(user)
+      .pipe(first())
+      .subscribe({
+        next: (value: User) => {
+          this.snackbar.show(
+            null,
+            $localize`User Creation succeded\nYou can now login`
+          );
+          this.dialogRef.close();
+        },
+        error: (err: any) => {
+          // we stay in the dialog and show the error
+          this.snackbar.show(err, $localize`User Creation failed`);
+        },
+      });
   }
 }

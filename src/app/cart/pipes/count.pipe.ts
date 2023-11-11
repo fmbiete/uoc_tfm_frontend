@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Cart } from '../models/cart.dto';
+import { Cart } from '../../shared/models/cart.dto';
 
 @Pipe({
   name: 'countCartProducts',

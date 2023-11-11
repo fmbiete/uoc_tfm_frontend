@@ -4,16 +4,16 @@ import { ButtonModule } from 'primeng/button';
 import { DataViewModule } from 'primeng/dataview';
 import { first } from 'rxjs';
 import { Router } from '@angular/router';
-import { CartService } from 'src/app/cart/services/cart.service';
-import { LocalStorageService } from 'src/app/common/services/local-storage.service';
-import { Dish, PageDishes } from '../../models/dish.dto';
-import { DishService } from '../../services/dish.service';
+import { CartService } from 'src/app/shared/services/cart.service';
+import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
+import { Dish, PageDishes } from 'src/app/shared/models/dish.dto';
+import { DishService } from 'src/app/shared/services/dish.service';
 import { MessageModule } from 'primeng/message';
 import { TagModule } from 'primeng/tag';
 import { RatingComponent } from '../rating/rating.component';
 import { RatingPipe } from '../../pipes/rating.pipe';
 import { GridItemComponent } from '../grid-item/grid-item.component';
-import { SnackbarService } from 'src/app/common/services/snackbar.service';
+import { SnackbarService } from 'src/app/shared/services/snackbar.service';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @Component({
@@ -73,7 +73,7 @@ export class SearchComponent implements OnInit {
   private searchByTerm(): void {
     console.debug(this._searchTerm);
     this.dishService
-      .favourites()
+      .favourites$()
       .pipe(first())
       .subscribe({
         next: (value: PageDishes) => {

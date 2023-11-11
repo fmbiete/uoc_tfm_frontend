@@ -11,9 +11,9 @@ import {
 import { ButtonModule } from 'primeng/button';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { InputTextModule } from 'primeng/inputtext';
-import { IngredientService } from 'src/app/admin/services/ingredient.service';
-import { SnackbarService } from 'src/app/common/services/snackbar.service';
-import { Ingredient } from 'src/app/dishes/models/ingredient.dto';
+import { IngredientService } from 'src/app/shared/services/ingredient.service';
+import { SnackbarService } from 'src/app/shared/services/snackbar.service';
+import { Ingredient } from 'src/app/shared/models/ingredient.dto';
 
 @Component({
   selector: 'app-new',

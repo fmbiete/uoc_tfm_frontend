@@ -1,7 +1,7 @@
 <ng-container *ngIf="authenticated && admin; else public">
-  <common-home-admin></common-home-admin>
+  <admin-home></admin-home>
 </ng-container>
 
 <ng-template #public>
-  <common-home-user></common-home-user>
+  <dish-home></dish-home>
 </ng-template>

@@ -1,9 +1,9 @@
 import { Component, Input } from '@angular/core';
-import { Dish } from '../../models/dish.dto';
+import { Dish } from 'src/app/shared/models/dish.dto';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { CurrencyPipe } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
-import { CartService } from 'src/app/cart/services/cart.service';
+import { CartService } from 'src/app/shared/services/cart.service';
 
 @Component({
   selector: 'dish-thumbnail',

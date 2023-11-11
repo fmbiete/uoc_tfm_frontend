@@ -1,13 +1,13 @@
 import { Component, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Allergen } from 'src/app/dishes/models/allergen.dto';
+import { Allergen } from 'src/app/shared/models/allergen.dto';
 import { ConfirmationService } from 'primeng/api';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Table, TableModule } from 'primeng/table';
 import { first } from 'rxjs';
-import { SnackbarService } from 'src/app/common/services/snackbar.service';
+import { SnackbarService } from 'src/app/shared/services/snackbar.service';
 import { NewComponent } from '../new/new.component';
-import { AllergenService } from 'src/app/admin/services/allergen.service';
+import { AllergenService } from 'src/app/shared/services/allergen.service';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';

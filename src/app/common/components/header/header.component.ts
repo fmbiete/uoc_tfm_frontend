@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
-import { HeaderService } from '../../services/header.service';
-import { Header } from '../../models/header.dto';
+import { HeaderService } from '../../../shared/services/header.service';
+import { Header } from '../../../shared/models/header.dto';
 import { CommonModule } from '@angular/common';
 import { environment } from 'src/environments/environment';
 import { ToolbarModule } from 'primeng/toolbar';
@@ -10,7 +10,7 @@ import { MenuModule } from 'primeng/menu';
 import { MenuComponent as CartMenuComponent } from 'src/app/cart/components/menu/menu.component';
 import { MenuComponent as UserMenuComponent } from 'src/app/users/components/menu/menu.component';
 import { MenuComponent as DishesMenuComponent } from 'src/app/dishes/components/menu/menu.component';
-import { LocalStorageService } from '../../services/local-storage.service';
+import { LocalStorageService } from '../../../shared/services/local-storage.service';
 
 @Component({
   selector: 'app-header',

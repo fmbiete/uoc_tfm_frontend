@@ -1,19 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AsyncPipe, CommonModule, TitleCasePipe } from '@angular/common';
-import {
-  Observable,
-  Subscription,
-  debounceTime,
-  distinctUntilChanged,
-  first,
-  map,
-  switchMap,
-} from 'rxjs';
+import { first } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CartService } from 'src/app/cart/services/cart.service';
-import { LocalStorageService } from 'src/app/common/services/local-storage.service';
-import { Dish, PageDishes } from '../../models/dish.dto';
-import { DishService } from '../../services/dish.service';
+import { Dish, PageDishes } from 'src/app/shared/models/dish.dto';
 import { ButtonModule } from 'primeng/button';
 import { DataViewModule } from 'primeng/dataview';
 import { MessageModule } from 'primeng/message';
@@ -21,8 +10,8 @@ import { TagModule } from 'primeng/tag';
 import { RatingPipe } from '../../pipes/rating.pipe';
 import { GridItemComponent } from '../grid-item/grid-item.component';
 import { RatingComponent } from '../rating/rating.component';
-import { CategoryService } from '../../services/category.service';
-import { SnackbarService } from 'src/app/common/services/snackbar.service';
+import { CategoryService } from 'src/app/shared/services/category.service';
+import { SnackbarService } from 'src/app/shared/services/snackbar.service';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @Component({
@@ -48,7 +37,6 @@ export class BrowseComponent implements OnInit {
   categoryId: number;
   categoryName!: string;
   dishes: Array<Dish>;
-  // refSubscription!: Subscription;
   pageSize: number;
   pageCount: number;
 
@@ -57,9 +45,7 @@ export class BrowseComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private route: ActivatedRoute,
     private snackbar: SnackbarService,
-    private categoryService: CategoryService,
-    private localStorage: LocalStorageService,
-    private cartService: CartService
+    private categoryService: CategoryService
   ) {
     this.categoryId = 0;
     this.dishes = new Array<Dish>();

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PageUsers, User } from 'src/app/users/models/user.dto';
+import { PageUsers, User } from 'src/app/shared/models/user.dto';
 import { FormsModule } from '@angular/forms';
 import { ConfirmationService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
@@ -9,8 +9,8 @@ import { InputTextModule } from 'primeng/inputtext';
 import { TableModule, Table, TableLazyLoadEvent } from 'primeng/table';
 import { TooltipModule } from 'primeng/tooltip';
 import { first } from 'rxjs';
-import { SnackbarService } from 'src/app/common/services/snackbar.service';
-import { UserService } from 'src/app/admin/services/user.service';
+import { SnackbarService } from 'src/app/shared/services/snackbar.service';
+import { UserService } from 'src/app/shared/services/user.service';
 
 @Component({
   selector: 'app-list',

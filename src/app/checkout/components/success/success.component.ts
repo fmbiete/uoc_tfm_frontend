@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MessageModule } from 'primeng/message';
 
 @Component({
-  selector: 'app-success',
+  selector: 'checkout-success',
   standalone: true,
   imports: [CommonModule, MessageModule],
   templateUrl: './success.component.html',

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Category } from 'src/app/dishes/models/category.dto';
+import { Category } from 'src/app/shared/models/category.dto';
 import {
   UntypedFormGroup,
   UntypedFormControl,
@@ -9,11 +9,11 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { SnackbarService } from 'src/app/common/services/snackbar.service';
+import { SnackbarService } from 'src/app/shared/services/snackbar.service';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { CategoryService } from 'src/app/admin/services/category.service';
+import { CategoryService } from 'src/app/shared/services/category.service';
 
 @Component({
   selector: 'admin-categories-new',

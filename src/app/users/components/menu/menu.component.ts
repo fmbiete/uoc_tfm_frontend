@@ -6,10 +6,10 @@ import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { MenuModule } from 'primeng/menu';
-import { LoginComponent } from 'src/app/common/components/login/login.component';
-import { AuthResponse } from 'src/app/common/models/auth.dto';
-import { LocalStorageService } from 'src/app/common/services/local-storage.service';
-import { SnackbarService } from 'src/app/common/services/snackbar.service';
+import { LoginComponent } from '../login/login.component';
+import { AuthResponse } from 'src/app/shared/models/auth.dto';
+import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
+import { SnackbarService } from 'src/app/shared/services/snackbar.service';
 
 @Component({
   selector: 'users-menu',

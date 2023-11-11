@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PromotionService } from 'src/app/admin/services/promotion.service';
+import { PromotionService } from 'src/app/shared/services/promotion.service';
 import {
   DialogService,
   DynamicDialogConfig,
@@ -17,9 +17,9 @@ import {
 import { ButtonModule } from 'primeng/button';
 import { CalendarModule } from 'primeng/calendar';
 import { InputNumberModule } from 'primeng/inputnumber';
-import { SnackbarService } from 'src/app/common/services/snackbar.service';
-import { Dish } from 'src/app/dishes/models/dish.dto';
-import { Promotion } from 'src/app/dishes/models/promotion.dto';
+import { SnackbarService } from 'src/app/shared/services/snackbar.service';
+import { Dish } from 'src/app/shared/models/dish.dto';
+import { Promotion } from 'src/app/shared/models/promotion.dto';
 
 @Component({
   selector: 'app-new',

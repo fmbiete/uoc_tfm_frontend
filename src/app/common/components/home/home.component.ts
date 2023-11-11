@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LocalStorageService } from '../../services/local-storage.service';
-import { AuthResponse } from '../../models/auth.dto';
-import { SnackbarService } from '../../services/snackbar.service';
-import { HomeUserComponent } from '../home-user/home-user.component';
-import { HomeAdminComponent } from '../home-admin/home-admin.component';
+import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
+import { AuthResponse } from 'src/app/shared/models/auth.dto';
+import { SnackbarService } from 'src/app/shared/services/snackbar.service';
+import { HomeComponent as HomeUserComponent } from 'src/app/dishes/components/home/home.component';
+import { HomeComponent as HomeAdminComponent } from 'src/app/admin/components/home/home.component';
 
 @Component({
   selector: 'app-home',

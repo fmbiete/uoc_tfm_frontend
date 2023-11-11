@@ -1,13 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Dish } from '../../models/dish.dto';
-import { SnackbarService } from 'src/app/common/services/snackbar.service';
-import { DishService } from '../../services/dish.service';
+import { Dish } from 'src/app/shared/models/dish.dto';
+import { SnackbarService } from 'src/app/shared/services/snackbar.service';
+import { DishService } from 'src/app/shared/services/dish.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { CommonModule, CurrencyPipe, TitleCasePipe } from '@angular/common';
-import { LocalStorageService } from 'src/app/common/services/local-storage.service';
+import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
 import { RatingComponent } from '../rating/rating.component';
 import { RatingPipe } from '../../pipes/rating.pipe';
-import { CartService } from 'src/app/cart/services/cart.service';
+import { CartService } from 'src/app/shared/services/cart.service';
 import { ChipsModule } from 'primeng/chips';
 import { SkeletonModule } from 'primeng/skeleton';
 import { ButtonModule } from 'primeng/button';
@@ -56,7 +56,7 @@ export class DetailComponent implements OnInit {
   ngOnInit(): void {
     this.authenticated = this.localStorage.isUserLogged();
     if (this.id !== undefined) {
-      this.dishService.detail(parseInt(this.id)).subscribe({
+      this.dishService.get$(parseInt(this.id)).subscribe({
         next: (dish: Dish) => {
           this.dish = dish;
           this.loaded = true;
@@ -73,7 +73,7 @@ export class DetailComponent implements OnInit {
   }
 
   like(): void {
-    this.dishService.like(this.dish.ID).subscribe({
+    this.dishService.like$(this.dish.ID).subscribe({
       next: () => {
         this.liked = true;
         this.disliked = false;
@@ -85,7 +85,7 @@ export class DetailComponent implements OnInit {
   }
 
   dislike(): void {
-    this.dishService.dislike(this.dish.ID).subscribe({
+    this.dishService.dislike$(this.dish.ID).subscribe({
       next: () => {
         this.liked = false;
         this.disliked = true;

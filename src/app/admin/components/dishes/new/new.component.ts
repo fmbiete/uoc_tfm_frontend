@@ -8,22 +8,22 @@ import {
   UntypedFormGroup,
   Validators,
 } from '@angular/forms';
-import { Dish } from 'src/app/dishes/models/dish.dto';
-import { Allergen } from 'src/app/dishes/models/allergen.dto';
-import { Category } from 'src/app/dishes/models/category.dto';
+import { Dish } from 'src/app/shared/models/dish.dto';
+import { Allergen } from 'src/app/shared/models/allergen.dto';
+import { Category } from 'src/app/shared/models/category.dto';
 import { ButtonModule } from 'primeng/button';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { InputTextModule } from 'primeng/inputtext';
-import { SnackbarService } from 'src/app/common/services/snackbar.service';
-import { Promotion } from 'src/app/dishes/models/promotion.dto';
-import { DishService } from 'src/app/admin/services/dish.service';
+import { SnackbarService } from 'src/app/shared/services/snackbar.service';
+import { Promotion } from 'src/app/shared/models/promotion.dto';
+import { DishService } from 'src/app/shared/services/dish.service';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { MultiSelectModule } from 'primeng/multiselect';
-import { Ingredient } from 'src/app/dishes/models/ingredient.dto';
-import { CategoryService } from 'src/app/admin/services/category.service';
+import { Ingredient } from 'src/app/shared/models/ingredient.dto';
+import { CategoryService } from 'src/app/shared/services/category.service';
 import { first } from 'rxjs';
-import { AllergenService } from 'src/app/admin/services/allergen.service';
-import { IngredientService } from 'src/app/admin/services/ingredient.service';
+import { AllergenService } from 'src/app/shared/services/allergen.service';
+import { IngredientService } from 'src/app/shared/services/ingredient.service';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 
 @Component({

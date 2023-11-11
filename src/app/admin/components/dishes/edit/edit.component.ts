@@ -19,15 +19,15 @@ import { InputTextModule } from 'primeng/inputtext';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { first } from 'rxjs';
-import { AllergenService } from 'src/app/admin/services/allergen.service';
-import { CategoryService } from 'src/app/admin/services/category.service';
-import { IngredientService } from 'src/app/admin/services/ingredient.service';
-import { SnackbarService } from 'src/app/common/services/snackbar.service';
-import { Allergen } from 'src/app/dishes/models/allergen.dto';
-import { Category } from 'src/app/dishes/models/category.dto';
-import { Dish } from 'src/app/dishes/models/dish.dto';
-import { Ingredient } from 'src/app/dishes/models/ingredient.dto';
-import { DishService } from 'src/app/admin/services/dish.service';
+import { AllergenService } from 'src/app/shared/services/allergen.service';
+import { CategoryService } from 'src/app/shared/services/category.service';
+import { IngredientService } from 'src/app/shared/services/ingredient.service';
+import { SnackbarService } from 'src/app/shared/services/snackbar.service';
+import { Allergen } from 'src/app/shared/models/allergen.dto';
+import { Category } from 'src/app/shared/models/category.dto';
+import { Dish } from 'src/app/shared/models/dish.dto';
+import { Ingredient } from 'src/app/shared/models/ingredient.dto';
+import { DishService } from 'src/app/shared/services/dish.service';
 
 @Component({
   selector: 'app-edit',

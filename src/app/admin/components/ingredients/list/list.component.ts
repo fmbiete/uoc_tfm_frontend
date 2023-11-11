@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Ingredient } from 'src/app/dishes/models/ingredient.dto';
-import { IngredientService } from 'src/app/admin/services/ingredient.service';
+import { Ingredient } from 'src/app/shared/models/ingredient.dto';
+import { IngredientService } from 'src/app/shared/services/ingredient.service';
 import { FormsModule } from '@angular/forms';
 import { ConfirmationService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
@@ -12,7 +12,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { TableModule, Table } from 'primeng/table';
 import { TooltipModule } from 'primeng/tooltip';
 import { first } from 'rxjs';
-import { SnackbarService } from 'src/app/common/services/snackbar.service';
+import { SnackbarService } from 'src/app/shared/services/snackbar.service';
 import { NewComponent } from '../new/new.component';
 
 @Component({

@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Cart } from '../../models/cart.dto';
-import { CartService } from '../../services/cart.service';
+import { Cart } from 'src/app/shared/models/cart.dto';
+import { CartService } from 'src/app/shared/services/cart.service';
 import { Router } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { AsyncPipe, NgFor, NgIf } from '@angular/common';
-import { CountPipe as CountCartProductsPipe } from 'src/app/cart/pipes/count.pipe';
+import { CountPipe as CountCartProductsPipe } from '../../pipes/count.pipe';
 import { TooltipModule } from 'primeng/tooltip';
 
 @Component({

@@ -5,7 +5,7 @@ import {
   DatePipe,
   TitleCasePipe,
 } from '@angular/common';
-import { Dish, PageDishes } from 'src/app/dishes/models/dish.dto';
+import { Dish, PageDishes } from 'src/app/shared/models/dish.dto';
 import { FormsModule } from '@angular/forms';
 import { ConfirmationService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
@@ -16,14 +16,14 @@ import { TableModule, Table, TableLazyLoadEvent } from 'primeng/table';
 import { TooltipModule } from 'primeng/tooltip';
 import { TagModule } from 'primeng/tag';
 import { first } from 'rxjs';
-import { SnackbarService } from 'src/app/common/services/snackbar.service';
-import { DishService } from 'src/app/admin/services/dish.service';
+import { SnackbarService } from 'src/app/shared/services/snackbar.service';
+import { DishService } from 'src/app/shared/services/dish.service';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { NewComponent } from '../new/new.component';
 import { EditComponent } from '../edit/edit.component';
-import { Promotion } from 'src/app/dishes/models/promotion.dto';
+import { Promotion } from 'src/app/shared/models/promotion.dto';
 import { NewComponent as NewPromotionComponent } from '../../promotions/new/new.component';
-import { PromotionService } from 'src/app/admin/services/promotion.service';
+import { PromotionService } from 'src/app/shared/services/promotion.service';
 import { CalendarModule } from 'primeng/calendar';
 import { InputNumberModule } from 'primeng/inputnumber';
 

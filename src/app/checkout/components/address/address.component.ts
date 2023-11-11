@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { User } from 'src/app/users/models/user.dto';
+import { User } from 'src/app/shared/models/user.dto';
 import {
   FormsModule,
   ReactiveFormsModule,
@@ -9,14 +9,15 @@ import {
   UntypedFormGroup,
   Validators,
 } from '@angular/forms';
-import { LocalStorageService } from 'src/app/common/services/local-storage.service';
+import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
 import { Router } from '@angular/router';
-import { SnackbarService } from 'src/app/common/services/snackbar.service';
-import { UserService } from 'src/app/users/services/user.service';
+import { SnackbarService } from 'src/app/shared/services/snackbar.service';
+import { UserService } from 'src/app/shared/services/user.service';
 import { CheckboxModule } from 'primeng/checkbox';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { FormActionsComponent } from '../form-actions/form-actions.component';
+import { first } from 'rxjs';
 
 @Component({
   selector: 'checkout-address',
@@ -87,19 +88,24 @@ export class AddressComponent {
     });
   }
 
-  async ngOnInit(): Promise<void> {
+  ngOnInit(): void {
     // load user data
     const userId = this.localStorage.getUserId();
 
-    try {
-      const data = await this.userService.get(userId);
-      this.setAddress(data);
-    } catch (error: any) {
-      this.snackbar.show(error, $localize`User Address Retrieval Failed`);
-    }
+    this.userService
+      .get$(userId)
+      .pipe(first())
+      .subscribe({
+        next: (value: User) => {
+          this._setAddress(value);
+        },
+        error: (err: any) => {
+          this.snackbar.show(err, $localize`User Address Retrieval Failed`);
+        },
+      });
   }
 
-  private setAddress(data: User | undefined) {
+  private _setAddress(data: User) {
     if (data === undefined) {
       this.snackbar.show(
         null,
@@ -121,26 +127,30 @@ export class AddressComponent {
     this.router.navigate(['cart']);
   }
 
-  async goPayment(): Promise<void> {
+  goPayment(): void {
     const userId = this.localStorage.getUserId();
 
     if (this.saveAsDefault) {
       // Modify user profile with this address
-      try {
-        let user = this.addressForm.value;
-        user.Name = this.name;
-        user.Surname = this.surname;
-        user.ID = userId;
-        user.Email = this.localStorage.getUserEmail();
+      let user = this.addressForm.value;
+      user.Name = this.name;
+      user.Surname = this.surname;
+      user.ID = userId;
+      user.Email = this.localStorage.getUserEmail();
 
-        await this.userService.update(user);
-        this.snackbar.show(null, $localize`User Modified Successfully`);
-      } catch (error: any) {
-        this.snackbar.show(error, $localize`User Modification Failed`);
-      }
+      this.userService
+        .modify$(user)
+        .pipe(first())
+        .subscribe({
+          next: (value: User) => {
+            this.snackbar.show(null, $localize`User Modified Successfully`);
+          },
+          error: (err: any) => {
+            this.snackbar.show(err, $localize`User Modification Failed`);
+          },
+        });
     }
 
-    // TODO: save address
     this.router.navigate(['checkout', 'payment']);
   }
 }

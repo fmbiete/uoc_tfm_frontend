@@ -8,16 +8,17 @@ import {
   UntypedFormBuilder,
 } from '@angular/forms';
 import { NgIf } from '@angular/common';
-import { SnackbarService } from 'src/app/common/services/snackbar.service';
-import { User } from '../../models/user.dto';
-import { UserService } from '../../services/user.service';
-import { LocalStorageService } from 'src/app/common/services/local-storage.service';
+import { SnackbarService } from 'src/app/shared/services/snackbar.service';
+import { User } from 'src/app/shared/models/user.dto';
+import { UserService } from 'src/app/shared/services/user.service';
+import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
 import { Router } from '@angular/router';
-import { CustomValidators } from 'src/app/common/validators/custom.validator';
+import { CustomValidators } from 'src/app/shared/validators/custom.validator';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { FormActionsComponent } from '../form-actions/form-actions.component';
+import { first } from 'rxjs';
 
 @Component({
   selector: 'app-credentials',
@@ -75,27 +76,32 @@ export class CredentialsComponent implements OnInit {
     this.email.setValue(this.localStorage.getUserEmail());
   }
 
-  async update(): Promise<void> {
+  update(): void {
     const userId = this.localStorage.getUserId();
 
-    try {
-      let user = new User();
-      user.ID = userId;
-      user.Email = this.email.value;
-      user.Password = this.password.value;
+    let user = new User();
+    user.ID = userId;
+    user.Email = this.email.value;
+    user.Password = this.password.value;
 
-      await this.userService.update(user);
-      this.snackbar.show(
-        null,
-        $localize`User Credentials Modified Successfully\nPlease login again`
-      );
-      this.localStorage.resetLogin();
-      this.router.navigateByUrl('/');
-    } catch (error: any) {
-      this.snackbar.show(
-        error,
-        $localize`User Credentials Modification Failed`
-      );
-    }
+    this.userService
+      .modify$(user)
+      .pipe(first())
+      .subscribe({
+        next: (value: User) => {
+          this.snackbar.show(
+            null,
+            $localize`User Credentials Modified Successfully\nPlease login again`
+          );
+          this.localStorage.resetLogin();
+          this.router.navigateByUrl('/');
+        },
+        error: (err: any) => {
+          this.snackbar.show(
+            err,
+            $localize`User Credentials Modification Failed`
+          );
+        },
+      });
   }
 }

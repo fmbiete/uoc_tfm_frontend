@@ -3,8 +3,8 @@ import { Router } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { DividerModule } from 'primeng/divider';
 import { DialogService } from 'primeng/dynamicdialog';
-import { CartService } from 'src/app/cart/services/cart.service';
-import { LocalStorageService } from 'src/app/common/services/local-storage.service';
+import { CartService } from 'src/app/shared/services/cart.service';
+import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
 
 @Component({
   selector: 'checkout-form-actions',

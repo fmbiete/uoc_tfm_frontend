@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthResponse } from './common/models/auth.dto';
-import { LocalStorageService } from './common/services/local-storage.service';
-import { SnackbarService } from './common/services/snackbar.service';
+import { AuthResponse } from './shared/models/auth.dto';
+import { LocalStorageService } from './shared/services/local-storage.service';
+import { SnackbarService } from './shared/services/snackbar.service';
 
 @Component({
   selector: 'app-root',

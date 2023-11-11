@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Table, TableModule } from 'primeng/table';
-import { SnackbarService } from 'src/app/common/services/snackbar.service';
-import { Category } from 'src/app/dishes/models/category.dto';
+import { SnackbarService } from 'src/app/shared/services/snackbar.service';
+import { Category } from 'src/app/shared/models/category.dto';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
@@ -13,7 +13,7 @@ import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { TooltipModule } from 'primeng/tooltip';
 import { NewComponent } from '../new/new.component';
 import { DialogModule } from 'primeng/dialog';
-import { CategoryService } from 'src/app/admin/services/category.service';
+import { CategoryService } from 'src/app/shared/services/category.service';
 
 @Component({
   selector: 'admin-categories-list',

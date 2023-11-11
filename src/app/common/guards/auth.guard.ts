@@ -6,8 +6,8 @@ import {
   UrlTree,
 } from '@angular/router';
 import { Observable } from 'rxjs';
-import { SnackbarService } from '../services/snackbar.service';
-import { LocalStorageService } from '../services/local-storage.service';
+import { SnackbarService } from '../../shared/services/snackbar.service';
+import { LocalStorageService } from '../../shared/services/local-storage.service';
 
 @Injectable({
   providedIn: 'root',
