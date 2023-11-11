@@ -3,11 +3,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { ListComponent as AllergensComponent } from './components/allergens/list/list.component';
 import { ListComponent as CategoriesComponent } from './components/categories/list/list.component';
 import { ListComponent as IngredientsComponent } from './components/ingredients/list/list.component';
+import { ListComponent as UsersComponent } from './components/users/list/list.component';
 
 const routes: Routes = [
   { path: 'allergens', component: AllergensComponent },
   { path: 'categories', component: CategoriesComponent },
   { path: 'ingredients', component: IngredientsComponent },
+  { path: 'users', component: UsersComponent },
 ];
 
 @NgModule({

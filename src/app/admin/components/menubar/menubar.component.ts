@@ -89,6 +89,7 @@ export class MenubarComponent implements OnInit {
         label: `Users`,
         icon: 'pi pi-user',
         styleClass: 'text-white',
+        routerLink: ['/admin/users'],
       },
     ];
   }
