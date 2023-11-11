@@ -2,10 +2,9 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PageUsers, User } from 'src/app/users/models/user.dto';
 import { FormsModule } from '@angular/forms';
-import { ConfirmationService, LazyLoadEvent } from 'primeng/api';
+import { ConfirmationService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { TableModule, Table, TableLazyLoadEvent } from 'primeng/table';
 import { TooltipModule } from 'primeng/tooltip';
@@ -21,7 +20,6 @@ import { UserService } from 'src/app/admin/services/user.service';
     FormsModule,
     ButtonModule,
     ConfirmDialogModule,
-    DialogModule,
     InputTextModule,
     TableModule,
     TooltipModule,
