@@ -38,18 +38,9 @@ export class MenubarComponent implements OnInit {
       },
       {
         label: `Dishes`,
-        icon: 'pi pi-fw pi-box',
+        icon: 'pi pi-box',
         styleClass: 'text-white',
-        items: [
-          {
-            label: 'New Dish',
-            icon: 'pi pi-plus',
-          },
-          {
-            label: 'List Dishes',
-            icon: 'pi pi-box',
-          },
-        ],
+        routerLink: ['/admin/dishes'],
       },
       {
         label: `Promotions`,

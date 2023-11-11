@@ -1,0 +1,68 @@
+<div class="tfm-main-page">
+  <h1 i18n>Dishes</h1>
+
+  <p-confirmDialog></p-confirmDialog>
+
+  <p-table #table styleClass="p-datatable-sm p-datatable-striped" [value]="dishes" dataKey="ID"
+    [totalRecords]="fakeTotalDishes" [lazy]="true" (onLazyLoad)="loadDishes($event)" [paginator]="true" [rows]="10"
+    [showCurrentPageReport]="true" [loading]="loading" i18n-currentPageReportTemplate
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [rowsPerPageOptions]="[10, 25, 50]"
+    [globalFilterFields]="['Name']">
+    <ng-template pTemplate="caption">
+      <div class="flex">
+        <p-button type="button" i18n-label label="Reset Filter" [outlined]="true" size="small" icon="pi pi-filter-slash"
+          (click)="resetFilter(table)"></p-button>
+        <span class="p-input-icon-left ml-auto">
+          <i class="pi pi-search"></i>
+          <input pInputText type="text" class="p-inputtext-sm" (input)="applyFilterGlobal(table, $event, 'contains')"
+            i18n-placeholder placeholder="Search Name" />
+        </span>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th scope="col" i18n>Name</th>
+        <th scope="col" i18n>Cost</th>
+        <th scope="col" i18n>Categories</th>
+        <th scope="col" i18n>Allergens</th>
+        <th scope="col"></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-dish let-ri="rowIndex">
+      <tr>
+        <td>{{ dish.Name | titlecase }}</td>
+        <td>{{ dish.Cost | currency }}</td>
+        <td>
+          <span class="mr-2" *ngFor="let category of dish.Categories">
+            <p-tag value="{{ category.Name }}"></p-tag>
+          </span>
+        </td>
+        <td>
+          <span class="mr-2" *ngFor="let allergen of dish.Allergens">
+            <p-tag value="{{ allergen.Name }}" severity="warning"></p-tag>
+          </span>
+        </td>
+        <td>
+          <div class="flex align-items-center justify-content-center gap-2">
+            <p-button type="button" icon="pi pi-pencil" (click)="onRowEdit(dish, ri)" [text]="true" size="small"
+              i18n-pTooltip pTooltip="Edit Dish" tooltipPosition="bottom"></p-button>
+            <p-button type="button" icon="pi pi-gift" (click)="onRowEditPromotion(dish, ri)" [text]="true" size="small"
+              i18n-pTooltip pTooltip="Edit Promotions" tooltipPosition="bottom"></p-button>
+            <p-button type="button" icon="pi pi-trash" (click)="onRowDelete(dish)" [text]="true" size="small"
+              styleClass="p-button-danger" i18n-pTooltip pTooltip="Delete Dish" tooltipPosition="bottom"></p-button>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="paginatorleft">
+      <p-button type="button" icon="pi pi-plus" size="small" styleClass="p-button-text" i18n-label label="Create Dish"
+        i18n-pTooltip pTooltip="Create Dish" tooltipPosition="bottom" (click)="openCreate()"></p-button>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="2" i18n>No dishs found.</td>
+      </tr>
+    </ng-template>
+  </p-table>
+
+</div>
