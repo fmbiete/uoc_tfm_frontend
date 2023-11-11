@@ -22,7 +22,7 @@ export class DishService {
   }
 
   favourites(): Observable<PageDishes> {
-    return this.http.get<PageDishes>(`${environment.apiUrl}/dishes`);
+    return this.http.get<PageDishes>(`${environment.apiUrl}/dish/favourites`);
   }
 
   like(dishId: number): Observable<boolean> {
