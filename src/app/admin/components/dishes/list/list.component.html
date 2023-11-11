@@ -21,6 +21,7 @@
     </ng-template>
     <ng-template pTemplate="header">
       <tr>
+        <th scope="col"></th>
         <th scope="col" i18n>Name</th>
         <th scope="col" i18n>Cost</th>
         <th scope="col" i18n>Categories</th>
@@ -28,8 +29,13 @@
         <th scope="col"></th>
       </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-dish let-ri="rowIndex">
+    <ng-template pTemplate="body" let-dish let-ri="rowIndex" let-expanded="expanded">
       <tr>
+        <td>
+          <p-button type="button" [text]="true" [rounded]="true" size="small" [pRowToggler]="dish"
+            [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'" i18n-pTooltip
+            pTooltip="Show Dish Promotions" tooltipPosition="bottom"></p-button>
+        </td>
         <td>{{ dish.Name | titlecase }}</td>
         <td>{{ dish.Cost | currency }}</td>
         <td>
@@ -46,8 +52,6 @@
           <div class="flex align-items-center justify-content-center gap-2">
             <p-button type="button" icon="pi pi-pencil" (click)="onRowEdit(dish, ri)" [text]="true" size="small"
               i18n-pTooltip pTooltip="Edit Dish" tooltipPosition="bottom"></p-button>
-            <p-button type="button" icon="pi pi-gift" (click)="onRowEditPromotion(dish, ri)" [text]="true" size="small"
-              i18n-pTooltip pTooltip="Edit Promotions" tooltipPosition="bottom"></p-button>
             <p-button type="button" icon="pi pi-trash" (click)="onRowDelete(dish)" [text]="true" size="small"
               styleClass="p-button-danger" i18n-pTooltip pTooltip="Delete Dish" tooltipPosition="bottom"></p-button>
           </div>
@@ -60,9 +64,92 @@
     </ng-template>
     <ng-template pTemplate="emptymessage">
       <tr>
-        <td colspan="2" i18n>No dishs found.</td>
+        <td colspan="6" i18n>There are no dishes yet.</td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="rowexpansion" let-dish>
+      <tr>
+        <td colspan="6">
+          <div class="p-3">
+            <p-table [value]="dish.Promotions" dataKey="ID" editMode="row">
+              <ng-template pTemplate="caption">
+                <div class="flex flex-row align-items-center">
+                  <p-button type="button" icon="pi pi-plus" size="small" styleClass="p-button-text" i18n-label
+                    label="Create Promotion" i18n-pTooltip pTooltip="Create Promotion" tooltipPosition="bottom"
+                    (click)="openCreatePromotion(dish)"></p-button>
+                  <h3 class="ml-5" i18n>Promotions - {{ dish.Name | titlecase }}</h3>
+                </div>
+              </ng-template>
+              <ng-template pTemplate="header">
+      <tr>
+        <th scope="col" i18n>Start</th>
+        <th scope="col" i18n>End</th>
+        <th scope="col" i18n>Cost</th>
+        <th scope="col"></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-promotion let-eri="rowIndex" let-editing="editing">
+      <tr [pEditableRow]="promotion">
+        <td>
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <p-calendar [(ngModel)]="startTime" [inline]="true"></p-calendar>
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{ promotion.StartTime | date:'longDate' }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td>
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <p-calendar [(ngModel)]="endTime" [inline]="true"></p-calendar>
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{ promotion.EndTime | date:'longDate' }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td>
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <p-inputNumber [(ngModel)]="promotion.Cost" mode="decimal" [min]="0" [minFractionDigits]="2"
+                [maxFractionDigits]="2"></p-inputNumber>
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{ promotion.Cost | currency }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td>
+          <div class="flex align-items-center justify-content-center gap-2">
+            <p-button *ngIf="!editing" type="button" pInitEditableRow icon="pi pi-pencil"
+              (click)="onPromotionRowEditInit(promotion)" [text]="true" size="small" i18n-pTooltip
+              pTooltip="Modify Promotion" tooltipPosition="bottom"></p-button>
+            <p-button *ngIf="!editing" type="button" icon="pi pi-trash" (click)="onPromotionRowDelete(dish, promotion)"
+              [text]="true" size="small" styleClass="p-button-danger" i18n-pTooltip pTooltip="Delete Promotion"
+              tooltipPosition="bottom"></p-button>
+            <p-button *ngIf="editing" type="button" pSaveEditableRow icon="pi pi-check"
+              (click)="onPromotionRowEditSave(dish, promotion)" [text]="true" size="small" class="mr-2" i18n-pTooltip
+              pTooltip="Save Promotion" tooltipPosition="bottom"></p-button>
+            <p-button *ngIf="editing" type="button" pCancelEditableRow icon="pi pi-times"
+              (click)="onPromotionRowEditCancel(dish, promotion, eri)" [text]="true" size="small"
+              styleClass="p-button-danger" i18n-pTooltip pTooltip="Cancel Edit Promotion"
+              tooltipPosition="bottom"></p-button>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="4" i18n>There are no promotions for this dish yet.</td>
       </tr>
     </ng-template>
   </p-table>
+</div>
+</td>
+</tr>
+</ng-template>
+</p-table>
 
 </div>

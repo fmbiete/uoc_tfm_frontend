@@ -13,3 +13,12 @@
   // Allow new lines
   white-space: pre-line;
 }
+
+// Bug Fixes
+
+// Bug: InputNumber doesn't propagates the classes to the child span
+p-inputnumber.w-full {
+  span {
+    width: 100%;
+  }
+}

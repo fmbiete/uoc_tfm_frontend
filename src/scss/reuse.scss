@@ -4,3 +4,7 @@
 .tfm-main-page {
   @include styleclass('flex flex-column m-auto text-center w-11');
 }
+
+.tfm-main-dialog {
+  @include styleclass('flex flex-row justify-content-center h-full w-full');
+}

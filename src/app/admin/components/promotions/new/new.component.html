@@ -1,0 +1,30 @@
+<div class="tfm-main-dialog">
+  <form [formGroup]="createForm" class="mt-2 flex flex-column">
+    <p i18n>The <strong>Promotion</strong> has a <strong>Start Date</strong> and an <strong>End Date</strong>. During
+      this period the <strong>Dish</strong> has a different <strong>Cost</strong>.</p>
+
+    <div>
+      <label for="period" i18n>Validity Period</label>
+      <p-calendar id="period" formControlName="periodDates" selectionMode="range" [readonlyInput]="true" [inline]="true"
+        [showButtonBar]="true" styleClass="w-full"></p-calendar>
+      <div class="tfm-input-error" i18n *ngIf="periodDates.errors?.['required']">You must enter a value</div>
+    </div>
+
+    <div>
+      <span class="p-float-label">
+        <p-inputNumber inputId="cost" formControlName="cost" [min]="0" [minFractionDigits]="2" [maxFractionDigits]="2"
+          [required]="true" class="w-full" styleClass="w-full"></p-inputNumber>
+        <label for="cost" i18n>Cost</label>
+      </span>
+      <div class="tfm-input-error" i18n *ngIf="cost.errors?.['required']">You must enter a value</div>
+      <div class="tfm-input-error" i18n *ngIf="cost.errors?.['min']">The value must be greater or equal than 0</div>
+    </div>
+
+    <div class="flex flex-column md:flex-row mt-5 justify-content-between">
+      <p-button icon="pi pi-times" severity="danger" (click)="cancel()" i18n-label label="Cancel"
+        styleClass="mb-2 w-full md:mr-2 md:max-w-max"></p-button>
+      <p-button icon="pi pi-check" [disabled]="!createForm.valid" (click)="create()" i18n-label label="Create Promotion"
+        styleClass="w-full md:max-w-max"></p-button>
+    </div>
+  </form>
+</div>
