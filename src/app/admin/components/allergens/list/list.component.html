@@ -43,14 +43,14 @@
               (click)="onRowEditInit(allergen)" [text]="true" size="small" i18n-pTooltip pTooltip="Modify Allergen"
               tooltipPosition="bottom"></p-button>
             <p-button *ngIf="!editing" type="button" icon="pi pi-trash" (click)="onRowDelete(allergen)" [text]="true"
-              size="small" class="p-button-danger" i18n-pTooltip pTooltip="Delete Allergen"
+              size="small" styleClass="p-button-danger" i18n-pTooltip pTooltip="Delete Allergen"
               tooltipPosition="bottom"></p-button>
             <p-button *ngIf="editing" type="button" pSaveEditableRow icon="pi pi-check"
               (click)="onRowEditSave(allergen)" [text]="true" size="small" class="mr-2" i18n-pTooltip
               pTooltip="Save Allergen" tooltipPosition="bottom"></p-button>
             <p-button *ngIf="editing" type="button" pCancelEditableRow icon="pi pi-times"
-              (click)="onRowEditCancel(allergen, ri)" [text]="true" size="small" class="p-button-danger" i18n-pTooltip
-              pTooltip="Cancel Edit Allergen" tooltipPosition="bottom"></p-button>
+              (click)="onRowEditCancel(allergen, ri)" [text]="true" size="small" styleClass="p-button-danger"
+              i18n-pTooltip pTooltip="Cancel Edit Allergen" tooltipPosition="bottom"></p-button>
           </div>
         </td>
       </tr>

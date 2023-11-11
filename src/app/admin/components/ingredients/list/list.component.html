@@ -43,14 +43,14 @@
               (click)="onRowEditInit(ingredient)" [text]="true" size="small" i18n-pTooltip pTooltip="Modify Ingredient"
               tooltipPosition="bottom"></p-button>
             <p-button *ngIf="!editing" type="button" icon="pi pi-trash" (click)="onRowDelete(ingredient)" [text]="true"
-              size="small" class="p-button-danger" i18n-pTooltip pTooltip="Delete Ingredient"
+              size="small" styleClass="p-button-danger" i18n-pTooltip pTooltip="Delete Ingredient"
               tooltipPosition="bottom"></p-button>
             <p-button *ngIf="editing" type="button" pSaveEditableRow icon="pi pi-check"
               (click)="onRowEditSave(ingredient)" [text]="true" size="small" class="mr-2" i18n-pTooltip
               pTooltip="Save Ingredient" tooltipPosition="bottom"></p-button>
             <p-button *ngIf="editing" type="button" pCancelEditableRow icon="pi pi-times"
-              (click)="onRowEditCancel(ingredient, ri)" [text]="true" size="small" class="p-button-danger" i18n-pTooltip
-              pTooltip="Cancel Edit Ingredient" tooltipPosition="bottom"></p-button>
+              (click)="onRowEditCancel(ingredient, ri)" [text]="true" size="small" styleClass="p-button-danger"
+              i18n-pTooltip pTooltip="Cancel Edit Ingredient" tooltipPosition="bottom"></p-button>
           </div>
         </td>
       </tr>

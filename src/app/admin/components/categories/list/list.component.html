@@ -43,14 +43,14 @@
               (click)="onRowEditInit(category)" [text]="true" size="small" i18n-pTooltip pTooltip="Modify Category"
               tooltipPosition="bottom"></p-button>
             <p-button *ngIf="!editing" type="button" icon="pi pi-trash" (click)="onRowDelete(category)" [text]="true"
-              size="small" class="p-button-danger" i18n-pTooltip pTooltip="Delete Category"
+              size="small" styleClass="p-button-danger" i18n-pTooltip pTooltip="Delete Category"
               tooltipPosition="bottom"></p-button>
             <p-button *ngIf="editing" type="button" pSaveEditableRow icon="pi pi-check"
               (click)="onRowEditSave(category)" [text]="true" size="small" class="mr-2" i18n-pTooltip
               pTooltip="Save Category" tooltipPosition="bottom"></p-button>
             <p-button *ngIf="editing" type="button" pCancelEditableRow icon="pi pi-times"
-              (click)="onRowEditCancel(category, ri)" [text]="true" size="small" class="p-button-danger" i18n-pTooltip
-              pTooltip="Cancel Edit Category" tooltipPosition="bottom"></p-button>
+              (click)="onRowEditCancel(category, ri)" [text]="true" size="small" styleClass="p-button-danger"
+              i18n-pTooltip pTooltip="Cancel Edit Category" tooltipPosition="bottom"></p-button>
           </div>
         </td>
       </tr>
