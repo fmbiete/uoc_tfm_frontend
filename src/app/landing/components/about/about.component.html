@@ -1,19 +1,28 @@
 <div class="tfm-main-page">
-  <h1>{{ applicationTitle }}</h1>
+  <p-card styleClass="mt-2 bg-primary-100" header="{{ applicationTitle }}" i18n-subheader subheader="Created by">
+    <ng-template pTemplate="header">
+      <img class="mt-5 max-w-10rem" alt="Logo {{ applicationTitle }}" src="assets/logo_2.png" />
+    </ng-template>
+    <h1>Francisco Miguel Biete Ba&ntilde;&oacute;n</h1>
+    <ng-template pTemplate="footer">
+      <ul class="list-none p-0">
+        <li>
+          <a href="https://www.uoc.edu/es/estudios/masters/master-universitario-desarrollo-sitios-aplicaciones-web"
+            target="_blank" rel="noopener noreferrer" i18n>Master's Degree in Website and Web Application
+            Development</a>
+        </li>
+        <li class="mt-2">
+          <a href="https://www.uoc.ed" target="_blank" rel="noopener noreferrer">Universitat Oberta de
+            Catalunya</a>
+        </li>
+        <li class="mt-2">
+          <span i18n>Master's Degree Final Project</span>
+        </li>
+      </ul>
+    </ng-template>
+  </p-card>
 
-  <section>
-    <h2 i18n>Author</h2>
-    <p>Francisco Miguel Biete Ba&ntilde;&oacute;n</p>
-  </section>
-
-  <section>
-    <h2 i18n><a href="https://www.uoc.edu/es/estudios/masters/master-universitario-desarrollo-sitios-aplicaciones-web"
-        target="_blank" rel="noopener noreferrer">Master's Degree in Website and Web Application Development</a></h2>
-    <h3><a href="https://www.uoc.ed" target="_blank" rel="noopener noreferrer">Universitat Oberta de Catalunya</a></h3>
-    <p i18n>Master's Degree Final Project</p>
-  </section>
-
-  <section class="mx-2 md:mx-5 text-justify">
+  <section class="m-2 md:m-5 text-justify">
     <h2 i18n>Abstract</h2>
     <p i18n>This project presents a food delivery web application oriented to offer a catering service to companies and
       their employees. Unlike other food delivery platforms, its orientation will be the delivery of food in the office,
