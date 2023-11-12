@@ -60,7 +60,7 @@ export class ListComponent implements OnInit, OnDestroy {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  applyFilterGlobal(table: Table, $event: any, stringVal: any) {
+  applyFilterGlobal(table: Table, $event: any, stringVal: string) {
     table.filterGlobal(($event.target as HTMLInputElement).value, stringVal);
   }
 

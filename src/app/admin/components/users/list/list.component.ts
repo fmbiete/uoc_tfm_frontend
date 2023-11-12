@@ -52,7 +52,7 @@ export class ListComponent implements OnInit {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  applyFilterGlobal(table: Table, $event: any, stringVal: any) {
+  applyFilterGlobal(table: Table, $event: any, stringVal: string) {
     console.debug($event);
     console.debug(stringVal);
     table.filterGlobal(($event.target as HTMLInputElement).value, stringVal);
