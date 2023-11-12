@@ -26,10 +26,10 @@
       label="Register new user"></p-button>
   </div>
 
-  <div class="flex flex-column md:flex-row">
+  <div class="tfm-actions">
     <p-button icon="pi pi-times" severity="danger" (click)="close()" i18n-label label="Cancel"
-      styleClass="mb-2 w-full md:mr-2 md:max-w-max"></p-button>
+      styleClass="tfm-actions-secondary"></p-button>
     <p-button icon="pi pi-check" [disabled]="!loginForm.valid" (click)="login()" i18n-label label="Login"
-      styleClass="w-full md:max-w-max"></p-button>
+      styleClass="tfm-actions-primary"></p-button>
   </div>
 </form>

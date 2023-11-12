@@ -25,6 +25,7 @@ import { first } from 'rxjs';
 import { AllergenService } from 'src/app/shared/services/allergen.service';
 import { IngredientService } from 'src/app/shared/services/ingredient.service';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { DividerModule } from 'primeng/divider';
 
 @Component({
   selector: 'admin-dishes-new',
@@ -34,6 +35,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
     FormsModule,
     ReactiveFormsModule,
     ButtonModule,
+    DividerModule,
     InputNumberModule,
     InputTextModule,
     InputTextareaModule,

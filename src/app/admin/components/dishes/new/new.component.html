@@ -1,67 +1,69 @@
-<form [formGroup]="createForm" class="mt-2">
-  <div>
-    <span class="p-float-label">
-      <input id="name" pInputText i18n-placeholder placeholder="Dish Name" [formControl]="name" type="text"
-        i18n-aria-label aria-label="Name" required maxlength="250">
-      <label for="name" i18n>Name</label>
-    </span>
-    <div class="tfm-input-error" i18n *ngIf="name.errors?.['required']">You must enter a value</div>
-    <div class="tfm-input-error" i18n *ngIf="name.errors?.['maxlength']">The value is too long</div>
+<div class="">
+  <form [formGroup]="createForm" class="mt-2">
+    <div>
+      <span class="p-float-label">
+        <input id="name" pInputText i18n-placeholder placeholder="Dish Name" [formControl]="name" type="text"
+          i18n-aria-label aria-label="Name" required maxlength="250">
+        <label for="name" i18n>Name</label>
+      </span>
+      <div class="tfm-input-error" i18n *ngIf="name.errors?.['required']">You must enter a value</div>
+      <div class="tfm-input-error" i18n *ngIf="name.errors?.['maxlength']">The value is too long</div>
+    </div>
+
+    <div>
+      <span class="p-float-label">
+        <p-multiSelect [options]="existingCategories" formControlName="categories" i18n-placeholder
+          placeholder="Select Categories" optionLabel="Name" display="chip" [showClear]="true" [required]="true"
+          [maxSelectedLabels]="100" styleClass="w-full"></p-multiSelect>
+        <label for="categories" i18n>Categories</label>
+      </span>
+    </div>
+
+    <div>
+      <span class="p-float-label">
+        <p-multiSelect [options]="existingAllergens" formControlName="allergens" i18n-placeholder
+          placeholder="Select Allergens" optionLabel="Name" display="chip" [showClear]="true" [maxSelectedLabels]="100"
+          styleClass="w-full"></p-multiSelect>
+        <label for="categories" i18n>Allergens</label>
+      </span>
+    </div>
+
+    <div>
+      <span class="p-float-label">
+        <p-multiSelect [options]="existingIngredients" formControlName="ingredients" i18n-placeholder
+          placeholder="Select ingredients" optionLabel="Name" display="chip" [showClear]="true"
+          [maxSelectedLabels]="100" styleClass="w-full"></p-multiSelect>
+        <label for="ingredients" i18n>Ingredients</label>
+      </span>
+    </div>
+
+    <div>
+      <span class="p-float-label">
+        <textarea id="description" rows="5" pInputTextarea [formControl]="description" required maxlength="2000"
+          class="w-full"></textarea>
+        <label for="description" i18n>Description</label>
+      </span>
+      <div class="tfm-input-error" i18n *ngIf="description.errors?.['required']">You must enter a value</div>
+      <div class="tfm-input-error" i18n *ngIf="description.errors?.['maxlength']">The value is too long</div>
+    </div>
+
+    <div>
+      <span class="p-float-label">
+        <p-inputNumber inputId="cost" formControlName="cost" [min]="0" [minFractionDigits]="2" [maxFractionDigits]="2"
+          [required]="true" class="w-full" styleClass="w-full"></p-inputNumber>
+        <label for="cost" i18n>Cost</label>
+      </span>
+      <div class="tfm-input-error" i18n *ngIf="cost.errors?.['required']">You must enter a value</div>
+      <div class="tfm-input-error" i18n *ngIf="cost.errors?.['min']">The value must be greater or equal than 0</div>
+    </div>
+
+  </form>
+
+  <p-divider></p-divider>
+  <div class="tfm-actions">
+    <p-button icon="pi pi-times" severity="danger" (click)="cancel()" i18n-label label="Cancel"
+      styleClass="tfm-actions-secondary"></p-button>
+    <p-button icon="pi pi-check" [disabled]="!createForm.valid" (click)="create()" i18n-label label="Create Dish"
+      styleClass="tfm-actions-primary"></p-button>
   </div>
-
-  <div>
-    <span class="p-float-label">
-      <p-multiSelect [options]="existingCategories" formControlName="categories" i18n-placeholder
-        placeholder="Select Categories" optionLabel="Name" display="chip" [showClear]="true" [required]="true"
-        [maxSelectedLabels]="100" styleClass="w-full"></p-multiSelect>
-      <label for="categories" i18n>Categories</label>
-    </span>
-  </div>
-
-  <div>
-    <span class="p-float-label">
-      <p-multiSelect [options]="existingAllergens" formControlName="allergens" i18n-placeholder
-        placeholder="Select Allergens" optionLabel="Name" display="chip" [showClear]="true" [maxSelectedLabels]="100"
-        styleClass="w-full"></p-multiSelect>
-      <label for="categories" i18n>Allergens</label>
-    </span>
-  </div>
-
-  <div>
-    <span class="p-float-label">
-      <p-multiSelect [options]="existingIngredients" formControlName="ingredients" i18n-placeholder
-        placeholder="Select ingredients" optionLabel="Name" display="chip" [showClear]="true" [maxSelectedLabels]="100"
-        styleClass="w-full"></p-multiSelect>
-      <label for="ingredients" i18n>Ingredients</label>
-    </span>
-  </div>
-
-  <div>
-    <span class="p-float-label">
-      <textarea id="description" rows="5" pInputTextarea [formControl]="description" required maxlength="2000"
-        class="w-full"></textarea>
-      <label for="description" i18n>Description</label>
-    </span>
-    <div class="tfm-input-error" i18n *ngIf="description.errors?.['required']">You must enter a value</div>
-    <div class="tfm-input-error" i18n *ngIf="description.errors?.['maxlength']">The value is too long</div>
-  </div>
-
-  <div>
-    <span class="p-float-label">
-      <p-inputNumber inputId="cost" formControlName="cost" [min]="0" [minFractionDigits]="2" [maxFractionDigits]="2"
-        [required]="true"></p-inputNumber>
-      <label for="cost" i18n>Cost</label>
-    </span>
-    <div class="tfm-input-error" i18n *ngIf="cost.errors?.['required']">You must enter a value</div>
-    <div class="tfm-input-error" i18n *ngIf="cost.errors?.['min']">The value must be greater or equal than 0</div>
-  </div>
-
-</form>
-
-
-<div class="flex flex-column md:flex-row mt-5">
-  <p-button icon="pi pi-times" severity="danger" (click)="cancel()" i18n-label label="Cancel"
-    styleClass="mb-2 w-full md:mr-2 md:max-w-max"></p-button>
-  <p-button icon="pi pi-check" [disabled]="!createForm.valid" (click)="create()" i18n-label label="Create Dish"
-    styleClass="w-full md:max-w-max"></p-button>
 </div>

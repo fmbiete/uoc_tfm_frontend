@@ -1,4 +1,4 @@
-<div class="tfm-dialog-content tfm-dialog-register" [formGroup]="registerForm">
+<form [formGroup]="registerForm">
   <div>
     <span class="p-float-label">
       <input id="email" pInputText [formControl]="email" type="email" i18n-placeholder placeholder="user1@tfm.es"
@@ -110,11 +110,11 @@
     <div class="tfm-input-error" i18n *ngIf="phone.errors?.['required']">You must enter a value</div>
     <div class="tfm-input-error" i18n *ngIf="phone.errors?.['maxlength']">The value is too long</div>
   </div>
-</div>
+</form>
 
-<div class="mt-2 flex flex-column md:flex-row md:justify-content-end md:mr-5">
+<div class="tfm-actions">
   <p-button icon="pi pi-times" severity="danger" (click)="close()" i18n-label label="Cancel"
-    styleClass="w-11 md:w-max md:mr-2"></p-button>
+    styleClass="tfm-actions-secondary"></p-button>
   <p-button icon="pi pi-check" [disabled]="!registerForm.valid" (click)="register()" i18n-label label="Register"
-    styleClass="w-11 md:w-max mt-2 md:mt-0"></p-button>
+    styleClass="tfm-actions-primary"></p-button>
 </div>

@@ -14,6 +14,7 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { CategoryService } from 'src/app/shared/services/category.service';
+import { DividerModule } from 'primeng/divider';
 
 @Component({
   selector: 'admin-categories-new',
@@ -23,6 +24,7 @@ import { CategoryService } from 'src/app/shared/services/category.service';
     FormsModule,
     ReactiveFormsModule,
     ButtonModule,
+    DividerModule,
     InputTextModule,
   ],
   templateUrl: './new.component.html',

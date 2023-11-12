@@ -20,6 +20,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { SnackbarService } from 'src/app/shared/services/snackbar.service';
 import { Dish } from 'src/app/shared/models/dish.dto';
 import { Promotion } from 'src/app/shared/models/promotion.dto';
+import { DividerModule } from 'primeng/divider';
 
 @Component({
   selector: 'admin-promotions-new',
@@ -30,6 +31,7 @@ import { Promotion } from 'src/app/shared/models/promotion.dto';
     ReactiveFormsModule,
     ButtonModule,
     CalendarModule,
+    DividerModule,
     InputNumberModule,
   ],
   templateUrl: './new.component.html',

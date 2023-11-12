@@ -14,6 +14,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { IngredientService } from 'src/app/shared/services/ingredient.service';
 import { SnackbarService } from 'src/app/shared/services/snackbar.service';
 import { Ingredient } from 'src/app/shared/models/ingredient.dto';
+import { DividerModule } from 'primeng/divider';
 
 @Component({
   selector: 'admin-ingredients-new',
@@ -23,6 +24,7 @@ import { Ingredient } from 'src/app/shared/models/ingredient.dto';
     FormsModule,
     ReactiveFormsModule,
     ButtonModule,
+    DividerModule,
     InputTextModule,
   ],
   templateUrl: './new.component.html',

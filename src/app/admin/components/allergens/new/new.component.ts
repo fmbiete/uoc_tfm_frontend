@@ -14,6 +14,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { AllergenService } from 'src/app/shared/services/allergen.service';
 import { SnackbarService } from 'src/app/shared/services/snackbar.service';
 import { Allergen } from 'src/app/shared/models/allergen.dto';
+import { DividerModule } from 'primeng/divider';
 
 @Component({
   selector: 'admin-allergens-new',
@@ -23,6 +24,7 @@ import { Allergen } from 'src/app/shared/models/allergen.dto';
     FormsModule,
     ReactiveFormsModule,
     ButtonModule,
+    DividerModule,
     InputTextModule,
   ],
   templateUrl: './new.component.html',

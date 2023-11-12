@@ -59,9 +59,10 @@
 </form>
 
 
-<div class="flex flex-column md:flex-row mt-5">
+<p-divider></p-divider>
+<div class="tfm-actions">
   <p-button icon="pi pi-times" severity="danger" (click)="cancel()" i18n-label label="Cancel"
-    styleClass="mb-2 w-full md:mr-2 md:max-w-max"></p-button>
+    styleClass="tfm-actions-secondary"></p-button>
   <p-button icon="pi pi-check" [disabled]="!modifyForm.valid" (click)="modify()" i18n-label label="Modify Dish"
-    styleClass="w-full md:max-w-max"></p-button>
+    styleClass="tfm-actions-primary"></p-button>
 </div>

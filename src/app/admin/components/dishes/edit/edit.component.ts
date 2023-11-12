@@ -28,6 +28,7 @@ import { Category } from 'src/app/shared/models/category.dto';
 import { Dish } from 'src/app/shared/models/dish.dto';
 import { Ingredient } from 'src/app/shared/models/ingredient.dto';
 import { DishService } from 'src/app/shared/services/dish.service';
+import { DividerModule } from 'primeng/divider';
 
 @Component({
   selector: 'admin-dishes-edit',
@@ -37,6 +38,7 @@ import { DishService } from 'src/app/shared/services/dish.service';
     FormsModule,
     ReactiveFormsModule,
     ButtonModule,
+    DividerModule,
     InputNumberModule,
     InputTextModule,
     InputTextareaModule,

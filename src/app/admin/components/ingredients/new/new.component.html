@@ -10,9 +10,10 @@
   </div>
 </div>
 
-<div class="flex flex-column md:flex-row mt-5">
+<p-divider></p-divider>
+<div class="tfm-actions">
   <p-button icon="pi pi-times" severity="danger" (click)="cancel()" i18n-label label="Cancel"
-    styleClass="mb-2 w-full md:mr-2 md:max-w-max"></p-button>
+    styleClass="tfm-actions-secondary"></p-button>
   <p-button icon="pi pi-check" [disabled]="!createForm.valid" (click)="create()" i18n-label label="Create Ingredient"
-    styleClass="w-full md:max-w-max"></p-button>
+    styleClass="tfm-actions-primary"></p-button>
 </div>

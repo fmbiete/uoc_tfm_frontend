@@ -8,3 +8,15 @@
 .tfm-main-dialog {
   @include styleclass('flex flex-row justify-content-center h-full w-full');
 }
+
+.tfm-actions {
+  @include styleclass('mt-2 flex flex-column md:flex-row md:justify-content-end md:mr-5');
+}
+
+.tfm-actions-secondary {
+  @include styleclass('w-11 md:w-max md:mr-2');
+}
+
+.tfm-actions-primary {
+  @include styleclass('w-11 md:w-max mt-2 md:mt-0');
+}
