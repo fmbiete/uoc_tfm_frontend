@@ -13,8 +13,8 @@ import { AppComponent } from './app.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpInterceptorService } from './shared/services/http-interceptor.service';
-import { HeaderComponent } from './common/components/header/header.component';
-import { FooterComponent } from './common/components/footer/footer.component';
+import { HeaderComponent } from './landing/components/header/header.component';
+import { FooterComponent } from './landing/components/footer/footer.component';
 import { MessageService } from 'primeng/api';
 import { MessagesModule } from 'primeng/messages';
 import {
@@ -23,6 +23,7 @@ import {
 } from './app.initializer';
 import { CommonModule } from '@angular/common';
 import { MenubarComponent as AdminMenubarComponent } from './admin/components/menubar/menubar.component';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [AppComponent],
@@ -50,7 +51,7 @@ import { MenubarComponent as AdminMenubarComponent } from './admin/components/me
       useClass: HttpInterceptorService,
       multi: true,
     },
-    { provide: DEFAULT_CURRENCY_CODE, useValue: 'EUR' },
+    { provide: DEFAULT_CURRENCY_CODE, useValue: environment.currency },
     {
       provide: APP_INITIALIZER,
       useFactory: () => initializeLanguage,

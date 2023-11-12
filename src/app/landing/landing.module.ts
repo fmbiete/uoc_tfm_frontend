@@ -2,6 +2,6 @@ import { NgModule } from '@angular/core';
 
 @NgModule({
   declarations: [],
-  imports: [CommonModule],
+  imports: [LandingModule],
 })
-export class CommonModule {}
+export class LandingModule {}

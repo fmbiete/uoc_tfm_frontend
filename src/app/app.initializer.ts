@@ -11,7 +11,7 @@ export const initializeLanguage = (): Promise<void> | void => {
         loadTranslations(response.translations);
       })
       .catch(() => {
-        console.log(`language ${language} not found, fallback to english`);
+        console.error(`language ${language} not found, fallback to english`);
       });
   }
 };
