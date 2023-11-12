@@ -4,9 +4,9 @@
     <p-button id="tfm-cart-button" size="small" [rounded]="true" [raised]="true" i18n-aria-label
       aria-label="Shopping Cart" i18n-pTooltip pTooltip="Shopping Cart" tooltipPosition="bottom" tooltipZIndex="10000"
       icon="pi pi-shopping-cart" badge="{{ cart | countCartProducts }}" badgeClass="p-badge-warning"></p-button>
-    <div id="tfm-cart">
+    <div id="tfm-cart" style="display: none;">
       <table>
-        <caption i18n style="display: none;">Shopping Cart Content</caption>
+        <caption class="text-primary font-bold" i18n>Shopping Cart Content</caption>
         <thead>
           <th i18n>Dish</th>
           <th i18n>Quantity</th>

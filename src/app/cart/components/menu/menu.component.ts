@@ -33,20 +33,23 @@ export class MenuComponent implements OnInit {
     document.addEventListener('click', (clickEvent: MouseEvent) => {
       const btn = document.getElementById('tfm-cart-button');
       const box = document.getElementById('tfm-cart');
-      if (!btn || !box) return;
+      if (!btn || !box) {
+        console.error(`elements not found`);
+        return;
+      }
 
       if (clickEvent?.target instanceof Node) {
         if (btn.contains(clickEvent?.target)) {
-          this.togglePanel(box);
+          this._togglePanel(box);
         } else if (!box.contains(clickEvent?.target)) {
-          this.hidePanel(box);
+          this._hidePanel(box);
         }
       }
     });
   }
 
   detailCart(): void {
-    this.hidePanel(null);
+    this._hidePanel(null);
 
     this.router.navigate(['cart']);
   }
@@ -63,12 +66,12 @@ export class MenuComponent implements OnInit {
     this.cartService.reduceQuantityLine(idx);
   }
 
-  hidePanel(box: HTMLElement | null) {
+  private _hidePanel(box: HTMLElement | null) {
     if (box === null) box = document.getElementById('tfm-cart');
     if (box) box.style.display = 'none';
   }
 
-  togglePanel(box: HTMLElement | null) {
+  private _togglePanel(box: HTMLElement | null) {
     if (box === null) box = document.getElementById('tfm-cart');
 
     if (box) {
