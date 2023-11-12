@@ -11,7 +11,7 @@ import { DynamicDialogRef, DialogService } from 'primeng/dynamicdialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { TableModule, Table, TableLazyLoadEvent } from 'primeng/table';
 import { TooltipModule } from 'primeng/tooltip';
-import { Subject, first, takeUntil } from 'rxjs';
+import { first } from 'rxjs';
 import { PromotionService } from 'src/app/shared/services/promotion.service';
 import { SnackbarService } from 'src/app/shared/services/snackbar.service';
 import { NewComponent } from '../new/new.component';
