@@ -6,13 +6,13 @@ import {
   UrlTree,
 } from '@angular/router';
 import { Observable } from 'rxjs';
-import { SnackbarService } from '../../shared/services/snackbar.service';
-import { LocalStorageService } from '../../shared/services/local-storage.service';
+import { SnackbarService } from '../services/snackbar.service';
+import { LocalStorageService } from '../services/local-storage.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class AuthGuard {
+export class AuthAdminGuard {
   constructor(
     private router: Router,
     private localStorageService: LocalStorageService,
@@ -29,8 +29,16 @@ export class AuthGuard {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    if (!this.localStorageService.isUserLogged()) {
-      this.snackbar.show(null, $localize`Please Log In`);
+    if (
+      !(
+        this.localStorageService.isUserLogged() &&
+        this.localStorageService.isUserAdmin()
+      )
+    ) {
+      this.snackbar.show(
+        new Error($localize`Restricted Access`),
+        $localize`This section is restricted to Administrator accounts\nPlease Log In with your Administrator account`
+      );
       this.router.navigateByUrl('/');
       return false;
     }

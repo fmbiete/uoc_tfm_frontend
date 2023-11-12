@@ -19,12 +19,16 @@ export class SnackbarService {
 
       // Case error object with message
       if (error.message) {
+        const errorCode =
+          error.reflection === undefined
+            ? ''
+            : $localize`Reflection Code: ${error.reflection}`;
         this.messageService.add({
           key: 'tc',
           sticky: true,
           severity: 'error',
           summary: $localize`Error`,
-          detail: `${message}\n${error.message}\nReflection Code: ${error.reflection}`,
+          detail: `${message}\n${error.message}\n${errorCode}`,
         });
       } else {
         // anything else
@@ -33,7 +37,7 @@ export class SnackbarService {
           sticky: true,
           severity: 'error',
           summary: $localize`Error`,
-          detail: `${message}\nFailed to connect to remote server (Code: -1)`,
+          detail: `${message}\nFailed to connect to remote server`,
         });
       }
     } else {
