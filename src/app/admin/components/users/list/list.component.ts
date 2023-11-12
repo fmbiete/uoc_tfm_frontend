@@ -51,10 +51,7 @@ export class ListComponent implements OnInit {
     // lazy load
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  applyFilterGlobal(table: Table, $event: any, stringVal: string) {
-    console.debug($event);
-    console.debug(stringVal);
+  applyFilterGlobal(table: Table, $event: Event, stringVal: string) {
     table.filterGlobal(($event.target as HTMLInputElement).value, stringVal);
   }
 

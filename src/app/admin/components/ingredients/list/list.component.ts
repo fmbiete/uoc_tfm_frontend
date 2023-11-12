@@ -59,8 +59,7 @@ export class ListComponent implements OnDestroy, OnInit {
     if (this.dialogRef) this.dialogRef.close();
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  applyFilterGlobal(table: Table, $event: any, stringVal: string) {
+  applyFilterGlobal(table: Table, $event: Event, stringVal: string) {
     table.filterGlobal(($event.target as HTMLInputElement).value, stringVal);
   }
 
