@@ -19,7 +19,7 @@ import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { first } from 'rxjs';
 
 @Component({
-  selector: 'app-register',
+  selector: 'users-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
   standalone: true,
@@ -142,14 +142,14 @@ export class RegisterComponent implements OnInit {
       .create$(user)
       .pipe(first())
       .subscribe({
-        next: (value: User) => {
+        next: () => {
           this.snackbar.show(
             null,
             $localize`User Creation succeded\nYou can now login`
           );
           this.dialogRef.close();
         },
-        error: (err: any) => {
+        error: (err) => {
           // we stay in the dialog and show the error
           this.snackbar.show(err, $localize`User Creation failed`);
         },

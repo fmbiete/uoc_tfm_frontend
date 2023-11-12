@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Ingredient } from 'src/app/shared/models/ingredient.dto';
 import { IngredientService } from 'src/app/shared/services/ingredient.service';
@@ -16,7 +16,7 @@ import { SnackbarService } from 'src/app/shared/services/snackbar.service';
 import { NewComponent } from '../new/new.component';
 
 @Component({
-  selector: 'app-list',
+  selector: 'admin-ingredients-list',
   standalone: true,
   imports: [
     CommonModule,
@@ -32,7 +32,7 @@ import { NewComponent } from '../new/new.component';
   styleUrls: ['./list.component.scss'],
   providers: [ConfirmationService, DialogService],
 })
-export class ListComponent {
+export class ListComponent implements OnDestroy, OnInit {
   @ViewChild('table') table!: Table;
 
   ingredients: Ingredient[];
@@ -59,7 +59,7 @@ export class ListComponent {
     if (this.dialogRef) this.dialogRef.close();
   }
 
-  // Filters
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   applyFilterGlobal(table: Table, $event: any, stringVal: any) {
     table.filterGlobal(($event.target as HTMLInputElement).value, stringVal);
   }
@@ -96,9 +96,9 @@ export class ListComponent {
       next: (value: Ingredient) => {
         // row is already updated in memory
         // delete backup
-        delete this.clonedIngredients[ingredient.ID.toString()];
+        delete this.clonedIngredients[value.ID.toString()];
       },
-      error: (err: any) => {
+      error: (err) => {
         this.snackbar.show(err, $localize`Failed to modify ingredient`);
         // find original id
         const index = this.ingredients.findIndex((v) => v.ID == ingredient.ID);
@@ -151,7 +151,7 @@ export class ListComponent {
           );
           this.table.reset();
         },
-        error: (err: any) => {
+        error: (err) => {
           this.snackbar.show(err, $localize`Failed to delete Ingredient`);
         },
       });
@@ -166,7 +166,7 @@ export class ListComponent {
           this.ingredients = value;
           this.loading = false;
         },
-        error: (err: any) => {
+        error: (err) => {
           this.snackbar.show(err, $localize`Failed to list Ingredients`);
         },
       });

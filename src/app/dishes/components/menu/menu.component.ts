@@ -42,7 +42,7 @@ export class MenuComponent implements OnInit {
             });
           });
         },
-        error: (err: any) => {
+        error: (err) => {
           this.snackbarService.show(
             err,
             $localize`Failed to list dish categories`

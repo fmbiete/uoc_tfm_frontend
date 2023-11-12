@@ -11,7 +11,7 @@ import { LocalStorageService } from 'src/app/shared/services/local-storage.servi
 import { first } from 'rxjs';
 
 @Component({
-  selector: 'dish-home',
+  selector: 'dishes-home',
   standalone: true,
   imports: [
     CommonModule,

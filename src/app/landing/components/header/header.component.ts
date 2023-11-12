@@ -13,7 +13,7 @@ import { MenuComponent as DishesMenuComponent } from 'src/app/dishes/components/
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
 
 @Component({
-  selector: 'app-header',
+  selector: 'landing-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
   standalone: true,

@@ -11,8 +11,9 @@ import { FieldsetModule } from 'primeng/fieldset';
   styleUrls: ['./sales.component.scss'],
 })
 export class SalesComponent implements OnInit {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   data: any;
-
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   options: any;
 
   ngOnInit() {

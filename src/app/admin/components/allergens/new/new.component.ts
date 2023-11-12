@@ -16,7 +16,7 @@ import { SnackbarService } from 'src/app/shared/services/snackbar.service';
 import { Allergen } from 'src/app/shared/models/allergen.dto';
 
 @Component({
-  selector: 'app-new',
+  selector: 'admin-allergens-new',
   standalone: true,
   imports: [
     CommonModule,
@@ -64,7 +64,7 @@ export class NewComponent {
         this.snackbar.show(null, $localize`Allergen Creation succeded`);
         this.ref.close(value);
       },
-      error: (err: any) => {
+      error: (err) => {
         this.snackbar.show(err, $localize`Allergen Creation failed`);
         this.ref.close(null);
       },

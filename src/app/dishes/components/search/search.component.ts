@@ -40,7 +40,7 @@ export class SearchComponent implements OnInit {
   _searchTerm!: string;
   dishes: Array<Dish>;
 
-  @Input('searchTerm') set searchTerm(value: string) {
+  @Input() set searchTerm(value: string) {
     this.dishes.length = 0;
     this.pageCount = 1;
     this._searchTerm = value;
@@ -79,7 +79,7 @@ export class SearchComponent implements OnInit {
         next: (value: PageDishes) => {
           this.dishes = value.dishes;
         },
-        error: (err: any) => {
+        error: (err) => {
           this.snackbar.show(err, $localize`Failed to search dishes`);
         },
       });

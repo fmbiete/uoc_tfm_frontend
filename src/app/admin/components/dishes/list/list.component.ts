@@ -28,7 +28,7 @@ import { CalendarModule } from 'primeng/calendar';
 import { InputNumberModule } from 'primeng/inputnumber';
 
 @Component({
-  selector: 'app-list',
+  selector: 'admin-dishes-list',
   standalone: true,
   imports: [
     CommonModule,
@@ -88,7 +88,9 @@ export class ListComponent implements OnInit, OnDestroy {
     if (this.dialogRefPromotion) this.dialogRefPromotion.close();
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   applyFilterGlobal(table: Table, $event: any, stringVal: any) {
+    // TODO: search
     console.debug($event);
     console.debug(stringVal);
     table.filterGlobal(($event.target as HTMLInputElement).value, stringVal);
@@ -154,9 +156,9 @@ export class ListComponent implements OnInit, OnDestroy {
       next: (value: Promotion) => {
         // row is already updated in memory
         // delete backup
-        delete this.clonedPromotions[promotion.ID.toString()];
+        delete this.clonedPromotions[value.ID.toString()];
       },
-      error: (err: any) => {
+      error: (err) => {
         this.snackbar.show(err, $localize`Failed to modify Dish Promotion`);
         // find original id
         const index = dish.Promotions.findIndex((v) => v.ID == promotion.ID);
@@ -242,7 +244,7 @@ export class ListComponent implements OnInit, OnDestroy {
           this.dishes = this.dishes.filter((c: Dish) => c.ID !== dish.ID);
           this.table.reset();
         },
-        error: (err: any) => {
+        error: (err) => {
           this.snackbar.show(err, $localize`Failed to delete Dish`);
         },
       });
@@ -260,7 +262,7 @@ export class ListComponent implements OnInit, OnDestroy {
           );
           this.table.reset();
         },
-        error: (err: any) => {
+        error: (err) => {
           this.snackbar.show(err, $localize`Failed to delete Dish Promotion`);
         },
       });
@@ -285,7 +287,7 @@ export class ListComponent implements OnInit, OnDestroy {
           }
           this.loading = false;
         },
-        error: (err: any) => {
+        error: (err) => {
           this.snackbar.show(err, $localize`Failed to list Users`);
         },
       });

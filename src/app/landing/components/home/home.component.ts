@@ -7,7 +7,7 @@ import { HomeComponent as HomeUserComponent } from 'src/app/dishes/components/ho
 import { HomeComponent as HomeAdminComponent } from 'src/app/admin/components/home/home.component';
 
 @Component({
-  selector: 'app-home',
+  selector: 'landing-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
   standalone: true,
@@ -35,7 +35,7 @@ export class HomeComponent implements OnInit {
         this.authenticated = value.id > 0;
         this.admin = value.admin;
       },
-      error: (err: any) => {
+      error: (err) => {
         this.snackbar.show(
           err,
           $localize`Failed to receive authentication status`

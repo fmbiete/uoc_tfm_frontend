@@ -14,11 +14,11 @@
         [routerLink]="['/dishes', 'dish', dish.ID]" style="cursor: pointer;" />
       <div class="text-2xl font-bold" [routerLink]="['/dishes', 'dish', dish.ID]" style="cursor: pointer;">{{ dish.Name
         }}</div>
-      <dish-rating [rating]="dish.Likes | rating: dish.Dislikes"></dish-rating>
+      <dishes-rating [rating]="dish.Likes | rating: dish.Dislikes"></dishes-rating>
     </div>
     <div class="flex align-items-center justify-content-between">
       <span class="text-2xl font-semibold">{{ dish.Cost | currency }}</span>
-      <button pButton icon="pi pi-cart-plus" class="p-button" (click)="addCart()"></button>
+      <p-button icon="pi pi-cart-plus" [text]="false" (click)="addCart()"></p-button>
     </div>
   </div>
 </div>

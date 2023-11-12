@@ -26,7 +26,7 @@ import { RouterLink } from '@angular/router';
   styleUrls: ['./grid-item.component.scss'],
 })
 export class GridItemComponent {
-  @Input('dish') dish!: Dish;
+  @Input() dish!: Dish;
 
   constructor(private cartService: CartService) {}
 

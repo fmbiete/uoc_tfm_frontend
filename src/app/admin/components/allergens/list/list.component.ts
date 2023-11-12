@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Allergen } from 'src/app/shared/models/allergen.dto';
 import { ConfirmationService } from 'primeng/api';
@@ -16,7 +16,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { TooltipModule } from 'primeng/tooltip';
 
 @Component({
-  selector: 'app-list',
+  selector: 'admin-allergens-list',
   standalone: true,
   imports: [
     CommonModule,
@@ -32,7 +32,7 @@ import { TooltipModule } from 'primeng/tooltip';
   styleUrls: ['./list.component.scss'],
   providers: [ConfirmationService, DialogService],
 })
-export class ListComponent {
+export class ListComponent implements OnInit, OnDestroy {
   @ViewChild('table') table!: Table;
 
   allergens: Allergen[];
@@ -59,7 +59,7 @@ export class ListComponent {
     if (this.dialogRef) this.dialogRef.close();
   }
 
-  // Filters
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   applyFilterGlobal(table: Table, $event: any, stringVal: any) {
     table.filterGlobal(($event.target as HTMLInputElement).value, stringVal);
   }
@@ -96,9 +96,9 @@ export class ListComponent {
       next: (value: Allergen) => {
         // row is already updated in memory
         // delete backup
-        delete this.clonedAllergens[allergen.ID.toString()];
+        delete this.clonedAllergens[value.ID.toString()];
       },
-      error: (err: any) => {
+      error: (err) => {
         this.snackbar.show(err, $localize`Failed to modify Allergen`);
         // find original id
         const index = this.allergens.findIndex((v) => v.ID == allergen.ID);
@@ -150,7 +150,7 @@ export class ListComponent {
           );
           this.table.reset();
         },
-        error: (err: any) => {
+        error: (err) => {
           this.snackbar.show(err, $localize`Failed to delete Allergen`);
         },
       });
@@ -165,7 +165,7 @@ export class ListComponent {
           this.allergens = value;
           this.loading = false;
         },
-        error: (err: any) => {
+        error: (err) => {
           this.snackbar.show(err, $localize`Failed to list Allergens`);
         },
       });

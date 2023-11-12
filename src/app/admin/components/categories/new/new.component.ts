@@ -64,7 +64,7 @@ export class NewComponent {
         this.snackbar.show(null, $localize`Category Creation succeded`);
         this.ref.close(value);
       },
-      error: (err: any) => {
+      error: (err) => {
         this.snackbar.show(err, $localize`Category Creation failed`);
         this.ref.close(null);
       },

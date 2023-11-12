@@ -30,7 +30,7 @@ export class AppComponent implements OnInit {
         this.authenticated = value.id > 0;
         this.admin = value.admin;
       },
-      error: (err: any) => {
+      error: (err) => {
         this.snackbar.show(
           err,
           $localize`Failed to receive authentication status`

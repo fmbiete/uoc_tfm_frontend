@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { User } from 'src/app/shared/models/user.dto';
 import {
@@ -16,8 +16,8 @@ import { UserService } from 'src/app/shared/services/user.service';
 import { CheckboxModule } from 'primeng/checkbox';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
-import { FormActionsComponent } from '../form-actions/form-actions.component';
 import { first } from 'rxjs';
+import { DividerModule } from 'primeng/divider';
 
 @Component({
   selector: 'checkout-address',
@@ -28,13 +28,13 @@ import { first } from 'rxjs';
     ReactiveFormsModule,
     ButtonModule,
     CheckboxModule,
+    DividerModule,
     InputTextModule,
-    FormActionsComponent,
   ],
   templateUrl: './address.component.html',
   styleUrls: ['./address.component.scss'],
 })
-export class AddressComponent {
+export class AddressComponent implements OnInit {
   saveAsDefault: boolean;
 
   name: string;
@@ -99,7 +99,7 @@ export class AddressComponent {
         next: (value: User) => {
           this._setAddress(value);
         },
-        error: (err: any) => {
+        error: (err) => {
           this.snackbar.show(err, $localize`User Address Retrieval Failed`);
         },
       });
@@ -132,7 +132,7 @@ export class AddressComponent {
 
     if (this.saveAsDefault) {
       // Modify user profile with this address
-      let user = this.addressForm.value;
+      const user = this.addressForm.value;
       user.Name = this.name;
       user.Surname = this.surname;
       user.ID = userId;
@@ -142,10 +142,10 @@ export class AddressComponent {
         .modify$(user)
         .pipe(first())
         .subscribe({
-          next: (value: User) => {
+          next: () => {
             this.snackbar.show(null, $localize`User Modified Successfully`);
           },
-          error: (err: any) => {
+          error: (err) => {
             this.snackbar.show(err, $localize`User Modification Failed`);
           },
         });

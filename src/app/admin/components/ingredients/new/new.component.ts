@@ -16,7 +16,7 @@ import { SnackbarService } from 'src/app/shared/services/snackbar.service';
 import { Ingredient } from 'src/app/shared/models/ingredient.dto';
 
 @Component({
-  selector: 'app-new',
+  selector: 'admin-ingredients-new',
   standalone: true,
   imports: [
     CommonModule,
@@ -64,7 +64,7 @@ export class NewComponent {
         this.snackbar.show(null, $localize`Ingredient Creation succeded`);
         this.ref.close(value);
       },
-      error: (err: any) => {
+      error: (err) => {
         this.snackbar.show(err, $localize`Ingredient Creation failed`);
         this.ref.close(null);
       },

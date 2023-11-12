@@ -3,7 +3,7 @@
   <div id="searchBox" class="p-inputgroup w-11 md:w-8 m-auto my-2 md:my-5 {{ showSearch ? '' : 'hidden' }}">
     <input type="text" pInputText placeholder="Keyword" [(ngModel)]="searchTerm" i18n-aria-label
       aria-label="Search dish by Keyword" />
-    <button type="button" pButton i18n-label label="Search" icon="pi pi-search" (click)="searchDishes()"></button>
+    <p-button [rounded]="true" i18n-label label="Search" icon="pi pi-search" (click)="searchDishes()"></p-button>
   </div>
 
   <ng-container *ngIf="searchTerm; else no_search">
@@ -13,12 +13,12 @@
   <ng-template #no_search>
     <div class="flex flex-column align-items-center justify-content-center bg-primary border-round m-2">
       <h2 i18n>Promotions</h2>
-      <dish-carousel filter="promotions"></dish-carousel>
+      <dishes-carousel filter="promotions"></dishes-carousel>
     </div>
 
     <div class="flex flex-column align-items-center justify-content-center bg-primary border-round m-2">
       <h2 i18n>Favourites</h2>
-      <dish-carousel filter="favourites"></dish-carousel>
+      <dishes-carousel filter="favourites"></dishes-carousel>
     </div>
   </ng-template>
 

@@ -59,7 +59,7 @@ export class ListComponent implements OnInit, OnDestroy {
     if (this.dialogRef) this.dialogRef.close();
   }
 
-  // Filters
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   applyFilterGlobal(table: Table, $event: any, stringVal: any) {
     table.filterGlobal(($event.target as HTMLInputElement).value, stringVal);
   }
@@ -96,9 +96,9 @@ export class ListComponent implements OnInit, OnDestroy {
       next: (value: Category) => {
         // row is already updated in memory
         // delete backup
-        delete this.clonedCategories[category.ID.toString()];
+        delete this.clonedCategories[value.ID.toString()];
       },
-      error: (err: any) => {
+      error: (err) => {
         this.snackbar.show(err, $localize`Failed to modify category`);
         // find original id
         const index = this.categories.findIndex((v) => v.ID == category.ID);
@@ -150,7 +150,7 @@ export class ListComponent implements OnInit, OnDestroy {
           );
           this.table.reset();
         },
-        error: (err: any) => {
+        error: (err) => {
           this.snackbar.show(err, $localize`Failed to delete Category`);
         },
       });
@@ -165,7 +165,7 @@ export class ListComponent implements OnInit, OnDestroy {
           this.categories = value;
           this.loading = false;
         },
-        error: (err: any) => {
+        error: (err) => {
           this.snackbar.show(err, $localize`Failed to list categories`);
         },
       });

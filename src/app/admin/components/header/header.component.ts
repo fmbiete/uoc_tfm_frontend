@@ -6,13 +6,13 @@ import { environment } from 'src/environments/environment';
 import { MenuComponent as UserMenuComponent } from 'src/app/users/components/menu/menu.component';
 
 @Component({
-  selector: 'admin-menubar',
+  selector: 'admin-header',
   standalone: true,
   imports: [CommonModule, MenubarModule, UserMenuComponent],
-  templateUrl: './menubar.component.html',
-  styleUrls: ['./menubar.component.scss'],
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.scss'],
 })
-export class MenubarComponent implements OnInit {
+export class HeaderComponent implements OnInit {
   applicationTitle: string = environment.title;
   items: MenuItem[] | undefined;
 

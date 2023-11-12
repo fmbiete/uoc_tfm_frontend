@@ -27,7 +27,7 @@ import { IngredientService } from 'src/app/shared/services/ingredient.service';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 
 @Component({
-  selector: 'app-new',
+  selector: 'admin-dishes-new',
   standalone: true,
   imports: [
     CommonModule,
@@ -124,7 +124,7 @@ export class NewComponent implements OnInit {
         this.snackbar.show(null, $localize`Dish Creation succeded`);
         this.ref.close(value);
       },
-      error: (err: any) => {
+      error: (err) => {
         this.snackbar.show(err, $localize`Dish Creation failed`);
         this.ref.close(null);
       },
@@ -139,7 +139,7 @@ export class NewComponent implements OnInit {
         next: (value: Allergen[]) => {
           this.existingAllergens = value;
         },
-        error: (err: any) => {
+        error: (err) => {
           this.snackbar.show(err, $localize`Failed to list Allergens`);
         },
       });
@@ -153,7 +153,7 @@ export class NewComponent implements OnInit {
         next: (value: Category[]) => {
           this.existingCategories = value;
         },
-        error: (err: any) => {
+        error: (err) => {
           this.snackbar.show(err, $localize`Failed to list Categories`);
         },
       });
@@ -167,7 +167,7 @@ export class NewComponent implements OnInit {
         next: (value: Ingredient[]) => {
           this.existingIngredients = value;
         },
-        error: (err: any) => {
+        error: (err) => {
           this.snackbar.show(err, $localize`Failed to list Ingredients`);
         },
       });

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   Validators,
   FormsModule,
@@ -7,15 +7,15 @@ import {
   UntypedFormControl,
   UntypedFormBuilder,
 } from '@angular/forms';
-import { NgIf } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { SnackbarService } from 'src/app/shared/services/snackbar.service';
 import { UserService } from 'src/app/shared/services/user.service';
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
 import { User } from 'src/app/shared/models/user.dto';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
-import { FormActionsComponent } from '../form-actions/form-actions.component';
 import { first } from 'rxjs';
+import { DividerModule } from 'primeng/divider';
 
 @Component({
   selector: 'users-profile',
@@ -23,15 +23,15 @@ import { first } from 'rxjs';
   styleUrls: ['./profile.component.scss'],
   standalone: true,
   imports: [
-    ButtonModule,
-    InputTextModule,
+    CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    FormActionsComponent,
-    NgIf,
+    ButtonModule,
+    DividerModule,
+    InputTextModule,
   ],
 })
-export class ProfileComponent {
+export class ProfileComponent implements OnInit {
   name: UntypedFormControl;
   surname: UntypedFormControl;
   address1: UntypedFormControl;
@@ -103,7 +103,7 @@ export class ProfileComponent {
         next: (value: User) => {
           this.setProfile(value);
         },
-        error: (err: any) => {
+        error: (err) => {
           this.snackbar.show(err, $localize`User Retrieval Failed`);
         },
       });
@@ -136,10 +136,10 @@ export class ProfileComponent {
       .modify$(this.profileUser)
       .pipe(first())
       .subscribe({
-        next: (value: User) => {
+        next: () => {
           this.snackbar.show(null, $localize`User Modified Successfully`);
         },
-        error: (err: any) => {
+        error: (err) => {
           this.snackbar.show(err, $localize`User Modification Failed`);
         },
       });

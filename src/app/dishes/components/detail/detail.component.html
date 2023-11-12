@@ -41,7 +41,7 @@
       <section class="flex flex-column">
         <h2 class="mb-1 bg-primary-reverse" i18n>Rating</h2>
         <div class="flex flex-row align-items-center">
-          <dish-rating [rating]="dish.Likes | rating: dish.Dislikes"></dish-rating>
+          <dishes-rating [rating]="dish.Likes | rating: dish.Dislikes"></dishes-rating>
           <span *ngIf="authenticated" class="ml-3">
             <p-button [rounded]="true" severity="primary" icon="pi pi-thumbs-up" severity="secondary" i18n-aria-label
               aria-label="I like this" i18n-pTooltip pTooltip="I like this" tooltipPosition="bottom" (click)="like()"

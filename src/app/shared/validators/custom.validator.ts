@@ -1,15 +1,11 @@
-import {
-  AbstractControl,
-  UntypedFormControl,
-  ValidatorFn,
-} from '@angular/forms';
+import { UntypedFormControl, ValidatorFn } from '@angular/forms';
 
 export class CustomValidators {
   public static match(
     ctl: UntypedFormControl,
     matchCtl: UntypedFormControl
   ): ValidatorFn {
-    return (abstractControl: AbstractControl) => {
+    return () => {
       let ret = null;
       if (ctl.value !== matchCtl.value) {
         ret = { matchValidator: true };

@@ -1,13 +1,13 @@
 <ng-container *ngIf="authenticated && admin; else public">
-  <admin-menubar></admin-menubar>
+  <admin-header></admin-header>
 </ng-container>
 
 <ng-template #public>
-  <app-header></app-header>
+  <landing-header></landing-header>
 </ng-template>
 
 <p-messages key="tc"></p-messages>
 
 <router-outlet class="mt-auto"></router-outlet>
 
-<app-footer class="mt-auto"></app-footer>
+<landing-footer class="mt-auto"></landing-footer>

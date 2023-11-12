@@ -16,7 +16,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { BadgeModule } from 'primeng/badge';
 
 @Component({
-  selector: 'dish-detail',
+  selector: 'dishes-detail',
   templateUrl: './detail.component.html',
   styleUrls: ['./detail.component.scss'],
   standalone: true,
@@ -37,9 +37,9 @@ import { BadgeModule } from 'primeng/badge';
 export class DetailComponent implements OnInit {
   @Input() id?: string;
 
-  loaded: boolean = false;
-  authenticated: boolean = false;
-  dish: Dish = new Dish();
+  loaded: boolean;
+  authenticated: boolean;
+  dish: Dish;
   liked: boolean;
   disliked: boolean;
 
@@ -49,6 +49,9 @@ export class DetailComponent implements OnInit {
     private localStorage: LocalStorageService,
     private cartService: CartService
   ) {
+    this.dish = new Dish();
+    this.loaded = false;
+    this.authenticated = false;
     this.liked = false;
     this.disliked = false;
   }

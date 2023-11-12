@@ -6,7 +6,7 @@ import { ButtonModule } from 'primeng/button';
 import { CartService } from 'src/app/shared/services/cart.service';
 
 @Component({
-  selector: 'dish-thumbnail',
+  selector: 'dishes-thumbnail',
   templateUrl: './thumbnail.component.html',
   styleUrls: ['./thumbnail.component.scss'],
   standalone: true,

@@ -7,6 +7,7 @@ import { MessageService } from 'primeng/api';
 export class SnackbarService {
   constructor(private messageService: MessageService) {}
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   show(error: any, message: string): void {
     if (error !== null) {
       console.error(error);

@@ -22,7 +22,7 @@ import {
   initializeSupportedLocales,
 } from './app.initializer';
 import { CommonModule } from '@angular/common';
-import { MenubarComponent as AdminMenubarComponent } from './admin/components/menubar/menubar.component';
+import { HeaderComponent as AdminMenubarComponent } from './admin/components/header/header.component';
 import { environment } from 'src/environments/environment';
 
 @NgModule({

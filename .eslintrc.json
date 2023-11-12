@@ -27,7 +27,7 @@
           "error",
           {
             "type": "element",
-            "prefix": "app",
+            "prefix": ["app", "admin", "cart", "checkout", "dishes", "landing", "users"],
             "style": "kebab-case"
           }
         ]
@@ -41,7 +41,12 @@
         "plugin:@angular-eslint/template/recommended",
         "plugin:@angular-eslint/template/accessibility"
       ],
-      "rules": {}
+      "rules": {
+        // primeng has a (click) handler that conflicts with the html>click rule
+        "@angular-eslint/template/click-events-have-key-events": 0,
+        // primeng automatically controls focus
+        "@angular-eslint/template/interactive-supports-focus": 0
+      }
     }
   ]
 }

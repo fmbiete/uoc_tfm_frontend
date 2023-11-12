@@ -30,7 +30,7 @@ import { Ingredient } from 'src/app/shared/models/ingredient.dto';
 import { DishService } from 'src/app/shared/services/dish.service';
 
 @Component({
-  selector: 'app-edit',
+  selector: 'admin-dishes-edit',
   standalone: true,
   imports: [
     CommonModule,
@@ -128,7 +128,7 @@ export class EditComponent implements OnInit {
         this.snackbar.show(null, $localize`Dish Modification succeded`);
         this.ref.close(value);
       },
-      error: (err: any) => {
+      error: (err) => {
         this.snackbar.show(err, $localize`Dish Modification failed`);
         this.ref.close(null);
       },
@@ -143,7 +143,7 @@ export class EditComponent implements OnInit {
         next: (value: Allergen[]) => {
           this.existingAllergens = value;
         },
-        error: (err: any) => {
+        error: (err) => {
           this.snackbar.show(err, $localize`Failed to list Allergens`);
         },
       });
@@ -157,7 +157,7 @@ export class EditComponent implements OnInit {
         next: (value: Category[]) => {
           this.existingCategories = value;
         },
-        error: (err: any) => {
+        error: (err) => {
           this.snackbar.show(err, $localize`Failed to list Categories`);
         },
       });
@@ -171,7 +171,7 @@ export class EditComponent implements OnInit {
         next: (value: Ingredient[]) => {
           this.existingIngredients = value;
         },
-        error: (err: any) => {
+        error: (err) => {
           this.snackbar.show(err, $localize`Failed to list Ingredients`);
         },
       });

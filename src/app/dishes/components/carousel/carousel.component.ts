@@ -9,17 +9,20 @@ import { CarouselModule } from 'primeng/carousel';
 import { first } from 'rxjs';
 
 @Component({
-  selector: 'dish-carousel',
+  selector: 'dishes-carousel',
   templateUrl: './carousel.component.html',
   styleUrls: ['./carousel.component.scss'],
   standalone: true,
   imports: [CommonModule, ThumbnailComponent, CarouselModule],
 })
 export class CarouselComponent implements OnInit {
+  // eslint-disable-next-line @typescript-eslint/no-inferrable-types
   @Input() filter: string = 'favourites';
 
   loaded: boolean;
   dishes: Dish[];
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   responsiveOptions: any[] | undefined;
 
   constructor(

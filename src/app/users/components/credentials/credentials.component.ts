@@ -7,7 +7,7 @@ import {
   UntypedFormControl,
   UntypedFormBuilder,
 } from '@angular/forms';
-import { NgIf } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { SnackbarService } from 'src/app/shared/services/snackbar.service';
 import { User } from 'src/app/shared/models/user.dto';
 import { UserService } from 'src/app/shared/services/user.service';
@@ -17,22 +17,22 @@ import { CustomValidators } from 'src/app/shared/validators/custom.validator';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
-import { FormActionsComponent } from '../form-actions/form-actions.component';
 import { first } from 'rxjs';
+import { DividerModule } from 'primeng/divider';
 
 @Component({
-  selector: 'app-credentials',
+  selector: 'users-credentials',
   templateUrl: './credentials.component.html',
   styleUrls: ['./credentials.component.scss'],
   standalone: true,
   imports: [
-    ButtonModule,
-    InputTextModule,
-    PasswordModule,
+    CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    FormActionsComponent,
-    NgIf,
+    ButtonModule,
+    DividerModule,
+    InputTextModule,
+    PasswordModule,
   ],
 })
 export class CredentialsComponent implements OnInit {
@@ -79,7 +79,7 @@ export class CredentialsComponent implements OnInit {
   update(): void {
     const userId = this.localStorage.getUserId();
 
-    let user = new User();
+    const user = new User();
     user.ID = userId;
     user.Email = this.email.value;
     user.Password = this.password.value;
@@ -88,7 +88,7 @@ export class CredentialsComponent implements OnInit {
       .modify$(user)
       .pipe(first())
       .subscribe({
-        next: (value: User) => {
+        next: () => {
           this.snackbar.show(
             null,
             $localize`User Credentials Modified Successfully\nPlease login again`
@@ -96,7 +96,7 @@ export class CredentialsComponent implements OnInit {
           this.localStorage.resetLogin();
           this.router.navigateByUrl('/');
         },
-        error: (err: any) => {
+        error: (err) => {
           this.snackbar.show(
             err,
             $localize`User Credentials Modification Failed`

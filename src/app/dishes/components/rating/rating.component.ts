@@ -1,18 +1,18 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RatingModule } from 'primeng/rating';
 
 @Component({
-  selector: 'dish-rating',
+  selector: 'dishes-rating',
   templateUrl: './rating.component.html',
   styleUrls: ['./rating.component.scss'],
   standalone: true,
   imports: [RatingModule, FormsModule],
 })
-export class RatingComponent implements OnInit {
-  @Input() rating: number = 0;
+export class RatingComponent {
+  @Input() rating: number;
 
-  ngOnInit(): void {
-    return;
+  constructor() {
+    this.rating = 0;
   }
 }

@@ -60,7 +60,7 @@ export class MenuComponent implements OnInit, OnDestroy {
         this.authenticated = value.id > 0;
         this._defineUserMenu(value.admin);
       },
-      error: (err: any) => {
+      error: (err) => {
         this.snackbar.show(
           err,
           $localize`Failed to receive authentication status`

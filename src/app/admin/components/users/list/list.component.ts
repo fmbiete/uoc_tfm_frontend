@@ -13,7 +13,7 @@ import { SnackbarService } from 'src/app/shared/services/snackbar.service';
 import { UserService } from 'src/app/shared/services/user.service';
 
 @Component({
-  selector: 'app-list',
+  selector: 'admin-users-list',
   standalone: true,
   imports: [
     CommonModule,
@@ -51,6 +51,7 @@ export class ListComponent implements OnInit {
     // lazy load
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   applyFilterGlobal(table: Table, $event: any, stringVal: any) {
     console.debug($event);
     console.debug(stringVal);
@@ -92,13 +93,13 @@ export class ListComponent implements OnInit {
     });
   }
 
-  onRowToggleAdmin(user: User, idx: number): void {
+  onRowToggleAdmin(user: User): void {
     this.confirmationService.confirm({
       message: $localize`Do you want to toggle the Administrator flag for this User?\n${user.Name}`,
       header: $localize`Toggle Aministrator Access`,
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-        this._toggleAdminUser(user, idx);
+        this._toggleAdminUser(user);
       },
     });
   }
@@ -113,7 +114,7 @@ export class ListComponent implements OnInit {
           this.users = this.users.filter((c: User) => c.ID !== user.ID);
           this.table.reset();
         },
-        error: (err: any) => {
+        error: (err) => {
           this.snackbar.show(err, $localize`Failed to delete User`);
         },
       });
@@ -138,13 +139,13 @@ export class ListComponent implements OnInit {
           }
           this.loading = false;
         },
-        error: (err: any) => {
+        error: (err) => {
           this.snackbar.show(err, $localize`Failed to list Users`);
         },
       });
   }
 
-  private _toggleAdminUser(user: User, idx: number): void {
+  private _toggleAdminUser(user: User): void {
     user.IsAdmin = !user.IsAdmin;
     this.userService
       .modify$(user)
@@ -153,12 +154,12 @@ export class ListComponent implements OnInit {
         next: (value: User) => {
           this.snackbar.show(
             null,
-            user.IsAdmin
+            value.IsAdmin
               ? $localize`Administrator flag has been activated`
               : $localize`Administrator flag has been removed`
           );
         },
-        error: (err: any) => {
+        error: (err) => {
           // Revert change
           user.IsAdmin = !user.IsAdmin;
           this.snackbar.show(
@@ -181,7 +182,7 @@ export class ListComponent implements OnInit {
             $localize`A new password has been sent to the User email address`
           );
         },
-        error: (err: any) => {
+        error: (err) => {
           this.snackbar.show(err, $localize`Failed to reset User password`);
         },
       });

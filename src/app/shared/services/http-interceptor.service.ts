@@ -15,8 +15,10 @@ export class HttpInterceptorService implements HttpInterceptor {
   constructor(private localStorage: LocalStorageService) {}
 
   intercept(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     req: HttpRequest<any>,
     next: HttpHandler
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ): Observable<HttpEvent<any>> {
     if (!req.url.endsWith('login')) {
       // json request

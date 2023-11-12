@@ -15,7 +15,7 @@ import { SnackbarService } from 'src/app/shared/services/snackbar.service';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @Component({
-  selector: 'app-browse',
+  selector: 'dishes-browse',
   standalone: true,
   imports: [
     AsyncPipe,
@@ -54,7 +54,7 @@ export class BrowseComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.activatedRoute.queryParams.subscribe((params) => {
+    this.activatedRoute.queryParams.subscribe(() => {
       this.listDishes();
     });
   }
@@ -81,7 +81,7 @@ export class BrowseComponent implements OnInit {
         next: (page: PageDishes) => {
           this.dishes = this.dishes.concat(page.dishes);
         },
-        error: (err: any) => {
+        error: (err) => {
           this.snackbar.show(err, $localize`Failed to load dishes`);
         },
       });

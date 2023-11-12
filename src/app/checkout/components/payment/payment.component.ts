@@ -8,7 +8,6 @@ import { Cart } from 'src/app/shared/models/cart.dto';
 import { CartService } from 'src/app/shared/services/cart.service';
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
 import { TotalPipe } from 'src/app/cart/pipes/total.pipe';
-import { FormActionsComponent } from '../form-actions/form-actions.component';
 import { TabViewModule } from 'primeng/tabview';
 import { MessageModule } from 'primeng/message';
 import { TableModule } from 'primeng/table';
@@ -35,7 +34,6 @@ import { first } from 'rxjs';
     ReactiveFormsModule,
     ButtonModule,
     InputTextModule,
-    FormActionsComponent,
     TabViewModule,
     MessageModule,
     TableModule,
@@ -81,7 +79,7 @@ export class PaymentComponent implements OnInit {
         next: (value: Subvention) => {
           this.subvention = value.subvention;
         },
-        error: (err: any) =>
+        error: (err) =>
           this.snackbarService.show(
             err,
             $localize`Failed to read Subvention, it won't be applied`
@@ -97,7 +95,7 @@ export class PaymentComponent implements OnInit {
         next: (value: Cart) => {
           this.cart = value;
         },
-        error: (err: any) => {
+        error: (err) => {
           this.snackbarService.show(err, $localize`Failed to read Cart`);
         },
       });
@@ -105,7 +103,7 @@ export class PaymentComponent implements OnInit {
 
   purchase(): void {
     // Prepare order
-    let order = new Order();
+    const order = new Order();
     order.OrderLines = new Array<OrderLine>();
     this.cart.Lines.forEach((line) => {
       order.OrderLines.push(
@@ -125,7 +123,7 @@ export class PaymentComponent implements OnInit {
           // goto success
           this.router.navigate(['checkout', 'success']);
         },
-        error: (err: any) => {
+        error: (err) => {
           this.snackbarService.show(err, $localize`Failed to create Order`);
           // goto failure
           this.router.navigate(['checkout', 'failure']);

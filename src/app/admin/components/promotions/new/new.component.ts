@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PromotionService } from 'src/app/shared/services/promotion.service';
 import {
@@ -22,7 +22,7 @@ import { Dish } from 'src/app/shared/models/dish.dto';
 import { Promotion } from 'src/app/shared/models/promotion.dto';
 
 @Component({
-  selector: 'app-new',
+  selector: 'admin-promotions-new',
   standalone: true,
   imports: [
     CommonModule,
@@ -36,7 +36,7 @@ import { Promotion } from 'src/app/shared/models/promotion.dto';
   styleUrls: ['./new.component.scss'],
   providers: [DialogService],
 })
-export class NewComponent {
+export class NewComponent implements OnInit {
   createForm: UntypedFormGroup;
   periodDates: UntypedFormControl;
   cost: UntypedFormControl;
@@ -86,7 +86,7 @@ export class NewComponent {
         this.snackbar.show(null, $localize`Dish Promotion Creation succeded`);
         this.ref.close(value);
       },
-      error: (err: any) => {
+      error: (err) => {
         this.snackbar.show(err, $localize`Dish Promotion Creation failed`);
         this.ref.close(null);
       },

@@ -9,7 +9,7 @@ import {
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthService } from 'src/app/shared/services/auth.service';
-import { AuthChallenge } from 'src/app/shared/models/auth.dto';
+import { AuthChallenge, AuthResponse } from 'src/app/shared/models/auth.dto';
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
 import { HeaderService } from 'src/app/shared/services/header.service';
 import { RegisterComponent } from '../register/register.component';
@@ -19,9 +19,10 @@ import { DialogModule } from 'primeng/dialog';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
+import { first } from 'rxjs';
 
 @Component({
-  selector: 'app-login',
+  selector: 'users-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
   standalone: true,
@@ -81,31 +82,35 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.ref.close(false);
   }
 
-  async login(): Promise<void> {
+  login(): void {
     this.localStorageService.resetLogin();
 
-    try {
-      const authChallenge: AuthChallenge = {
-        username: this.email.value,
-        password: this.password.value,
-      };
+    const authChallenge: AuthChallenge = {
+      username: this.email.value,
+      password: this.password.value,
+    };
 
-      const authResponse = await this.authService.login(authChallenge);
-      this.localStorageService.saveLogin(
-        authResponse?.id,
-        authResponse?.email,
-        authResponse?.token,
-        authResponse?.admin
-      );
+    this.authService
+      .login$(authChallenge)
+      .pipe(first())
+      .subscribe({
+        next: (value: AuthResponse) => {
+          this.localStorageService.saveLogin(
+            value.id,
+            value.email,
+            value.token,
+            value.admin
+          );
 
-      this.headerService.showAuthenticated(authResponse?.admin);
-      this.snackbar.show(null, $localize`Welcome back!`);
-      this.ref.close(true);
-    } catch (error: any) {
-      // we stay in the dialog and show error
-      this.headerService.showUnauthenticated();
-      this.snackbar.show(error, $localize`User Authentication failed`);
-    }
+          this.headerService.showAuthenticated(value.admin);
+          this.snackbar.show(null, $localize`Welcome back!`);
+          this.ref.close(true);
+        },
+        error: (err) => {
+          this.headerService.showUnauthenticated();
+          this.snackbar.show(err, $localize`User Authentication failed`);
+        },
+      });
   }
 
   register(): void {
