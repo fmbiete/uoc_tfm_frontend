@@ -81,6 +81,7 @@ export class NewComponent implements OnInit {
       StartTime: this.periodDates.value[0],
       EndTime: this.periodDates.value[1],
       Cost: this.cost.value,
+      Dish: new Dish(),
     };
 
     this.promotionService.create$(promotion).subscribe({

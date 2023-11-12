@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Promotion } from '../models/promotion.dto';
+import { PagePromotions, Promotion } from '../models/promotion.dto';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -23,8 +23,14 @@ export class PromotionService {
     );
   }
 
-  list$(): Observable<Promotion[]> {
-    return this.http.get<Promotion[]>(`${environment.apiUrl}/promotions`);
+  list$(
+    activeOnly: boolean,
+    pageSize: number,
+    pageCount: number
+  ): Observable<PagePromotions> {
+    return this.http.get<PagePromotions>(
+      `${environment.apiUrl}/promotions?limit=${pageSize}&page=${pageCount}&activeOnly=${activeOnly}`
+    );
   }
 
   modify$(promotion: Promotion): Observable<Promotion> {

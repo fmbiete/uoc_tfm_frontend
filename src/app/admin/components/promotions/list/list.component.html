@@ -1,0 +1,95 @@
+<div class="tfm-main-page">
+  <h1>{{ pageTitle }}</h1>
+
+  <p-confirmDialog></p-confirmDialog>
+
+  <p-table #table styleClass="p-datatable-sm p-datatable-striped" [value]="promotions" dataKey="ID" editMode="row"
+    [totalRecords]="fakeTotalPromotions" [lazy]="true" (onLazyLoad)="loadPromotions($event)" [paginator]="true"
+    [rows]="10" [showCurrentPageReport]="true" [loading]="loading" i18n-currentPageReportTemplate
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [rowsPerPageOptions]="[10, 25, 50]"
+    [globalFilterFields]="['Name']">
+    <ng-template pTemplate="caption">
+      <div class="flex">
+        <p-button type="button" i18n-label label="Reset Filter" [outlined]="true" size="small" icon="pi pi-filter-slash"
+          (click)="resetFilter(table)"></p-button>
+        <span class="p-input-icon-left ml-auto">
+          <i class="pi pi-search"></i>
+          <input pInputText type="text" class="p-inputtext-sm" (input)="applyFilterGlobal(table, $event, 'contains')"
+            i18n-placeholder placeholder="Search Name" />
+        </span>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th scope="col" i18n>Dish Name</th>
+        <th scope="col" i18n>Start Date</th>
+        <th scope="col" i18n>End Date</th>
+        <th scope="col" i18n>Cost</th>
+        <th scope="col"></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-promotion let-editing="editing" let-ri="rowIndex">
+      <tr [pEditableRow]="promotion">
+        <td>{{ promotion.Dish.Name | titlecase }}</td>
+        <td>
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <p-calendar [(ngModel)]="startTime" [inline]="true"></p-calendar>
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{ promotion.StartTime | date:'longDate' }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td>
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <p-calendar [(ngModel)]="endTime" [inline]="true"></p-calendar>
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{ promotion.EndTime | date:'longDate' }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td>
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <p-inputNumber [(ngModel)]="promotion.Cost" mode="decimal" [min]="0" [minFractionDigits]="2"
+                [maxFractionDigits]="2"></p-inputNumber>
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{ promotion.Cost | currency }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td>
+          <div class="flex align-items-center justify-content-center gap-2">
+            <p-button *ngIf="!editing" type="button" pInitEditableRow icon="pi pi-pencil"
+              (click)="onRowEditInit(promotion)" [text]="true" size="small" i18n-pTooltip pTooltip="Modify Promotion"
+              tooltipPosition="bottom"></p-button>
+            <p-button *ngIf="!editing" type="button" icon="pi pi-trash" (click)="onRowDelete(promotion)" [text]="true"
+              size="small" styleClass="p-button-danger" i18n-pTooltip pTooltip="Delete Promotion"
+              tooltipPosition="bottom"></p-button>
+            <p-button *ngIf="editing" type="button" pSaveEditableRow icon="pi pi-check"
+              (click)="onRowEditSave(promotion)" [text]="true" size="small" class="mr-2" i18n-pTooltip
+              pTooltip="Save Promotion" tooltipPosition="bottom"></p-button>
+            <p-button *ngIf="editing" type="button" pCancelEditableRow icon="pi pi-times"
+              (click)="onRowEditCancel(promotion, ri)" [text]="true" size="small" styleClass="p-button-danger"
+              i18n-pTooltip pTooltip="Cancel Edit Promotion" tooltipPosition="bottom"></p-button>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="paginatorleft">
+      <p-button type="button" icon="pi pi-plus" size="small" styleClass="p-button-text" i18n-label
+        label="Create Promotion" i18n-pTooltip pTooltip="Create Promotion" tooltipPosition="bottom"
+        (click)="openCreate()"></p-button>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="2" i18n>No promotions found.</td>
+      </tr>
+    </ng-template>
+  </p-table>
+
+</div>

@@ -50,6 +50,7 @@ export class HeaderComponent implements OnInit {
           {
             label: `Active Promotions`,
             icon: 'pi pi-check',
+            routerLink: ['/admin/promotions/true'],
           },
           {
             label: 'New Promotion',
@@ -58,6 +59,7 @@ export class HeaderComponent implements OnInit {
           {
             label: 'List Promotions',
             icon: 'pi pi-gift',
+            routerLink: ['/admin/promotions/false'],
           },
         ],
       },
