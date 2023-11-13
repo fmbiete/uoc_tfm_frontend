@@ -10,13 +10,13 @@ import { Category } from 'src/app/shared/models/category.dto';
 import { first } from 'rxjs';
 
 @Component({
-  selector: 'dishes-menu',
+  selector: 'dishes-menu-category',
   standalone: true,
   imports: [CommonModule, ButtonModule, MenuModule],
-  templateUrl: './menu.component.html',
-  styleUrls: ['./menu.component.scss'],
+  templateUrl: './menu-category.component.html',
+  styleUrls: ['./menu-category.component.scss'],
 })
-export class MenuComponent implements OnInit {
+export class MenuCategoryComponent implements OnInit {
   categories: MenuItem[];
 
   constructor(

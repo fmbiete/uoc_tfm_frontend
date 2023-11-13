@@ -1,63 +1,43 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { AsyncPipe, CommonModule } from '@angular/common';
-import { ButtonModule } from 'primeng/button';
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { DataViewModule } from 'primeng/dataview';
-import { first } from 'rxjs';
-import { Router } from '@angular/router';
-import { CartService } from 'src/app/shared/services/cart.service';
-import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
+import { Subscription, finalize, first } from 'rxjs';
 import { Dish, PageDishes } from 'src/app/shared/models/dish.dto';
 import { DishService } from 'src/app/shared/services/dish.service';
-import { MessageModule } from 'primeng/message';
-import { TagModule } from 'primeng/tag';
-import { RatingComponent } from '../rating/rating.component';
-import { RatingPipe } from '../../pipes/rating.pipe';
-import { GridItemComponent } from '../grid-item/grid-item.component';
 import { SnackbarService } from 'src/app/shared/services/snackbar.service';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { InputTextModule } from 'primeng/inputtext';
+import { GridItemComponent } from '../grid-item/grid-item.component';
 
 @Component({
   selector: 'dishes-search',
   standalone: true,
   imports: [
-    AsyncPipe,
-    RatingPipe,
     CommonModule,
-    ButtonModule,
     DataViewModule,
-    MessageModule,
-    TagModule,
-    RatingComponent,
-    GridItemComponent,
-    DataViewModule,
+    InputTextModule,
     InfiniteScrollModule,
+    GridItemComponent,
   ],
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss'],
 })
 export class SearchComponent implements OnInit {
-  pageCount: number;
-  _searchTerm!: string;
-  dishes: Array<Dish>;
+  private pageSize: number;
+  private pageCount: number;
+  private searchRequests: Array<Subscription>;
 
-  @Input() set searchTerm(value: string) {
-    this.dishes.length = 0;
-    this.pageCount = 1;
-    this._searchTerm = value;
-    this.searchByTerm();
-  }
-  get searchTerm(): string {
-    return this._searchTerm;
-  }
+  dishes: Array<Dish>;
+  searchTerm: string;
 
   constructor(
-    private router: Router,
     private snackbar: SnackbarService,
-    private dishService: DishService,
-    private localStorage: LocalStorageService,
-    private cartService: CartService
+    private dishService: DishService
   ) {
+    this.pageSize = 9;
     this.pageCount = 1;
+    this.searchTerm = '';
+    this.searchRequests = new Array<Subscription>();
     this.dishes = new Array<Dish>();
   }
 
@@ -65,23 +45,51 @@ export class SearchComponent implements OnInit {
     this.searchByTerm();
   }
 
+  onKeyUp(event: KeyboardEvent): void {
+    const text = (event?.target as HTMLInputElement)?.value;
+    if (text !== this.searchTerm) {
+      // new search
+      this.pageCount = 1;
+      this.searchTerm = text;
+      this.dishes.length = 0;
+      this.cancelPendingRequests();
+      this.searchByTerm();
+    }
+  }
+
   onScroll(): void {
-    this.pageCount++;
-    this.searchByTerm();
+    // Only search if there is no requests in progress
+    if (this.searchRequests.length == 0) {
+      this.pageCount++;
+      this.searchByTerm();
+    }
   }
 
   private searchByTerm(): void {
-    console.debug(this._searchTerm);
-    this.dishService
-      .favourites$()
-      .pipe(first())
+    const subscription = this.dishService
+      .search$(this.searchTerm, this.pageSize, this.pageCount)
+      .pipe(
+        first(),
+        finalize(() => {
+          // remove this request as it's done
+          this.searchRequests.pop();
+        })
+      )
       .subscribe({
         next: (value: PageDishes) => {
-          this.dishes = value.dishes;
+          this.dishes = this.dishes.concat(value.dishes);
         },
         error: (err) => {
           this.snackbar.show(err, $localize`Failed to search dishes`);
         },
       });
+    this.searchRequests.push(subscription);
+  }
+
+  private cancelPendingRequests(): void {
+    let subscription: Subscription | undefined;
+    while ((subscription = this.searchRequests.pop())) {
+      subscription.unsubscribe();
+    }
   }
 }

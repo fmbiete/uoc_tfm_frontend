@@ -53,4 +53,14 @@ export class DishService {
   promotions$(): Observable<PageDishes> {
     return this.http.get<PageDishes>(`${environment.apiUrl}/promotions`);
   }
+
+  search$(
+    filter: string,
+    pageSize: number,
+    pageCount: number
+  ): Observable<PageDishes> {
+    return this.http.get<PageDishes>(
+      `${environment.apiUrl}/dishes?limit=${pageSize}&page=${pageCount}&searchTerm=${filter}`
+    );
+  }
 }

@@ -1,16 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { HeaderService } from 'src/app/shared/services/header.service';
 import { Header } from 'src/app/shared/models/header.dto';
 import { CommonModule } from '@angular/common';
 import { environment } from 'src/environments/environment';
 import { ToolbarModule } from 'primeng/toolbar';
-import { ButtonModule } from 'primeng/button';
-import { MenuModule } from 'primeng/menu';
 import { MenuComponent as CartMenuComponent } from 'src/app/cart/components/menu/menu.component';
 import { MenuComponent as UserMenuComponent } from 'src/app/users/components/menu/menu.component';
-import { MenuComponent as DishesMenuComponent } from 'src/app/dishes/components/menu/menu.component';
-import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
+import { MenuCategoryComponent as DishesMenuCategoryComponent } from 'src/app/dishes/components/menu-category/menu-category.component';
+import { MenuSearchComponent as DishesMenuSearchComponent } from 'src/app/dishes/components/menu-search/menu-search.component';
 
 @Component({
   selector: 'landing-header',
@@ -18,15 +16,13 @@ import { LocalStorageService } from 'src/app/shared/services/local-storage.servi
   styleUrls: ['./header.component.scss'],
   standalone: true,
   imports: [
-    ToolbarModule,
-    ButtonModule,
-    MenuModule,
     CommonModule,
     RouterLink,
-    RouterLinkActive,
+    ToolbarModule,
     CartMenuComponent,
     UserMenuComponent,
-    DishesMenuComponent,
+    DishesMenuCategoryComponent,
+    DishesMenuSearchComponent,
   ],
 })
 export class HeaderComponent implements OnInit {
@@ -37,11 +33,7 @@ export class HeaderComponent implements OnInit {
   showAuthSection: boolean;
   showNoAuthSection: boolean;
 
-  constructor(
-    private router: Router,
-    private headerService: HeaderService,
-    private localStorage: LocalStorageService
-  ) {
+  constructor(private headerService: HeaderService) {
     this.showAdminSection = false;
     this.showAuthSection = false;
     this.showNoAuthSection = true;
@@ -55,21 +47,5 @@ export class HeaderComponent implements OnInit {
         this.showAdminSection = status.showAdminSection;
       }
     });
-  }
-
-  toggleSearch(): void {
-    if (this.router.url.split('?')[0] != '/') {
-      this.headerService.showSearch();
-      this.router.navigate(['/']);
-    } else {
-      const searchBox = document.getElementById('searchBox');
-      if (searchBox) {
-        if (searchBox.classList.contains('hidden')) {
-          searchBox.classList.remove('hidden');
-        } else {
-          searchBox.classList.add('hidden');
-        }
-      }
-    }
   }
 }

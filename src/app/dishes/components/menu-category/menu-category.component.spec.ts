@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MenuComponent } from './menu.component';
+import { MenuCategoryComponent } from './menu-category.component';
 import { MessageService } from 'primeng/api';
 import { HttpClient } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('MenuComponent', () => {
-  let component: MenuComponent;
-  let fixture: ComponentFixture<MenuComponent>;
+  let component: MenuCategoryComponent;
+  let fixture: ComponentFixture<MenuCategoryComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [MenuComponent, HttpClientTestingModule],
+      imports: [MenuCategoryComponent, HttpClientTestingModule],
       providers: [HttpClient, MessageService],
     });
-    fixture = TestBed.createComponent(MenuComponent);
+    fixture = TestBed.createComponent(MenuCategoryComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
