@@ -14,8 +14,8 @@
           (click)="resetFilter(table)"></p-button>
         <span class="p-input-icon-left ml-auto">
           <i class="pi pi-search"></i>
-          <input pInputText type="text" class="p-inputtext-sm" (input)="applyFilterGlobal(table, $event, 'contains')"
-            i18n-placeholder placeholder="Search Name" />
+          <input pInputText type="text" class="p-inputtext-sm" (keyup)="onKeyUp($event)" i18n-placeholder
+            placeholder="Search Dishes by Name" [(ngModel)]="searchTerm" />
         </span>
       </div>
     </ng-template>

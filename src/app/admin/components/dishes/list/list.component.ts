@@ -15,7 +15,14 @@ import { InputTextModule } from 'primeng/inputtext';
 import { TableModule, Table, TableLazyLoadEvent } from 'primeng/table';
 import { TooltipModule } from 'primeng/tooltip';
 import { TagModule } from 'primeng/tag';
-import { first } from 'rxjs';
+import {
+  Subject,
+  Subscription,
+  debounceTime,
+  distinctUntilChanged,
+  first,
+  switchMap,
+} from 'rxjs';
 import { SnackbarService } from 'src/app/shared/services/snackbar.service';
 import { DishService } from 'src/app/shared/services/dish.service';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
@@ -26,6 +33,12 @@ import { NewComponent as NewPromotionComponent } from '../../promotions/new/new.
 import { PromotionService } from 'src/app/shared/services/promotion.service';
 import { CalendarModule } from 'primeng/calendar';
 import { InputNumberModule } from 'primeng/inputnumber';
+
+interface ISearchDish {
+  filter: string;
+  pageSize: number;
+  pageCount: number;
+}
 
 @Component({
   selector: 'admin-dishes-list',
@@ -52,10 +65,17 @@ import { InputNumberModule } from 'primeng/inputnumber';
 })
 export class ListComponent implements OnInit, OnDestroy {
   @ViewChild('table') table!: Table;
+  @ViewChild('filterBox') filterBox!: HTMLInputElement;
 
   private clonedPromotions: { [s: string]: Promotion } = {};
   private dialogRefDish: DynamicDialogRef | undefined;
   private dialogRefPromotion: DynamicDialogRef | undefined;
+
+  private subscription!: Subscription;
+  searchTerm: string;
+  private searchText$: Subject<ISearchDish>;
+  private pageSize: number;
+  private pageCount: number;
 
   dishes: Dish[];
   loading: boolean;
@@ -71,40 +91,110 @@ export class ListComponent implements OnInit, OnDestroy {
     private dishService: DishService,
     private promotionService: PromotionService
   ) {
+    this.pageSize = 10;
+    this.pageCount = 1;
+    this.searchText$ = new Subject<ISearchDish>();
+    this.searchTerm = '';
     this.startTime = this.endTime = new Date();
     this.dishes = new Array<Dish>();
     this.loading = true;
     // mark the total as 1+row size to have pagination
-    this.fakeTotalDishes = 10 + 1;
+    this.fakeTotalDishes = this.pageSize + 1;
   }
 
   ngOnInit(): void {
     this.loading = true;
     // lazy load
+    this.subscription = this.searchText$
+      .pipe(
+        debounceTime(500),
+        distinctUntilChanged(),
+        switchMap((value: ISearchDish) => {
+          return this.dishService.search$(
+            value.filter,
+            value.pageSize,
+            value.pageCount
+          );
+        })
+      )
+      .subscribe({
+        next: (value: PageDishes) => {
+          // this.table.clear();
+          // we only show the current page
+          this.dishes = value.dishes;
+          if (value.dishes.length == this.pageSize) {
+            // If this page is full of elements (we exactly have pageSize),
+            // we add 1 to our fake total to enable "next page"
+            this.fakeTotalDishes = this.pageSize * this.pageCount + 1;
+          } else {
+            // If this page is not full
+            // we add only what we have; this will disable "next page"
+            this.fakeTotalDishes =
+              this.pageSize * (this.pageCount - 1) + value.dishes.length;
+          }
+          this.loading = false;
+        },
+        error: (err) => {
+          this.snackbar.show(err, $localize`Failed to search dishes`);
+        },
+      });
   }
 
   ngOnDestroy(): void {
     if (this.dialogRefDish) this.dialogRefDish.close();
     if (this.dialogRefPromotion) this.dialogRefPromotion.close();
+    this.subscription.unsubscribe();
   }
 
-  applyFilterGlobal(table: Table, $event: Event, stringVal: string) {
-    // TODO: search
-    console.debug($event);
-    console.debug(stringVal);
-    table.filterGlobal(($event.target as HTMLInputElement).value, stringVal);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  onKeyUp(event: KeyboardEvent): void {
+    // clear resets pagination
+    this.table.clear();
+    this.loading = true;
+
+    // key pressed - new search always?
+    this.pageCount = 1;
+
+    const data: ISearchDish = {
+      filter: this.searchTerm,
+      pageCount: this.pageCount,
+      pageSize: this.pageSize,
+    };
+
+    this.searchText$.next(data);
   }
 
   loadDishes(event: TableLazyLoadEvent): void {
-    // pageSize is the value selected or 10
-    const pageSize = event.rows ?? 10;
+    this.loading = true;
+    // pageSize is the value selected or our default
+    this.pageSize = event.rows ?? this.pageSize;
     // pageCount is 0 based in the table, but 1 based in the API
     // first contains the number of elements
-    const pageCount = event.first == undefined ? 1 : event.first / pageSize + 1;
-    this._subscribeDishes(pageSize, pageCount);
+    this.pageCount =
+      event.first == undefined ? 1 : event.first / this.pageSize + 1;
+
+    const data: ISearchDish = {
+      filter: this.searchTerm,
+      pageCount: this.pageCount,
+      pageSize: this.pageSize,
+    };
+
+    this.searchText$.next(data);
   }
 
   resetFilter(table: Table) {
+    this.searchTerm = '';
+    this.pageCount = 1;
+
+    const data: ISearchDish = {
+      filter: this.searchTerm,
+      pageCount: this.pageCount,
+      pageSize: this.pageSize,
+    };
+
+    this.searchText$.next(data);
+
+    // clear resets pagination
     table.clear();
   }
 
@@ -263,31 +353,6 @@ export class ListComponent implements OnInit, OnDestroy {
         },
         error: (err) => {
           this.snackbar.show(err, $localize`Failed to delete Dish Promotion`);
-        },
-      });
-  }
-
-  private _subscribeDishes(pageSize: number, pageCount: number): void {
-    this.dishService
-      .list$(pageSize, pageCount)
-      .pipe(first())
-      .subscribe({
-        next: (value: PageDishes) => {
-          this.dishes = value.dishes;
-          if (value.dishes.length == pageSize) {
-            // If this page is full of elements (we exactly have pageSize),
-            // we add 1 to our fake total to enable "next page"
-            this.fakeTotalDishes = pageSize * pageCount + 1;
-          } else {
-            // If this page is not full
-            // we add only what we have; this will disable "next page"
-            this.fakeTotalDishes =
-              pageSize * (pageCount - 1) + value.dishes.length;
-          }
-          this.loading = false;
-        },
-        error: (err) => {
-          this.snackbar.show(err, $localize`Failed to list Users`);
         },
       });
   }
