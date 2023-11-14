@@ -1,16 +1,25 @@
-<div class="tfm-thumbnail">
-  <div class="tfm-thumbnail-image">
-    <img src="/assets/dishes/generic.png" alt="Go to details for {{ dish.Name }}"
-      [routerLink]="['dishes', 'dish', dish.ID]" style="cursor: pointer;">
-  </div>
-  <div class="tfm-thumbnail-info">
-    <h4><a [routerLink]="['dishes', 'dish', dish.ID]" class="text-white no-underline">{{ dish.Name }}</a></h4>
-    <h6>{{ dish.Cost | currency }}</h6>
+<div class="md:flex md:justify-content-center max-w-10rem md:max-w-full">
+  <div class="md:my-2 md:mx-5">
+    <div class="text-right">
+      <ng-container *ngFor="let allergen of dish.Allergens">
+        <p-tag class="ml-1" [value]="allergen.Name" severity="warning"></p-tag>
+      </ng-container>
+    </div>
     <div>
-      <p-button type="button" styleClass="p-button-secondary p-button-rounded mr-2" icon="pi pi-eye"
-        [routerLink]="['dishes', 'dish', dish.ID]"></p-button>
-      <p-button type="button" styleClass="p-button-success p-button-rounded" icon="pi pi-cart-plus"
-        (click)="addCart()"></p-button>
+      <a [routerLink]="['dishes', 'dish', dish.ID]" class="text-white no-underline" i18n-aria-label
+        aria-label="Go to Dish details">
+        <img src="/assets/dishes/generic.png" i18n-alt alt="Go to details for {{ dish.Name }}" class="max-w-full">
+      </a>
+    </div>
+    <div>
+      <h2><a [routerLink]="['dishes', 'dish', dish.ID]" class="text-white no-underline">{{ dish.Name }}</a></h2>
+      <h3 class="text-orange-300">{{ dish.Cost | currency }}</h3>
+      <div>
+        <p-button type="button" styleClass="p-button-secondary p-button-rounded mr-2" icon="pi pi-eye"
+          [routerLink]="['dishes', 'dish', dish.ID]"></p-button>
+        <p-button type="button" styleClass="p-button-success p-button-rounded" icon="pi pi-cart-plus"
+          (click)="addCart()"></p-button>
+      </div>
     </div>
   </div>
 </div>

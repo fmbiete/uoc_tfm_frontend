@@ -16,8 +16,7 @@ import { first } from 'rxjs';
   imports: [CommonModule, ThumbnailComponent, CarouselModule],
 })
 export class CarouselComponent implements OnInit {
-  // eslint-disable-next-line @typescript-eslint/no-inferrable-types
-  @Input() filter: string = 'favourites';
+  @Input() filter: string;
 
   loaded: boolean;
   dishes: Dish[];
@@ -30,6 +29,7 @@ export class CarouselComponent implements OnInit {
     private dishService: DishService
   ) {
     this.loaded = false;
+    this.filter = 'favourites';
     this.dishes = new Array<Dish>();
   }
 
@@ -43,13 +43,13 @@ export class CarouselComponent implements OnInit {
     this.responsiveOptions = [
       {
         breakpoint: '1199px',
-        numVisible: 1,
-        numScroll: 1,
+        numVisible: 3,
+        numScroll: 3,
       },
       {
         breakpoint: '991px',
-        numVisible: 1,
-        numScroll: 1,
+        numVisible: 2,
+        numScroll: 2,
       },
       {
         breakpoint: '767px',
