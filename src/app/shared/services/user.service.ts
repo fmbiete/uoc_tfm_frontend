@@ -22,9 +22,13 @@ export class UserService {
     return this.http.delete<void>(`${environment.apiUrl}/user/${userId}`);
   }
 
-  list$(pageSize: number, pageCount: number): Observable<PageUsers> {
+  search$(
+    searchTerm: string,
+    pageSize: number,
+    pageCount: number
+  ): Observable<PageUsers> {
     return this.http.get<PageUsers>(
-      `${environment.apiUrl}/users?limit=${pageSize}&page=${pageCount}`
+      `${environment.apiUrl}/users?limit=${pageSize}&page=${pageCount}&searchTerm=${searchTerm}`
     );
   }
 

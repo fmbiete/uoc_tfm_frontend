@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PageUsers, User } from 'src/app/shared/models/user.dto';
+import { ISearchUser, PageUsers, User } from 'src/app/shared/models/user.dto';
 import { FormsModule } from '@angular/forms';
 import { ConfirmationService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
@@ -8,7 +8,14 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { TableModule, Table, TableLazyLoadEvent } from 'primeng/table';
 import { TooltipModule } from 'primeng/tooltip';
-import { first } from 'rxjs';
+import {
+  Subject,
+  Subscription,
+  debounceTime,
+  distinctUntilChanged,
+  first,
+  switchMap,
+} from 'rxjs';
 import { SnackbarService } from 'src/app/shared/services/snackbar.service';
 import { UserService } from 'src/app/shared/services/user.service';
 
@@ -28,8 +35,14 @@ import { UserService } from 'src/app/shared/services/user.service';
   styleUrls: ['./list.component.scss'],
   providers: [ConfirmationService],
 })
-export class ListComponent implements OnInit {
+export class ListComponent implements OnInit, OnDestroy {
   @ViewChild('table') table!: Table;
+
+  private subscription!: Subscription;
+  searchTerm: string;
+  private searchText$: Subject<ISearchUser>;
+  private pageSize: number;
+  private pageCount: number;
 
   users: User[];
   loading: boolean;
@@ -40,31 +53,107 @@ export class ListComponent implements OnInit {
     private confirmationService: ConfirmationService,
     private userService: UserService
   ) {
+    this.pageSize = 10;
+    this.pageCount = 1;
+    this.searchText$ = new Subject<ISearchUser>();
+    this.searchTerm = '';
     this.users = new Array<User>();
     this.loading = true;
     // mark the total as 1+row size to have pagination
-    this.fakeTotalUsers = 6;
+    this.fakeTotalUsers = this.pageSize + 1;
   }
 
   ngOnInit(): void {
     this.loading = true;
     // lazy load
+    // lazy load
+    this.subscription = this.searchText$
+      .pipe(
+        debounceTime(500),
+        distinctUntilChanged(),
+        switchMap((value: ISearchUser) => {
+          return this.userService.search$(
+            value.filter,
+            value.pageSize,
+            value.pageCount
+          );
+        })
+      )
+      .subscribe({
+        next: (value: PageUsers) => {
+          // we only show the current page
+          this.users = value.users;
+          if (value.users.length == this.pageSize) {
+            // If this page is full of elements (we exactly have pageSize),
+            // we add 1 to our fake total to enable "next page"
+            this.fakeTotalUsers = this.pageSize * this.pageCount + 1;
+          } else {
+            // If this page is not full
+            // we add only what we have; this will disable "next page"
+            this.fakeTotalUsers =
+              this.pageSize * (this.pageCount - 1) + value.users.length;
+          }
+          this.loading = false;
+        },
+        error: (err) => {
+          this.snackbar.show(err, $localize`Failed to search dishes`);
+        },
+      });
   }
 
-  applyFilterGlobal(table: Table, $event: Event, stringVal: string) {
-    table.filterGlobal(($event.target as HTMLInputElement).value, stringVal);
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  onKeyUp(event: KeyboardEvent): void {
+    // clear resets pagination
+    this.table.clear();
+    this.loading = true;
+
+    // key pressed - new search always?
+    this.pageCount = 1;
+
+    const data: ISearchUser = {
+      filter: this.searchTerm,
+      pageCount: this.pageCount,
+      pageSize: this.pageSize,
+    };
+
+    this.searchText$.next(data);
   }
 
   loadUsers(event: TableLazyLoadEvent): void {
-    // pageSize is the value selected or 5
-    const pageSize = event.rows ?? 5;
+    this.loading = true;
+    // pageSize is the value selected or our default
+    this.pageSize = event.rows ?? this.pageSize;
     // pageCount is 0 based in the table, but 1 based in the API
     // first contains the number of elements
-    const pageCount = event.first == undefined ? 1 : event.first / pageSize + 1;
-    this._subscribeUsers(pageSize, pageCount);
+    this.pageCount =
+      event.first == undefined ? 1 : event.first / this.pageSize + 1;
+
+    const data: ISearchUser = {
+      filter: this.searchTerm,
+      pageCount: this.pageCount,
+      pageSize: this.pageSize,
+    };
+
+    this.searchText$.next(data);
   }
 
   resetFilter(table: Table): void {
+    this.searchTerm = '';
+    this.pageCount = 1;
+
+    const data: ISearchUser = {
+      filter: this.searchTerm,
+      pageCount: this.pageCount,
+      pageSize: this.pageSize,
+    };
+
+    this.searchText$.next(data);
+
+    // clear resets pagination
     table.clear();
   }
 
@@ -113,31 +202,6 @@ export class ListComponent implements OnInit {
         },
         error: (err) => {
           this.snackbar.show(err, $localize`Failed to delete User`);
-        },
-      });
-  }
-
-  private _subscribeUsers(pageSize: number, pageCount: number): void {
-    this.userService
-      .list$(pageSize, pageCount)
-      .pipe(first())
-      .subscribe({
-        next: (value: PageUsers) => {
-          this.users = value.users;
-          if (value.users.length == pageSize) {
-            // If this page is full of elements (we exactly have pageSize),
-            // we add 1 to our fake total to enable "next page"
-            this.fakeTotalUsers = pageSize * pageCount + 1;
-          } else {
-            // If this page is not full
-            // we add only what we have; this will disable "next page"
-            this.fakeTotalUsers =
-              pageSize * (pageCount - 1) + value.users.length;
-          }
-          this.loading = false;
-        },
-        error: (err) => {
-          this.snackbar.show(err, $localize`Failed to list Users`);
         },
       });
   }

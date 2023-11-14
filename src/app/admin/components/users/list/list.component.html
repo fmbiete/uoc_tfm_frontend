@@ -4,24 +4,24 @@
   <p-confirmDialog></p-confirmDialog>
 
   <p-table #table styleClass="p-datatable-sm p-datatable-striped" [value]="users" dataKey="ID"
-    [totalRecords]="fakeTotalUsers" [lazy]="true" (onLazyLoad)="loadUsers($event)" [paginator]="true" [rows]="5"
+    [totalRecords]="fakeTotalUsers" [lazy]="true" (onLazyLoad)="loadUsers($event)" [paginator]="true" [rows]="10"
     [showCurrentPageReport]="true" [loading]="loading" i18n-currentPageReportTemplate
-    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-    [rowsPerPageOptions]="[5, 10, 25, 50]" [globalFilterFields]="['Name']">
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [rowsPerPageOptions]="[10, 25, 50]">
     <ng-template pTemplate="caption">
       <div class="flex">
         <p-button type="button" i18n-label label="Reset Filter" [outlined]="true" size="small" icon="pi pi-filter-slash"
           (click)="resetFilter(table)"></p-button>
         <span class="p-input-icon-left ml-auto">
           <i class="pi pi-search"></i>
-          <input pInputText type="text" class="p-inputtext-sm" (input)="applyFilterGlobal(table, $event, 'contains')"
-            i18n-placeholder placeholder="Search Name" />
+          <input pInputText type="text" class="p-inputtext-sm" (keyup)="onKeyUp($event)" i18n-placeholder
+            placeholder="Search by Name or Email" [(ngModel)]="searchTerm" />
         </span>
       </div>
     </ng-template>
     <ng-template pTemplate="header">
       <tr>
         <th scope="col" i18n>Name</th>
+        <th scope="col" i18n>Surname</th>
         <th scope="col" i18n>Email</th>
         <th scope="col" i18n>Is Administrator</th>
         <th scope="col"></th>
@@ -30,6 +30,7 @@
     <ng-template pTemplate="body" let-user let-ri="rowIndex">
       <tr>
         <td>{{ user.Name }}</td>
+        <td>{{ user.Surname }}</td>
         <td>{{ user.Email }}</td>
         <td>{{ user.IsAdmin }}</td>
         <td>

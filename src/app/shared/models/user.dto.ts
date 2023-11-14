@@ -18,3 +18,9 @@ export class PageUsers {
   page!: number;
   limit!: number;
 }
+
+export interface ISearchUser {
+  filter: string;
+  pageSize: number;
+  pageCount: number;
+}
