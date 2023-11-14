@@ -1,12 +1,15 @@
 <div class="tfm-main-page">
   <span class="p-input-icon-left w-full mt-5">
     <i class="pi pi-search"></i>
-    <input class="w-full" type="text" pInputText i18n-aria-label aria-label="Search Dish by term"
-      (keyup)="onKeyUp($event)" />
+    <input class="w-full" type="text" pInputText i18n-aria-label aria-label="Search Dishes by Name" i18n-placeholder
+      placeholder="Search Dishes by Name" [(ngModel)]="searchTerm" (keyup)="onKeyUp($event)" />
   </span>
 
   <div class="m-auto text-center">
-    <h1 i18n>Dishes containing "{{ searchTerm }}"</h1>
+    <h1 *ngIf="searchTerm.length > 0; else nosearch" i18n>Dishes containing "{{ searchTerm }}"</h1>
+    <ng-template #nosearch>
+      <h1 i18n>All Dishes</h1>
+    </ng-template>
   </div>
 
   <p-dataView #dv [value]="dishes" layout="grid" class="tfm-dish-grid" infiniteScroll [infiniteScrollDistance]="2"

@@ -5,7 +5,7 @@ import {
   DatePipe,
   TitleCasePipe,
 } from '@angular/common';
-import { Dish, PageDishes } from 'src/app/shared/models/dish.dto';
+import { Dish, ISearchDish, PageDishes } from 'src/app/shared/models/dish.dto';
 import { FormsModule } from '@angular/forms';
 import { ConfirmationService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
@@ -33,12 +33,6 @@ import { NewComponent as NewPromotionComponent } from '../../promotions/new/new.
 import { PromotionService } from 'src/app/shared/services/promotion.service';
 import { CalendarModule } from 'primeng/calendar';
 import { InputNumberModule } from 'primeng/inputnumber';
-
-interface ISearchDish {
-  filter: string;
-  pageSize: number;
-  pageCount: number;
-}
 
 @Component({
   selector: 'admin-dishes-list',

@@ -21,3 +21,9 @@ export class PageDishes {
   page!: number;
   limit!: number;
 }
+
+export interface ISearchDish {
+  filter: string;
+  pageSize: number;
+  pageCount: number;
+}

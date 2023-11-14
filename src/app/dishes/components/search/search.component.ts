@@ -1,19 +1,29 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DataViewModule } from 'primeng/dataview';
-import { Subscription, finalize, first } from 'rxjs';
-import { Dish, PageDishes } from 'src/app/shared/models/dish.dto';
+import {
+  Subject,
+  Subscription,
+  debounceTime,
+  distinctUntilChanged,
+  finalize,
+  first,
+  switchMap,
+} from 'rxjs';
+import { Dish, ISearchDish, PageDishes } from 'src/app/shared/models/dish.dto';
 import { DishService } from 'src/app/shared/services/dish.service';
 import { SnackbarService } from 'src/app/shared/services/snackbar.service';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { InputTextModule } from 'primeng/inputtext';
 import { GridItemComponent } from '../grid-item/grid-item.component';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'dishes-search',
   standalone: true,
   imports: [
     CommonModule,
+    FormsModule,
     DataViewModule,
     InputTextModule,
     InfiniteScrollModule,
@@ -22,13 +32,14 @@ import { GridItemComponent } from '../grid-item/grid-item.component';
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss'],
 })
-export class SearchComponent implements OnInit {
+export class SearchComponent implements OnInit, OnDestroy {
+  private subscription!: Subscription;
+  searchTerm: string;
+  private searchText$: Subject<ISearchDish>;
   private pageSize: number;
   private pageCount: number;
-  private searchRequests: Array<Subscription>;
 
   dishes: Array<Dish>;
-  searchTerm: string;
 
   constructor(
     private snackbar: SnackbarService,
@@ -36,60 +47,73 @@ export class SearchComponent implements OnInit {
   ) {
     this.pageSize = 9;
     this.pageCount = 1;
+    this.searchText$ = new Subject<ISearchDish>();
     this.searchTerm = '';
-    this.searchRequests = new Array<Subscription>();
     this.dishes = new Array<Dish>();
   }
 
   ngOnInit(): void {
-    this.searchByTerm();
-  }
-
-  onKeyUp(event: KeyboardEvent): void {
-    const text = (event?.target as HTMLInputElement)?.value;
-    if (text !== this.searchTerm) {
-      // new search
-      this.pageCount = 1;
-      this.searchTerm = text;
-      this.dishes.length = 0;
-      this.cancelPendingRequests();
-      this.searchByTerm();
-    }
-  }
-
-  onScroll(): void {
-    // Only search if there is no requests in progress
-    if (this.searchRequests.length == 0) {
-      this.pageCount++;
-      this.searchByTerm();
-    }
-  }
-
-  private searchByTerm(): void {
-    const subscription = this.dishService
-      .search$(this.searchTerm, this.pageSize, this.pageCount)
+    this.subscription = this.searchText$
       .pipe(
-        first(),
-        finalize(() => {
-          // remove this request as it's done
-          this.searchRequests.pop();
+        debounceTime(500),
+        distinctUntilChanged(),
+        switchMap((value: ISearchDish) => {
+          return this.dishService.search$(
+            value.filter,
+            value.pageSize,
+            value.pageCount
+          );
         })
       )
       .subscribe({
         next: (value: PageDishes) => {
-          this.dishes = this.dishes.concat(value.dishes);
+          if (value.page == 1) {
+            this.dishes.length = 0;
+            this.dishes = value.dishes;
+          } else {
+            this.dishes = this.dishes.concat(value.dishes);
+          }
         },
         error: (err) => {
           this.snackbar.show(err, $localize`Failed to search dishes`);
         },
       });
-    this.searchRequests.push(subscription);
+
+    const data: ISearchDish = {
+      filter: this.searchTerm,
+      pageCount: this.pageCount,
+      pageSize: this.pageSize,
+    };
+
+    this.searchText$.next(data);
   }
 
-  private cancelPendingRequests(): void {
-    let subscription: Subscription | undefined;
-    while ((subscription = this.searchRequests.pop())) {
-      subscription.unsubscribe();
-    }
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  onKeyUp(event: KeyboardEvent): void {
+    // key pressed - new search always?
+    this.pageCount = 1;
+
+    const data: ISearchDish = {
+      filter: this.searchTerm,
+      pageCount: this.pageCount,
+      pageSize: this.pageSize,
+    };
+
+    this.searchText$.next(data);
+  }
+
+  onScroll(): void {
+    this.pageCount++;
+    const data: ISearchDish = {
+      filter: this.searchTerm,
+      pageCount: this.pageCount,
+      pageSize: this.pageSize,
+    };
+
+    this.searchText$.next(data);
   }
 }
