@@ -46,7 +46,6 @@ export class MenuComponent implements OnInit, OnDestroy {
         const btn = document.getElementById('tfm-cart-button');
         const box = document.getElementById('tfm-cart');
         if (!btn || !box) {
-          console.error(`elements not found`);
           return;
         }
 
