@@ -6,8 +6,7 @@
   <p-table #table styleClass="p-datatable-sm p-datatable-striped" [value]="dishes" dataKey="ID"
     [totalRecords]="fakeTotalDishes" [lazy]="true" (onLazyLoad)="loadDishes($event)" [paginator]="true" [rows]="10"
     [showCurrentPageReport]="true" [loading]="loading" i18n-currentPageReportTemplate
-    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [rowsPerPageOptions]="[10, 25, 50]"
-    [globalFilterFields]="['Name']">
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [rowsPerPageOptions]="[10, 25, 50]">
     <ng-template pTemplate="caption">
       <div class="flex">
         <p-button type="button" i18n-label label="Reset Filter" [outlined]="true" size="small" icon="pi pi-filter-slash"
