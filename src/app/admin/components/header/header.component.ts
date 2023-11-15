@@ -53,10 +53,6 @@ export class HeaderComponent implements OnInit {
             routerLink: ['/admin/promotions/true'],
           },
           {
-            label: 'New Promotion',
-            icon: 'pi pi-plus',
-          },
-          {
             label: 'List Promotions',
             icon: 'pi pi-gift',
             routerLink: ['/admin/promotions/false'],
