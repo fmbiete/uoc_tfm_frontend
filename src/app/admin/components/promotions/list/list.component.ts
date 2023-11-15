@@ -71,12 +71,10 @@ export class ListComponent implements OnDestroy, OnInit {
   }
 
   ngOnInit(): void {
-    console.debug(`ngOnInit`);
     // lazy load
     this.loading = true;
     // Same page multiple links and parameters
     this.route.paramMap.subscribe((params) => {
-      console.debug(`activatedRoute subscribe`);
       this.activeOnly = params.get('activeOnly') === 'true';
       this.pageTitle = this.activeOnly
         ? $localize`Active Promotions`
