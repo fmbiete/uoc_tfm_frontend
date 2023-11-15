@@ -4,6 +4,13 @@
       this period the <strong>Dish</strong> has a different <strong>Cost</strong>.</p>
 
     <div>
+      <span class="p-float-label">
+        <input type="text" pInputText formControlName="dish" readonly="true" i18n-aria-label
+          aria-label="Selected Dish" />
+        <label for="dish" i18n>Selected Dish</label>
+      </span>
+    </div>
+    <div>
       <label for="period" i18n>Validity Period</label>
       <p-calendar id="period" formControlName="periodDates" selectionMode="range" [readonlyInput]="true" [inline]="true"
         [showButtonBar]="true" styleClass="w-full"></p-calendar>

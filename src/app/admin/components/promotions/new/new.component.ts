@@ -21,6 +21,7 @@ import { SnackbarService } from 'src/app/shared/services/snackbar.service';
 import { Dish } from 'src/app/shared/models/dish.dto';
 import { Promotion } from 'src/app/shared/models/promotion.dto';
 import { DividerModule } from 'primeng/divider';
+import { InputText, InputTextModule } from 'primeng/inputtext';
 
 @Component({
   selector: 'admin-promotions-new',
@@ -33,6 +34,7 @@ import { DividerModule } from 'primeng/divider';
     CalendarModule,
     DividerModule,
     InputNumberModule,
+    InputTextModule,
   ],
   templateUrl: './new.component.html',
   styleUrls: ['./new.component.scss'],
@@ -42,8 +44,9 @@ export class NewComponent implements OnInit {
   createForm: UntypedFormGroup;
   periodDates: UntypedFormControl;
   cost: UntypedFormControl;
+  dish: UntypedFormControl;
 
-  private dish: Dish;
+  private selectedDish: Dish;
 
   constructor(
     private formBuilder: UntypedFormBuilder,
@@ -52,17 +55,21 @@ export class NewComponent implements OnInit {
     public ref: DynamicDialogRef,
     public config: DynamicDialogConfig
   ) {
-    this.dish = config.data.dish;
+    this.selectedDish = config.data.dish;
 
     this.periodDates = new UntypedFormControl('', [Validators.required]);
     this.cost = new UntypedFormControl(0, [
       Validators.required,
       Validators.min(0),
     ]);
+    this.dish = new UntypedFormControl(this.selectedDish.Name, [
+      Validators.required,
+    ]);
 
     this.createForm = this.formBuilder.group({
       periodDates: this.periodDates,
       cost: this.cost,
+      dish: this.dish,
     });
   }
 
@@ -77,7 +84,7 @@ export class NewComponent implements OnInit {
   create(): void {
     const promotion: Promotion = {
       ID: 0,
-      DishID: this.dish.ID,
+      DishID: this.selectedDish.ID,
       StartTime: this.periodDates.value[0],
       EndTime: this.periodDates.value[1],
       Cost: this.cost.value,
