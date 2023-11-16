@@ -14,6 +14,8 @@ import { ButtonModule } from 'primeng/button';
 import { FormsModule } from '@angular/forms';
 import { TooltipModule } from 'primeng/tooltip';
 import { BadgeModule } from 'primeng/badge';
+import { PanelModule } from 'primeng/panel';
+import { DividerModule } from 'primeng/divider';
 
 @Component({
   selector: 'dishes-detail',
@@ -21,17 +23,19 @@ import { BadgeModule } from 'primeng/badge';
   styleUrls: ['./detail.component.scss'],
   standalone: true,
   imports: [
-    CurrencyPipe,
-    TitleCasePipe,
     CommonModule,
+    CurrencyPipe,
+    FormsModule,
+    TitleCasePipe,
     RatingComponent,
     RatingPipe,
-    ChipsModule,
-    ButtonModule,
-    SkeletonModule,
-    FormsModule,
-    TooltipModule,
     BadgeModule,
+    ButtonModule,
+    ChipsModule,
+    DividerModule,
+    PanelModule,
+    SkeletonModule,
+    TooltipModule,
   ],
 })
 export class DetailComponent implements OnInit {

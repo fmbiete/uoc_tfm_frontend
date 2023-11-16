@@ -1,5 +1,5 @@
 <ng-container *ngIf="loaded; else loading">
-  <div class="flex flex-column md:flex-row justify-content-center align-items-center">
+  <div class="flex flex-column md:flex-row justify-content-center align-items-center m-2 md:m-0">
     <div class="flex flex-column">
       <span class="flex flex-row justify-content-end" *ngFor="let category of dish.Categories">
         <i class="pi pi-tag"></i>
@@ -9,34 +9,33 @@
       <img src="/assets/dishes/generic.png" alt="{{ dish.Name | titlecase }}" class="max-w-full">
     </div>
     <div class="md:ml-5">
-      <h1>{{ dish.Name }}</h1>
+      <h1 class="md:text-6xl">{{ dish.Name }}</h1>
 
       <section class="flex flex-row align-content-top">
-        <div class="mr-5">
-          <h3 class="m-0 bg-primary-reverse" i18n>Price</h3>
-          <div class="bg-primary-reverse font-bold">{{ dish.Cost | currency }}</div>
+        <div class="mr-5 bg-primary-reverse">
+          <h3 class="m-0" i18n>Price</h3>
+          <div class="font-bold">{{ dish.Cost | currency }}</div>
         </div>
         <p-button *ngIf="loaded" icon="pi pi-cart-plus" (click)="addCart()" i18n-label label="Add to Cart"></p-button>
       </section>
 
-      <section>
-        <h2 class="bg-primary-reverse">{{ dish.Name }}</h2>
-        <div class="border-left-2 border-primary-500 p-3">{{ dish.Description }}</div>
-      </section>
+      <p-panel header="{{ dish.Name | titlecase }}" styleClass="mt-5">
+        <p class="m-0">{{ dish.Description }}</p>
 
-      <section>
+        <p-divider></p-divider>
+
         <h2 class="mb-1 bg-primary-reverse" i18n>Ingredients</h2>
         <ng-container *ngFor="let item of dish.Ingredients">
           <p-badge severity="info" value="{{ item.Name }}" styleClass="mr-1"></p-badge>
         </ng-container>
-      </section>
 
-      <section>
+        <p-divider></p-divider>
+
         <h2 class="mb-1 bg-primary-reverse" i18n>Allergens</h2>
         <ng-container *ngFor="let item of dish.Allergens">
           <p-badge severity="warning" value="{{ item.Name }}" styleClass="mr-1"></p-badge>
         </ng-container>
-      </section>
+      </p-panel>
 
       <section class="flex flex-column">
         <h2 class="mb-1 bg-primary-reverse" i18n>Rating</h2>
