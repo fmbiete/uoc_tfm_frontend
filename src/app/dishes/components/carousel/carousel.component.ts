@@ -7,6 +7,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { ThumbnailComponent } from '../thumbnail/thumbnail.component';
 import { CarouselModule } from 'primeng/carousel';
 import { first } from 'rxjs';
+import { PromotionService } from 'src/app/shared/services/promotion.service';
+import { PagePromotions } from 'src/app/shared/models/promotion.dto';
 
 @Component({
   selector: 'dishes-carousel',
@@ -26,7 +28,8 @@ export class CarouselComponent implements OnInit {
 
   constructor(
     private snackbar: SnackbarService,
-    private dishService: DishService
+    private dishService: DishService,
+    private promotionService: PromotionService
   ) {
     this.loaded = false;
     this.filter = 'favourites';
@@ -78,12 +81,16 @@ export class CarouselComponent implements OnInit {
   }
 
   promotions(): void {
-    this.dishService
-      .favourites$()
+    this.promotionService
+      .list$(true /*activeOnly*/, 20, 1)
       .pipe(first())
       .subscribe({
-        next: (page: PageDishes) => {
-          this.dishes = page.dishes;
+        next: (page: PagePromotions) => {
+          this.dishes = page.promotions.map((p) => {
+            const d = p.Dish;
+            d.Cost = p.Cost;
+            return d;
+          });
           this.loaded = true;
         },
         error: (err: HttpErrorResponse) => {
