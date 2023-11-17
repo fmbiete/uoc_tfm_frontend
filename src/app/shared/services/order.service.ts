@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Subvention } from '../models/subvention.dto';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
-import { CountOrder, Order } from '../models/order.dto';
+import { CountOrder, Order, PageOrders } from '../models/order.dto';
 
 @Injectable({
   providedIn: 'root',
@@ -33,5 +33,12 @@ export class OrderService {
 
   getSubvention$(): Observable<Subvention> {
     return this.http.get<Subvention>(`${environment.apiUrl}/order/subvention`);
+  }
+
+  listToday$(): Observable<PageOrders> {
+    const today = new Date().toISOString().slice(0, 10);
+    return this.http.get<PageOrders>(
+      `${environment.apiUrl}/orders?day=${today}&limit=1000&page=1`
+    );
   }
 }
