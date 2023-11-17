@@ -9,6 +9,10 @@ export class Promotion {
   Dish!: Dish;
 }
 
+export class CountPromotions {
+  count!: number;
+}
+
 export class PagePromotions {
   promotions!: Promotion[];
   page!: number;

@@ -1,7 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { PagePromotions, Promotion } from '../models/promotion.dto';
+import {
+  CountPromotions,
+  PagePromotions,
+  Promotion,
+} from '../models/promotion.dto';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -9,6 +13,12 @@ import { environment } from 'src/environments/environment';
 })
 export class PromotionService {
   constructor(private http: HttpClient) {}
+
+  count$(activeOnly: boolean): Observable<CountPromotions> {
+    return this.http.get<CountPromotions>(
+      `${environment.apiUrl}/promotions/count?activeOnly=${activeOnly}`
+    );
+  }
 
   create$(promotion: Promotion): Observable<Promotion> {
     return this.http.post<Promotion>(
