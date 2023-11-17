@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ChartModule } from 'primeng/chart';
 import { FieldsetModule } from 'primeng/fieldset';
+import { OrderService } from 'src/app/shared/services/order.service';
+import { SnackbarService } from 'src/app/shared/services/snackbar.service';
+import { first } from 'rxjs';
+import { CountOrder } from 'src/app/shared/models/order.dto';
 
 @Component({
   selector: 'admin-dashboard-sales',
@@ -16,33 +20,81 @@ export class SalesComponent implements OnInit {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   options: any;
 
+  constructor(
+    private snackbar: SnackbarService,
+    private orderService: OrderService
+  ) {}
+
   ngOnInit() {
+    this._setChartData(Array<number>(12).fill(0));
+    this._setChartOptions();
+    this._getChartData();
+  }
+
+  private _getChartData(): void {
+    this.orderService
+      .countYear$()
+      .pipe(first())
+      .subscribe({
+        next: (value: CountOrder[]) => {
+          const data = new Array<number>();
+          for (let i = 1; i <= 12; i++) {
+            const month = i < 10 ? `0${i}` : `${i}`;
+            const count = value
+              .filter((obj) => obj.day.slice(5, 7) == month)
+              .reduce((accumulator, obj) => {
+                return accumulator + obj.count;
+              }, 0);
+            data.push(count);
+            // console.debug(`${month} => ${count}`);
+          }
+          this._setChartData(data);
+        },
+        error: (err) => {
+          this.snackbar.show(
+            err,
+            $localize`Failed to count this year's Orders`
+          );
+        },
+      });
+  }
+
+  private _setChartData(dataset: Array<number>): void {
+    const documentStyle = getComputedStyle(document.documentElement);
+    this.data = {
+      labels: [
+        $localize`January`,
+        $localize`February`,
+        $localize`March`,
+        $localize`April`,
+        $localize`May`,
+        $localize`June`,
+        $localize`July`,
+        $localize`August`,
+        $localize`September`,
+        $localize`October`,
+        $localize`November`,
+        $localize`December`,
+      ],
+      datasets: [
+        {
+          label: $localize`Number of Orders`,
+          data: dataset,
+          fill: false,
+          borderColor: documentStyle.getPropertyValue('--blue-500'),
+          tension: 0.4,
+        },
+      ],
+    };
+  }
+
+  private _setChartOptions() {
     const documentStyle = getComputedStyle(document.documentElement);
     const textColor = documentStyle.getPropertyValue('--text-color');
     const textColorSecondary = documentStyle.getPropertyValue(
       '--text-color-secondary'
     );
     const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
-
-    this.data = {
-      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-      datasets: [
-        {
-          label: 'First Dataset',
-          data: [65, 59, 80, 81, 56, 55, 40],
-          fill: false,
-          borderColor: documentStyle.getPropertyValue('--blue-500'),
-          tension: 0.4,
-        },
-        {
-          label: 'Second Dataset',
-          data: [28, 48, 40, 19, 86, 27, 90],
-          fill: false,
-          borderColor: documentStyle.getPropertyValue('--pink-500'),
-          tension: 0.4,
-        },
-      ],
-    };
 
     this.options = {
       maintainAspectRatio: false,
@@ -66,6 +118,7 @@ export class SalesComponent implements OnInit {
         },
         y: {
           ticks: {
+            precision: 0,
             color: textColorSecondary,
           },
           grid: {

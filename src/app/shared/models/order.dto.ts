@@ -7,3 +7,14 @@ export class Order {
   Delivery!: Date;
   OrderLines!: OrderLine[];
 }
+
+export class CountOrder {
+  day!: string;
+  count!: number;
+}
+
+export class PageOrders {
+  orders!: Order[];
+  page!: number;
+  limit!: number;
+}
