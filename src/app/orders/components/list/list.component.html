@@ -1,0 +1,41 @@
+<div class="tfm-main-page">
+  <h1 i18n>My Orders</h1>
+
+  <p-dataView class="tfm-orders-grid" [value]="orders" infiniteScroll [infiniteScrollDistance]="2"
+    [infiniteScrollThrottle]="50" (scrolled)="onScroll()" [scrollWindow]="false">
+    <ng-template let-order pTemplate="listItem">
+      <div class="col-12">
+        <div class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4">
+          <img class="w-9 sm:w-16rem xl:w-10rem shadow-2 block xl:block mx-auto border-round"
+            src="/assets/dishes/generic.png" i18n-alt alt="Order number {{ order.ID }}" />
+          <div
+            class="flex flex-column sm:flex-row justify-content-between align-items-center xl:align-items-start flex-1 gap-4">
+            <div class="flex flex-column align-items-center sm:align-items-start gap-3">
+              <div class="text-2xl font-bold text-900" i18n>Order #{{ order.ID }}</div>
+              <div class="flex align-items-center gap-3">
+                <span class="flex align-items-center gap-2">
+                  <i class="pi pi-calendar"></i>
+                  <span class="font-semibold">{{ order.CreatedAt | date:'fullDate' }}</span>
+                </span>
+              </div>
+              <span i18n>Number of Lines: <strong>{{ order.OrderLines.length }}</strong></span>
+            </div>
+            <div class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
+              <ng-container *ngIf="order.CostTotal == order.CostToPay; else with_subvention">
+                <span class="text-2xl font-semibold">{{ order.CostTotal | currency }}</span>
+              </ng-container>
+              <ng-template #with_subvention>
+                <span class="text-2xl font-semibold">{{ order.CostToPay | currency }} ({{ order.CostTotal | currency
+                  }})</span>
+              </ng-template>
+
+              <p-button icon="pi pi-eye" [rounded]="true" severity="secondary" i18n-pTooltip
+                pTooltip="View and Modify Order" styleClass="md:align-self-end mb-2" [routerLink]="['detail']"
+                [state]="{ order: order }"></p-button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </p-dataView>
+</div>

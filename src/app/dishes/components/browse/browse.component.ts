@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AsyncPipe, CommonModule, TitleCasePipe } from '@angular/common';
-import { first } from 'rxjs';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription, first } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 import { Dish, PageDishes } from 'src/app/shared/models/dish.dto';
 import { ButtonModule } from 'primeng/button';
 import { DataViewModule } from 'primeng/dataview';
@@ -33,15 +33,16 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
   templateUrl: './browse.component.html',
   styleUrls: ['./browse.component.scss'],
 })
-export class BrowseComponent implements OnInit {
+export class BrowseComponent implements OnInit, OnDestroy {
   categoryId: number;
   categoryName!: string;
   dishes: Array<Dish>;
   pageSize: number;
   pageCount: number;
 
+  private routeSubscription!: Subscription;
+
   constructor(
-    private router: Router,
     private activatedRoute: ActivatedRoute,
     private route: ActivatedRoute,
     private snackbar: SnackbarService,
@@ -54,9 +55,13 @@ export class BrowseComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.activatedRoute.queryParams.subscribe(() => {
+    this.routeSubscription = this.activatedRoute.queryParams.subscribe(() => {
       this.listDishes();
     });
+  }
+
+  ngOnDestroy(): void {
+    this.routeSubscription.unsubscribe();
   }
 
   onScroll(): void {

@@ -36,7 +36,7 @@
               <div class="tfm-actions">
                 <p-button icon="pi pi-arrow-left" severity="danger" i18n-label label="Go back to Cart"
                   (click)="goCart()" styleClass="tfm-actions-secondary"></p-button>
-                <p-button icon="pi pi-shopping-cart" (click)="purchase()" i18n-label label="Complete Purchase"
+                <p-button icon="pi pi-shopping-cart" (click)="purchase('card')" i18n-label label="Complete Purchase"
                   styleClass="tfm-actions-primary"></p-button>
               </div>
 
@@ -49,7 +49,7 @@
             <div class="tfm-actions">
               <p-button icon="pi pi-arrow-left" severity="danger" i18n-label label="Go back to Cart" (click)="goCart()"
                 styleClass="tfm-actions-secondary"></p-button>
-              <p-button icon="pi pi-shopping-cart" (click)="purchase()" i18n-label label="Complete Purchase"
+              <p-button icon="pi pi-shopping-cart" (click)="purchase('paypal')" i18n-label label="Complete Purchase"
                 styleClass="tfm-actions-primary"></p-button>
             </div>
           </p-tabPanel>
@@ -61,8 +61,8 @@
             <div class="tfm-actions">
               <p-button icon="pi pi-arrow-left" severity="danger" i18n-label label="Go back to Cart" (click)="goCart()"
                 styleClass="tfm-actions-secondary"></p-button>
-              <p-button icon="pi pi-shopping-cart" (click)="purchase()" i18n-label label="Complete Purchase"
-                styleClass="tfm-actions-primary"></p-button>
+              <p-button icon="pi pi-shopping-cart" (click)="purchase('salary reduction')" i18n-label
+                label="Complete Purchase" styleClass="tfm-actions-primary"></p-button>
             </div>
           </p-tabPanel>
         </p-tabView>

@@ -1,0 +1,79 @@
+<div class="tfm-main-page">
+  <h1 i18n>Order Number: {{ order.ID }}</h1>
+
+  <div class="flex flex-column sm:flex-row sm:align-items-center sm:justify-content-between py-5">
+    <div class="mb-3 sm:mb-0"><span class="font-medium text-xl text-900 mr-2">Purchase Date:</span><span
+        class="font-medium text-xl text-blue-500">{{ order.CreatedAt | date:'fullDate' }}</span></div>
+    <div>
+      <p-button icon="pi pi-print" i18n-label label="Print" severity="secondary" (click)="printReceipt()"></p-button>
+    </div>
+  </div>
+
+  <div class="border-round surface-border border-1">
+    <ul class="list-none p-0 m-0">
+      <ng-container *ngFor="let line of order.OrderLines">
+        <li class="p-3 border-bottom-1 surface-border flex align-items-start sm:align-items-center">
+          <img src="/assets/dishes/generic.png" class="w-3rem sm:w-8rem flex-shrink-0 mr-3 shadow-2">
+          <div class="flex flex-column">
+            <span class="text-900 font-medium text-xl mb-2">{{ line.Name | titlecase }}</span>
+          </div>
+          <div class="ml-auto">
+            <p-inputNumber [(ngModel)]="line.Quantity" [style]="{'width': '4rem'}" [showButtons]="true"
+              buttonLayout="vertical" spinnerMode="vertical" inputId="vertical"
+              decrementButtonClass="p-button-secondary" incrementButtonClass="p-button-secondary"
+              incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus"
+              (onInput)="onLineQuantityChange($event)" [min]="1"></p-inputNumber>
+          </div>
+          <span class="text-900 font-medium text-lg mx-5">{{ line.Quantity * line.CostUnit | currency }}</span>
+          <p-button icon="pi pi-trash" [rounded]="true" [text]="true" severity="danger" size="small" i18n-pTooltip
+            pTooltip="Delete Line" tooltipPosition="left" (click)="deleteLine(line.ID)"></p-button>
+        </li>
+      </ng-container>
+    </ul>
+    <div class="m-3 text-right">
+      <p-button icon="pi pi-trash" i18n-label label="Cancel Order" severity="danger" class="mr-3"
+        (click)="deleteOrder()"></p-button>
+      <p-button icon="pi pi-save" i18n-label label="Modify Order" (click)="modifyOrder()"></p-button>
+    </div>
+  </div>
+
+  <div class="flex flex-wrap mt-5 pb-3">
+    <div class="w-full lg:w-6 pl-3 pr-5 text-left">
+      <span class="font-semibold text-900" i18n>Shipping Address</span>
+      <div class="flex flex-column text-900 mt-3 mb-5 border-bottom-1 surface-border pb-3">
+        <span class="mb-1">{{ order.Address1 }}</span>
+        <span class="mb-1">{{ order.Address2 }}</span>
+        <span class="mb-1">{{ order.Address3 }}</span>
+        <span class="mb-1">{{ order.City }}</span>
+        <span class="mb-1">{{ order.PostalCode }}</span>
+        <span>{{ order.Phone }}</span>
+      </div>
+      <span class="font-semibold text-900" i18n>Payment Method</span>
+      <div class="flex align-items-center mt-3">
+        <div class="flex flex-column">
+          <span class="text-900 mb-1">{{ order.PaymentMethod | titlecase }}</span>
+          <span class="text-900 font-medium">{{ order.PaymentSecret }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="w-full lg:w-6 pl-3 lg:pl-0 lg:pr-3 flex align-items-end mt-5 lg:mt-0">
+      <ul class="list-none p-0 m-0 w-full">
+        <li class="mb-3">
+          <span class="font-semibold text-900" i18n>Summary</span>
+        </li>
+        <li class="flex justify-content-between mb-3">
+          <span class="text-900" i18n>Subtotal</span>
+          <span class="text-900 font-medium text-lg">{{ order | total: 0 | currency }}</span>
+        </li>
+        <li class="flex justify-content-between mb-3">
+          <span class="text-900" i18n>Subvention</span>
+          <span class="text-900 font-medium text-lg">-{{ order.Subvention | currency }}</span>
+        </li>
+        <li class="flex justify-content-between border-top-1 surface-border py-3">
+          <span class="text-900 font-semibold" i18n>Total</span>
+          <span class="text-900 font-bold text-lg">{{ order | total: order.Subvention | currency }}</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

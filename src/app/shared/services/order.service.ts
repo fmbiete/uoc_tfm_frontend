@@ -4,6 +4,7 @@ import { Subvention } from '../models/subvention.dto';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { CountOrder, Order, PageOrders } from '../models/order.dto';
+import { OrderLine } from '../models/order-line.dto';
 
 @Injectable({
   providedIn: 'root',
@@ -31,6 +32,10 @@ export class OrderService {
     return this.http.post<Order>(`${environment.apiUrl}/order/`, order);
   }
 
+  delete$(orderId: number): Observable<boolean> {
+    return this.http.delete<boolean>(`${environment.apiUrl}/order/${orderId}`);
+  }
+
   getSubvention$(): Observable<Subvention> {
     return this.http.get<Subvention>(`${environment.apiUrl}/order/subvention`);
   }
@@ -49,6 +54,19 @@ export class OrderService {
   ): Observable<PageOrders> {
     return this.http.get<PageOrders>(
       `${environment.apiUrl}/orders?day=${filter}&limit=${pageSize}&page=${pageCount}`
+    );
+  }
+
+  lineDelete$(orderId: number, lineId: number): Observable<Order> {
+    return this.http.delete<Order>(
+      `${environment.apiUrl}/order/${orderId}/line/${lineId}`
+    );
+  }
+
+  lineModify$(line: OrderLine): Observable<Order> {
+    return this.http.patch<Order>(
+      `${environment.apiUrl}/order/${line.OrderID}/line/${line.ID}`,
+      line
     );
   }
 }

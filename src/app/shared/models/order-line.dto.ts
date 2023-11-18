@@ -1,4 +1,5 @@
 export class OrderLine {
+  ID!: number;
   OrderID!: number;
   DishID!: number;
   Name!: string;

@@ -50,6 +50,8 @@ export class PaymentComponent implements OnInit {
   ccExpiration!: string;
   ccCcv!: string;
 
+  private order: Order;
+
   constructor(
     private router: Router,
     private snackbarService: SnackbarService,
@@ -59,6 +61,7 @@ export class PaymentComponent implements OnInit {
   ) {
     this.subvention = 0;
     this.cart = new Cart();
+    this.order = this.router.getCurrentNavigation()?.extras.state?.['order'];
   }
 
   goCart(): void {
@@ -101,19 +104,21 @@ export class PaymentComponent implements OnInit {
       });
   }
 
-  purchase(): void {
+  purchase(method: string): void {
     // Prepare order
-    const order = new Order();
-    order.OrderLines = new Array<OrderLine>();
+    this.order.PaymentMethod = method;
+    if (method == 'card')
+      this.order.PaymentSecret = `**** **** **** ${this.ccNumber.slice(-4)}`;
+    this.order.OrderLines = new Array<OrderLine>();
     this.cart.Lines.forEach((line) => {
-      order.OrderLines.push(
+      this.order.OrderLines.push(
         new OrderLine(line.DishID, line.Name, line.CostUnit, line.Quantity)
       );
     });
 
     // Create order
     this.orderService
-      .create$(order)
+      .create$(this.order)
       .pipe(first())
       .subscribe({
         next: (value: Order) => {

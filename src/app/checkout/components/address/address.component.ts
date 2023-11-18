@@ -18,6 +18,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { first } from 'rxjs';
 import { DividerModule } from 'primeng/divider';
+import { Order } from 'src/app/shared/models/order.dto';
 
 @Component({
   selector: 'checkout-address',
@@ -151,6 +152,14 @@ export class AddressComponent implements OnInit {
         });
     }
 
-    this.router.navigate(['checkout', 'payment']);
+    const order = new Order();
+    order.Address1 = this.address1.value;
+    order.Address2 = this.address2.value;
+    order.Address3 = this.address3.value;
+    order.PostalCode = this.postalCode.value;
+    order.City = this.city.value;
+    order.Phone = this.phone.value;
+
+    this.router.navigate(['checkout', 'payment'], { state: { order: order } });
   }
 }
