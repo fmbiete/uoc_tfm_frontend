@@ -12,6 +12,8 @@ import { OrderService } from 'src/app/shared/services/order.service';
 import { SnackbarService } from 'src/app/shared/services/snackbar.service';
 import { first } from 'rxjs';
 import { PDF } from 'src/app/shared/utilities/pdf.class';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService } from 'primeng/api';
 
 @Component({
   selector: 'orders-detail',
@@ -22,6 +24,7 @@ import { PDF } from 'src/app/shared/utilities/pdf.class';
     DatePipe,
     FormsModule,
     ButtonModule,
+    ConfirmDialogModule,
     DividerModule,
     InputNumberModule,
     TooltipModule,
@@ -29,7 +32,7 @@ import { PDF } from 'src/app/shared/utilities/pdf.class';
   ],
   templateUrl: './detail.component.html',
   styleUrls: ['./detail.component.scss'],
-  providers: [CurrencyPipe],
+  providers: [CurrencyPipe, ConfirmationService],
 })
 export class DetailComponent {
   order: Order;
@@ -38,7 +41,8 @@ export class DetailComponent {
     private router: Router,
     private snackbar: SnackbarService,
     private orderService: OrderService,
-    private currencyPipe: CurrencyPipe
+    private currencyPipe: CurrencyPipe,
+    private confirmationService: ConfirmationService
   ) {
     this.order = this.router.getCurrentNavigation()?.extras.state?.['order'];
   }
@@ -50,50 +54,71 @@ export class DetailComponent {
   }
 
   deleteLine(lineId: number): void {
-    console.debug(`Delete line ${lineId}`);
-    this.orderService
-      .lineDelete$(this.order.ID, lineId)
-      .pipe(first())
-      .subscribe({
-        next: (value: Order) => {
-          this.order = value;
-          this.snackbar.show(null, $localize`Order modified successfully`);
-        },
-        error: (err) => {
-          this.snackbar.show(err, $localize`Failed to delete Order Line`);
-        },
-      });
+    this.confirmationService.confirm({
+      message: $localize`Do you want to cancel this line?`,
+      header: $localize`Confirmation Removal of Line`,
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        this.orderService
+          .lineDelete$(this.order.ID, lineId)
+          .pipe(first())
+          .subscribe({
+            next: (value: Order) => {
+              this.order = value;
+              this.snackbar.show(null, $localize`Order modified successfully`);
+            },
+            error: (err) => {
+              this.snackbar.show(err, $localize`Failed to delete Order Line`);
+            },
+          });
+      },
+    });
   }
 
   deleteOrder(): void {
-    this.orderService
-      .delete$(this.order.ID)
-      .pipe(first())
-      .subscribe({
-        next: () => {
-          this.router.navigate(['orders']);
-          this.snackbar.show(null, $localize`Order has been canceled`);
-        },
-        error: (err) => {
-          this.snackbar.show(err, $localize`Failed to delete the Order`);
-        },
-      });
+    this.confirmationService.confirm({
+      message: $localize`Do you want to cancel this Order?`,
+      header: $localize`Confirmation Cancelation of Order`,
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        this.orderService
+          .delete$(this.order.ID)
+          .pipe(first())
+          .subscribe({
+            next: () => {
+              this.router.navigate(['orders']);
+              this.snackbar.show(null, $localize`Order has been canceled`);
+            },
+            error: (err) => {
+              this.snackbar.show(err, $localize`Failed to delete the Order`);
+            },
+          });
+      },
+    });
   }
 
   modifyOrder(): void {
-    const order = { ...this.order };
-    order.OrderLines.forEach((line) => {
-      this.orderService
-        .lineModify$(line)
-        .pipe(first())
-        .subscribe({
-          next: (value: Order) => {
-            this.order = value;
-          },
-          error: (err) => {
-            this.snackbar.show(err, $localize`Failed to modify Order`);
-          },
+    this.confirmationService.confirm({
+      message: $localize`Do you want to modify this Order?`,
+      header: $localize`Confirmation Modification of Order`,
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        // create a copy of the current view, because we modify 1 line at a time, and each intermediate step changes the class variable
+        const order = { ...this.order };
+        order.OrderLines.forEach((line) => {
+          this.orderService
+            .lineModify$(line)
+            .pipe(first())
+            .subscribe({
+              next: (value: Order) => {
+                this.order = value;
+              },
+              error: (err) => {
+                this.snackbar.show(err, $localize`Failed to modify Order`);
+              },
+            });
         });
+      },
     });
   }
 
