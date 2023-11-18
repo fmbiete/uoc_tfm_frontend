@@ -16,25 +16,28 @@
           <tr *ngFor="let line of cart.Lines; index as idx">
             <td>{{ line.Name }}</td>
             <td>
-              <p-button icon="pi pi-minus" severity="secondary" i18n-aria-label aria-label="Decrease Quantity Cart Line"
-                (click)="reduceCartLine(idx)" i18n-pTooltip pTooltip="Decrease Quantity Cart Line"
-                tooltipPosition="bottom" tooltipZIndex="10000" size="small"></p-button>
+              <p-button icon="pi pi-minus" [raised]="true" severity="secondary" i18n-aria-label
+                aria-label="Decrease Quantity Cart Line" (click)="reduceCartLine(idx)" i18n-pTooltip
+                pTooltip="Decrease Quantity Cart Line" tooltipPosition="bottom" tooltipZIndex="10000"
+                size="small"></p-button>
               <p-button [outlined]="true" i18n-aria-label aria-label="Quantity Cart Line" i18n-label
                 label="{{ line.Quantity }}" size="small"></p-button>
-              <p-button icon="pi pi-plus" severity="secondary" i18n-aria-label aria-label="Increase Quantity Cart Line"
-                (click)="increaseCartLine(idx)" i18n-pTooltip pTooltip="Increase Quantity Cart Line"
-                tooltipPosition="bottom" tooltipZIndex="10000" size="small"></p-button>
+              <p-button icon="pi pi-plus" [raised]="true" severity="secondary" i18n-aria-label
+                aria-label="Increase Quantity Cart Line" (click)="increaseCartLine(idx)" i18n-pTooltip
+                pTooltip="Increase Quantity Cart Line" tooltipPosition="bottom" tooltipZIndex="10000"
+                size="small"></p-button>
             </td>
             <td>
-              <p-button icon="pi pi-trash" severity="danger" i18n-aria-label aria-label="Remove Cart Line"
-                (click)="removeCartLine(idx)" i18n-pTooltip pTooltip="Remove Cart Line" tooltipPosition="bottom"
-                tooltipZIndex="10000" size="small"></p-button>
+              <p-button icon="pi pi-trash" [raised]="true" severity="danger" i18n-aria-label
+                aria-label="Remove Cart Line" (click)="removeCartLine(idx)" i18n-pTooltip pTooltip="Remove Cart Line"
+                tooltipPosition="bottom" tooltipZIndex="10000" size="small"></p-button>
             </td>
           </tr>
         </tbody>
       </table>
       <hr />
-      <p-button icon="pi pi-shopping-cart" (click)="detailCart()" i18n-label label="Go to Checkout"></p-button>
+      <p-button icon="pi pi-shopping-cart" [raised]="true" (click)="detailCart()" i18n-label
+        label="Go to Checkout"></p-button>
     </div> <!-- tmf-cart -->
   </ng-container>
 </ng-container>

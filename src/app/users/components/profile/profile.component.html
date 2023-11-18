@@ -81,10 +81,10 @@
 
     <p-divider></p-divider>
     <div class="tfm-actions">
-      <p-button icon="pi pi-times" type="reset" severity="danger" i18n-label label="Clear Form"
+      <p-button icon="pi pi-times" [raised]="true" type="reset" severity="danger" i18n-label label="Clear Form"
         styleClass="tfm-actions-secondary"></p-button>
-      <p-button icon="pi pi-check" [disabled]="!profileForm.valid" (click)="update()" i18n-label label="Update Profile"
-        styleClass="tfm-actions-primary"></p-button>
+      <p-button icon="pi pi-check" [raised]="true" [disabled]="!profileForm.valid" (click)="update()" i18n-label
+        label="Update Profile" styleClass="tfm-actions-primary"></p-button>
     </div>
   </form>
 </div>

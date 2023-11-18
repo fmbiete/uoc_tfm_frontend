@@ -8,8 +8,8 @@
         <span class="font-bold text-6xl">{{ numOrders }}</span>
       </div>
       <div class="flex align-items-center">
-        <p-button styleClass="w-full" i18n-label label="Print Orders" icon="pi pi-print" size="large" i18n-pTooltip
-          pTooltip="Print Today's Orders" tooltipPosition="bottom" (click)="generatePdf()"></p-button>
+        <p-button styleClass="w-full" [raised]="true" i18n-label label="Print Orders" icon="pi pi-print" size="large"
+          i18n-pTooltip pTooltip="Print Today's Orders" tooltipPosition="bottom" (click)="generatePdf()"></p-button>
       </div>
     </div>
   </p-fieldset>

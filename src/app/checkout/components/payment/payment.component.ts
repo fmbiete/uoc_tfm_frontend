@@ -45,10 +45,10 @@ export class PaymentComponent implements OnInit {
   cart: Cart;
   subvention: number;
 
-  ccName!: string;
-  ccNumber!: string;
-  ccExpiration!: string;
-  ccCcv!: string;
+  ccName: string;
+  ccNumber: string;
+  ccExpiration: string;
+  ccCcv: string;
 
   private order: Order;
 
@@ -59,6 +59,10 @@ export class PaymentComponent implements OnInit {
     private orderService: OrderService,
     private localStorage: LocalStorageService
   ) {
+    this.ccCcv = '';
+    this.ccExpiration = '';
+    this.ccName = '';
+    this.ccNumber = '';
     this.subvention = 0;
     this.cart = new Cart();
     this.order = this.router.getCurrentNavigation()?.extras.state?.['order'];
@@ -121,8 +125,7 @@ export class PaymentComponent implements OnInit {
       .create$(this.order)
       .pipe(first())
       .subscribe({
-        next: (value: Order) => {
-          console.debug(value);
+        next: () => {
           // clear cart
           this.cartService.reset();
           // goto success

@@ -20,18 +20,18 @@
             <a [routerLink]="['/dishes', 'dish', line.DishID]"> {{ line.Name }}</a>
           </div>
           <div class="col">
-            <p-button icon="pi pi-minus" severity="secondary" i18n-aria-label aria-label="Decrease Quantity Cart Line"
-              i18n-pTooltip pTooltip="Decrease Quantity Cart Line" tooltipPosition="bottom"
-              (click)="reduceCartLine(idx)" size="small"></p-button>
+            <p-button icon="pi pi-minus" [raised]="true" severity="secondary" i18n-aria-label
+              aria-label="Decrease Quantity Cart Line" i18n-pTooltip pTooltip="Decrease Quantity Cart Line"
+              tooltipPosition="bottom" (click)="reduceCartLine(idx)" size="small"></p-button>
             <p-button [text]="true" i18n-aria-label aria-label="Quantity Cart Line" i18n-label
               label="{{ line.Quantity }}" size="small"></p-button>
-            <p-button icon="pi pi-plus" severity="secondary" i18n-aria-label aria-label="Increase Quantity Cart Line"
-              i18n-pTooltip pTooltip="Increase Quantity Cart Line" tooltipPosition="bottom"
-              (click)="increaseCartLine(idx)" size="small"></p-button>
+            <p-button icon="pi pi-plus" [raised]="true" severity="secondary" i18n-aria-label
+              aria-label="Increase Quantity Cart Line" i18n-pTooltip pTooltip="Increase Quantity Cart Line"
+              tooltipPosition="bottom" (click)="increaseCartLine(idx)" size="small"></p-button>
           </div>
           <div class="col text-left">
-            <p-button icon="pi pi-trash" severity="danger" i18n-aria-label aria-label="Remove Cart Line" i18n-pTooltip
-              pTooltip="Remove Cart Line" tooltipPosition="bottom" (click)="removeCartLine(idx)"
+            <p-button icon="pi pi-trash" [raised]="true" severity="danger" i18n-aria-label aria-label="Remove Cart Line"
+              i18n-pTooltip pTooltip="Remove Cart Line" tooltipPosition="bottom" (click)="removeCartLine(idx)"
               size="small"></p-button>
           </div>
         </div>
@@ -39,10 +39,10 @@
 
       <p-divider></p-divider>
       <div class="tfm-actions">
-        <p-button icon="pi pi-trash" severity="danger" i18n-label label="Empty Shopping Cart" (click)="cleanCart()"
-          styleClass="tfm-actions-secondary"></p-button>
-        <p-button icon="pi pi-shopping-cart" (click)="goCheckout()" i18n-label label="Proceed to Checkout"
-          styleClass="tfm-actions-primary"></p-button>
+        <p-button icon="pi pi-trash" [raised]="true" severity="danger" i18n-label label="Empty Shopping Cart"
+          (click)="cleanCart()" styleClass="tfm-actions-secondary"></p-button>
+        <p-button icon="pi pi-shopping-cart" [raised]="true" (click)="goCheckout()" i18n-label
+          label="Proceed to Checkout" styleClass="tfm-actions-primary"></p-button>
       </div>
     </ng-container>
   </ng-container>

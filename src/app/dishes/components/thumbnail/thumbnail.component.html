@@ -16,9 +16,9 @@
       <h2><a [routerLink]="['dishes', 'dish', dish.ID]" class="text-white no-underline">{{ dish.Name }}</a></h2>
       <h3 class="text-orange-300">{{ dish.Cost | currency }}</h3>
       <div>
-        <p-button type="button" styleClass="p-button-secondary p-button-rounded mr-2" icon="pi pi-eye"
+        <p-button type="button" [raised]="true" severity="secondary" styleClass="mr-2" icon="pi pi-eye"
           [routerLink]="['dishes', 'dish', dish.ID]"></p-button>
-        <p-button type="button" styleClass="p-button-success p-button-rounded" icon="pi pi-cart-plus"
+        <p-button type="button" [raised]="true" severity="success" icon="pi pi-cart-plus"
           (click)="addCart()"></p-button>
       </div>
     </div>

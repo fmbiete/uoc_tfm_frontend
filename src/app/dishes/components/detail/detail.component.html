@@ -16,7 +16,8 @@
           <h3 class="m-0" i18n>Price</h3>
           <div class="font-bold">{{ dish.Cost | currency }}</div>
         </div>
-        <p-button *ngIf="loaded" icon="pi pi-cart-plus" (click)="addCart()" i18n-label label="Add to Cart"></p-button>
+        <p-button *ngIf="loaded" icon="pi pi-cart-plus" [raised]="true" (click)="addCart()" i18n-label
+          label="Add to Cart"></p-button>
       </section>
 
       <p-panel header="{{ dish.Name | titlecase }}" styleClass="mt-5">
@@ -42,13 +43,13 @@
         <div class="flex flex-row align-items-center">
           <dishes-rating [rating]="dish.Likes | rating: dish.Dislikes"></dishes-rating>
           <span *ngIf="authenticated" class="ml-3">
-            <p-button [rounded]="true" severity="primary" icon="pi pi-thumbs-up" severity="secondary" i18n-aria-label
-              aria-label="I like this" i18n-pTooltip pTooltip="I like this" tooltipPosition="bottom" (click)="like()"
-              [disabled]="liked" styleClass="mr-2">
+            <p-button [rounded]="true" severity="primary" icon="pi pi-thumbs-up" [raised]="true" severity="secondary"
+              i18n-aria-label aria-label="I like this" i18n-pTooltip pTooltip="I like this" tooltipPosition="bottom"
+              (click)="like()" [disabled]="liked" styleClass="mr-2">
             </p-button>
-            <p-button [rounded]="true" severity="accent" icon="pi pi-thumbs-down" severity="secondary" i18n-aria-label
-              aria-label="I don't like this" i18n-pTooltip pTooltip="I don't like this" tooltipPosition="bottom"
-              (click)="dislike()" [disabled]="disliked">
+            <p-button [rounded]="true" severity="accent" icon="pi pi-thumbs-down" [raised]="true" severity="secondary"
+              i18n-aria-label aria-label="I don't like this" i18n-pTooltip pTooltip="I don't like this"
+              tooltipPosition="bottom" (click)="dislike()" [disabled]="disliked">
             </p-button>
           </span>
         </div>

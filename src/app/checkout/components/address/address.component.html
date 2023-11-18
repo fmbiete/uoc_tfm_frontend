@@ -66,10 +66,10 @@
 
     <p-divider></p-divider>
     <div class="tfm-actions">
-      <p-button icon="pi pi-arrow-left" severity="danger" i18n-label label="Go back to Cart" (click)="goCart()"
-        styleClass="tfm-actions-secondary"></p-button>
-      <p-button icon="pi pi-shopping-cart" type="submit" [disabled]="!addressForm.valid" (click)="goPayment()"
-        i18n-label label="Proceed to Payment" styleClass="tfm-actions-primary"></p-button>
+      <p-button icon="pi pi-arrow-left" [raised]="true" severity="danger" i18n-label label="Go back to Cart"
+        (click)="goCart()" styleClass="tfm-actions-secondary"></p-button>
+      <p-button icon="pi pi-shopping-cart" [raised]="true" type="submit" [disabled]="!addressForm.valid"
+        (click)="goPayment()" i18n-label label="Proceed to Payment" styleClass="tfm-actions-primary"></p-button>
     </div>
   </form>
 

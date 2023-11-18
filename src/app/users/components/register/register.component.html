@@ -113,8 +113,8 @@
 </form>
 
 <div class="tfm-actions">
-  <p-button icon="pi pi-times" severity="danger" (click)="close()" i18n-label label="Cancel"
+  <p-button icon="pi pi-times" [raised]="true" severity="danger" (click)="close()" i18n-label label="Cancel"
     styleClass="tfm-actions-secondary"></p-button>
-  <p-button icon="pi pi-check" [disabled]="!registerForm.valid" (click)="register()" i18n-label label="Register"
-    styleClass="tfm-actions-primary"></p-button>
+  <p-button icon="pi pi-check" [raised]="true" [disabled]="!registerForm.valid" (click)="register()" i18n-label
+    label="Register" styleClass="tfm-actions-primary"></p-button>
 </div>

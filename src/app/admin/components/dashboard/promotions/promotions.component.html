@@ -8,8 +8,8 @@
         <span class="font-bold text-6xl">{{ numPromotions }}</span>
       </div>
       <div class="flex align-items-center">
-        <p-button styleClass="w-full" i18n-label label="Active Promotions" icon="pi pi-gift" size="large" i18n-pTooltip
-          pTooltip="Edit Active Promotions" tooltipPosition="bottom"
+        <p-button styleClass="w-full" [raised]="true" i18n-label label="Active Promotions" icon="pi pi-gift"
+          size="large" i18n-pTooltip pTooltip="Edit Active Promotions" tooltipPosition="bottom"
           [routerLink]="['admin', 'promotions', 'true']"></p-button>
       </div>
     </div>
