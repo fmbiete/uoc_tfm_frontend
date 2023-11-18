@@ -1,13 +1,14 @@
-<div class="tfm-main-page">
-
-  <div class="bg-primary border-round my-2">
-    <h1 i18n>Promotions</h1>
-    <dishes-carousel filter="promotions"></dishes-carousel>
+<div class="surface-section h-30rem bg-no-repeat bg-cover bg-center flex align-items-center"
+  style="background: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(/assets/traditional_dishes.jpg);">
+  <div class="px-4 mx-4 lg:px-6 lg:mx-6">
+    <span class="block text-3xl text-white mb-4" i18n>Gourmet Full Courses</span>
+    <span class="block text-5xl font-medium text-white mb-4" i18n>Chef's Specials</span>
+    <a class="p-ripple p-element py-2 w-13rem text-center block mb-4 text-xl text-white font-medium border-2 cursor-pointer surface-border-0 border-round bg-white-alpha-30"
+      [routerLink]="['dishes', 'browse']" [queryParams]="{categoryId: categoryId, categoryName: 'Chef\'s Specials'}"
+      i18n>Explore Category</a>
   </div>
-
-  <div class="bg-primary border-round my-2">
-    <h1 i18n>Favourites</h1>
-    <dishes-carousel filter="favourites"></dishes-carousel>
-  </div>
-
 </div>
+
+<dishes-home-promotions-list></dishes-home-promotions-list>
+
+<dishes-home-favourites-list></dishes-home-favourites-list>

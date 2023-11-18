@@ -4,4 +4,5 @@ export const environment = {
   title: 'Eating at the Office',
   company: 'ACME ltd',
   currency: 'EUR',
+  categorySpecials: 189,
 };
