@@ -7,6 +7,7 @@ import { ListComponent as IngredientsComponent } from './components/ingredients/
 import { ListComponent as UsersComponent } from './components/users/list/list.component';
 import { ListComponent as DishesListComponent } from './components/dishes/list/list.component';
 import { ListComponent as PromotionsComponent } from './components/promotions/list/list.component';
+import { ListComponent as OrdersComponent } from './components/orders/list/list.component';
 
 const routes: Routes = [
   {
@@ -27,6 +28,11 @@ const routes: Routes = [
   {
     path: 'ingredients',
     component: IngredientsComponent,
+    canActivate: [AuthAdminGuard],
+  },
+  {
+    path: 'orders/:todayOnly',
+    component: OrdersComponent,
     canActivate: [AuthAdminGuard],
   },
   {

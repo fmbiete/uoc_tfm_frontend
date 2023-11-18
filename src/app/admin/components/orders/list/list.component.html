@@ -1,0 +1,87 @@
+<div class="tfm-main-page">
+  <h1>{{ pageTitle }}</h1>
+
+  <p-table #table styleClass="p-datatable-sm p-datatable-striped" [value]="orders" dataKey="ID"
+    [totalRecords]="fakeTotalOrders" [lazy]="true" (onLazyLoad)="loadOrders($event)" [paginator]="true" [rows]="10"
+    [showCurrentPageReport]="true" [loading]="loading" i18n-currentPageReportTemplate
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [rowsPerPageOptions]="[10, 25, 50]">
+    <ng-template pTemplate="caption">
+      <div class="flex" *ngIf="visibleFilter">
+        <p-button type="button" i18n-label label="Reset Filter" [outlined]="true" size="small" icon="pi pi-filter-slash"
+          (click)="resetFilter(table)"></p-button>
+        <span class="ml-auto">
+          <p-calendar [(ngModel)]="searchDate" dateFormat="yy-mm-dd" i18n-placeholder
+            placeholder="Search Orders by date" (onSelect)="onSelectDate($event)" [showIcon]="true"></p-calendar>
+        </span>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th scope="col"></th>
+        <th scope="col" i18n>ID</th>
+        <th scope="col" i18n>Date</th>
+        <th scope="col" i18n>User</th>
+        <th scope="col" class="text-right" i18n>Cost</th>
+        <th scope="col"></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-order let-ri="rowIndex" let-expanded="expanded">
+      <tr>
+        <td>
+          <p-button type="button" [text]="true" [rounded]="true" size="small" [pRowToggler]="order"
+            [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'" i18n-pTooltip pTooltip="Show Order Lines"
+            tooltipPosition="bottom"></p-button>
+        </td>
+        <td>{{ order.ID }}</td>
+        <td>{{ order.CreatedAt | date:'longDate' }}</td>
+        <td>{{ order.User | userFullname }}</td>
+        <td class="text-right">{{ order.CostTotal | currency }}</td>
+        <td></td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="paginatorleft">
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="6" i18n>There are no orders yet.</td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="rowexpansion" let-order>
+      <tr>
+        <td colspan="6">
+          <div class="p-3">
+            <p-table [value]="order.OrderLines" dataKey="ID">
+              <ng-template pTemplate="caption">
+                <div class="flex flex-row align-items-center">
+                  <h3 class="ml-5" i18n>Lines - Order #{{ order.ID }}</h3>
+                </div>
+              </ng-template>
+              <ng-template pTemplate="header">
+      <tr>
+        <th scope="col" i18n>Dish Name</th>
+        <th scope="col" class="text-right" i18n>Quantity</th>
+        <th scope="col" class="text-right" i18n>Cost</th>
+        <th scope="col"></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-line let-eri="rowIndex">
+      <tr [pEditableRow]="line">
+        <td>{{ line.Name | titlecase }}</td>
+        <td class="text-right">{{ line.Quantity }}</td>
+        <td class="text-right">{{ line.CostUnit * line.Quantity | currency }}</td>
+        <td></td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="4" i18n>There are no lines for this order yet.</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+</td>
+</tr>
+</ng-template>
+</p-table>
+
+</div>

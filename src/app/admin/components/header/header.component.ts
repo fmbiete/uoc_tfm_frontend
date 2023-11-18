@@ -66,11 +66,13 @@ export class HeaderComponent implements OnInit {
         items: [
           {
             label: `Today's Orders`,
-            icon: 'pi pi-plus',
+            icon: 'pi pi-shopping-cart',
+            routerLink: ['/admin/orders/true'],
           },
           {
             label: `List Orders`,
             icon: 'pi pi-shopping-cart',
+            routerLink: ['/admin/orders/false'],
           },
         ],
       },

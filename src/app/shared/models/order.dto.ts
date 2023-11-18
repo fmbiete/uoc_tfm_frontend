@@ -8,6 +8,8 @@ export class Order {
   CostToPay!: number;
   Delivery!: Date;
   OrderLines!: OrderLine[];
+  CreatedAt!: Date;
+  ID!: number;
 }
 
 export class CountOrder {
@@ -19,4 +21,10 @@ export class PageOrders {
   orders!: Order[];
   page!: number;
   limit!: number;
+}
+
+export interface ISearchOrder {
+  filter: string;
+  pageCount: number;
+  pageSize: number;
 }

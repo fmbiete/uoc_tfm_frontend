@@ -41,4 +41,14 @@ export class OrderService {
       `${environment.apiUrl}/orders?day=${today}&limit=1000&page=1`
     );
   }
+
+  search$(
+    filter: string,
+    pageSize: number,
+    pageCount: number
+  ): Observable<PageOrders> {
+    return this.http.get<PageOrders>(
+      `${environment.apiUrl}/orders?day=${filter}&limit=${pageSize}&page=${pageCount}`
+    );
+  }
 }
