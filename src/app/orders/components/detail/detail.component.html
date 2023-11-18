@@ -12,26 +12,32 @@
   <div class="border-round surface-border border-1">
     <ul class="list-none p-0 m-0">
       <ng-container *ngFor="let line of order.OrderLines">
-        <li class="p-3 border-bottom-1 surface-border flex align-items-start sm:align-items-center">
-          <img src="/assets/dishes/generic.png" class="w-3rem sm:w-8rem flex-shrink-0 mr-3 shadow-2">
-          <div class="flex flex-column">
-            <span class="text-900 font-medium text-xl mb-2">{{ line.Name | titlecase }}</span>
+        <li class="p-3 border-bottom-1 surface-border flex align-items-start sm:align-items-center text-left">
+          <div class="flex flex-column md:flex-row w-full md:align-items-center justify-content-between">
+            <img src="/assets/dishes/generic.png" class="w-10rem flex-shrink-0 mx-auto md:mx-0 md:mr-3 shadow-2">
+            <span class="text-900 font-medium text-xl my-3 md:my-0">{{ line.Name | titlecase }}</span>
+            <div class="flex flex-row md:justify-content-end align-items-center">
+              <p-inputNumber class="hidden md:block" [(ngModel)]="line.Quantity" [style]="{'width': '4rem'}"
+                [showButtons]="true" buttonLayout="vertical" spinnerMode="vertical" inputId="vertical"
+                decrementButtonClass="p-button-secondary" incrementButtonClass="p-button-secondary"
+                incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus"
+                (onInput)="onLineQuantityChange($event)" [min]="1"></p-inputNumber>
+              <p-inputNumber class="block md:hidden" styleClass="tfm-inputnumber-fix" [(ngModel)]="line.Quantity"
+                [showButtons]="true" buttonLayout="horizontal" decrementButtonClass="p-button-secondary"
+                incrementButtonClass="p-button-secondary" incrementButtonIcon="pi pi-plus"
+                decrementButtonIcon="pi pi-minus" (onInput)="onLineQuantityChange($event)" [min]="1"
+                [max]="100"></p-inputNumber>
+              <span class="text-900 font-medium text-lg mx-2 md:mx-5">{{ line.Quantity * line.CostUnit |
+                currency }}</span>
+              <p-button icon="pi pi-trash" [rounded]="true" [text]="true" severity="danger" size="small" i18n-pTooltip
+                pTooltip="Delete Line" tooltipPosition="left" (click)="deleteLine(line.ID)"></p-button>
+            </div>
           </div>
-          <div class="ml-auto">
-            <p-inputNumber [(ngModel)]="line.Quantity" [style]="{'width': '4rem'}" [showButtons]="true"
-              buttonLayout="vertical" spinnerMode="vertical" inputId="vertical"
-              decrementButtonClass="p-button-secondary" incrementButtonClass="p-button-secondary"
-              incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus"
-              (onInput)="onLineQuantityChange($event)" [min]="1"></p-inputNumber>
-          </div>
-          <span class="text-900 font-medium text-lg mx-5">{{ line.Quantity * line.CostUnit | currency }}</span>
-          <p-button icon="pi pi-trash" [rounded]="true" [text]="true" severity="danger" size="small" i18n-pTooltip
-            pTooltip="Delete Line" tooltipPosition="left" (click)="deleteLine(line.ID)"></p-button>
         </li>
       </ng-container>
     </ul>
-    <div class="m-3 text-right">
-      <p-button icon="pi pi-trash" i18n-label label="Cancel Order" severity="danger" class="mr-3"
+    <div class="m-3 flex flex-column md:flex-row md:justify-content-end">
+      <p-button icon="pi pi-trash" i18n-label label="Cancel Order" severity="danger" class="mb-3 md:mb-0 md:mr-3"
         (click)="deleteOrder()"></p-button>
       <p-button icon="pi pi-save" i18n-label label="Modify Order" (click)="modifyOrder()"></p-button>
     </div>
@@ -49,7 +55,7 @@
         <span>{{ order.Phone }}</span>
       </div>
       <span class="font-semibold text-900" i18n>Payment Method</span>
-      <div class="flex align-items-center mt-3">
+      <div class="flex align-items-center mt-3 border-bottom-1 surface-border pb-3">
         <div class="flex flex-column">
           <span class="text-900 mb-1">{{ order.PaymentMethod | titlecase }}</span>
           <span class="text-900 font-medium">{{ order.PaymentSecret }}</span>
