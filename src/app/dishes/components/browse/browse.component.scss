@@ -3,3 +3,9 @@
   height: 800px;
   overflow: scroll;
 }
+
+:host ::ng-deep {
+  .p-grid.grid {
+    justify-content: space-around;
+  }
+}

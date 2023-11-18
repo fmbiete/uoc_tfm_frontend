@@ -5,6 +5,6 @@
 <p-dataView #dv [value]="dishes" layout="grid" class="tfm-dish-grid" infiniteScroll [infiniteScrollDistance]="2"
   [infiniteScrollThrottle]="50" (scrolled)="onScroll()" [scrollWindow]="false">
   <ng-template let-dish pTemplate="gridItem">
-    <dishes-grid-item [dish]="dish" class="col-12 md:col-4"></dishes-grid-item>
+    <dishes-grid-item [dish]="dish"></dishes-grid-item>
   </ng-template>
 </p-dataView>

@@ -1,30 +1,27 @@
-<div class="p-2" *ngIf="dish; else no_dish">
-  <div class="p-4 border-1 surface-border surface-card border-round">
-    <div class="flex flex-wrap align-items-center justify-content-between gap-2">
-      <span class="flex align-items-center gap-2">
-        <i class="pi pi-tag"></i>
-        <span class="font-semibold" *ngFor="let category of dish.Categories">{{ category.Name | titlecase }} </span>
-      </span>
-      <span class="flex align-items-end gap-1">
-        <p-tag *ngFor="let allergen of dish.Allergens" [value]="allergen.Name" severity="warning"></p-tag>
-      </span>
-    </div>
-    <div class="flex flex-column align-items-center gap-3 py-5">
-      <img class="w-9 shadow-2 border-round" src="/assets/dishes/generic.png" alt="{{ dish.Name | titlecase }}"
-        [routerLink]="['/dishes', 'dish', dish.ID]" style="cursor: pointer;" />
-      <div class="text-2xl font-bold" [routerLink]="['/dishes', 'dish', dish.ID]" style="cursor: pointer;">{{ dish.Name
-        }}</div>
-      <dishes-rating [rating]="dish.Likes | rating: dish.Dislikes"></dishes-rating>
-    </div>
-    <div class="flex align-items-center justify-content-between">
-      <span class="text-2xl font-semibold">{{ dish.Cost | currency }}</span>
-      <p-button icon="pi pi-cart-plus" [raised]="true" [text]="false" (click)="addCart()"></p-button>
-    </div>
+<div class="p-4 mb-5 border-1 surface-border surface-card border-round tfm-grid-item" *ngIf="dish; else no_dish">
+  <div class="flex flex-wrap align-items-center justify-content-between gap-2">
+    <span class="flex align-items-center gap-2">
+      <i class="pi pi-tag"></i>
+      <span class="font-semibold" *ngFor="let category of dish.Categories">{{ category.Name | titlecase }} </span>
+    </span>
+    <span class="flex align-items-end gap-1">
+      <p-tag *ngFor="let allergen of dish.Allergens" [value]="allergen.Name" severity="warning"></p-tag>
+    </span>
+  </div>
+  <div class="flex flex-column align-items-center gap-3 py-5 cursor-pointer"
+    [routerLink]="['/dishes', 'dish', dish.ID]">
+    <img class="w-9 shadow-2 border-round" src="/assets/dishes/generic.png" alt="{{ dish.Name | titlecase }}" />
+    <div class="text-2xl font-bold">{{ dish.Name }}</div>
+    <dishes-rating [rating]="dish.Likes | rating: dish.Dislikes"></dishes-rating>
+  </div>
+  <div class="flex align-items-center justify-content-between">
+    <span class="text-2xl font-semibold">{{ dish.Cost | currency }}</span>
+    <p-button icon="pi pi-cart-plus" [raised]="true" [text]="false" (click)="addCart()"></p-button>
   </div>
 </div>
 
 <ng-template #no_dish>
-  <div class="p-2">
+  <div class="p-4 mb-5 border-1 surface-border surface-card border-round tfm-grid-item">
     <p-message severity="error" i18n-text
       text="Sorry, we couldn't read the dish information, please report this issue to the support team."></p-message>
   </div>
