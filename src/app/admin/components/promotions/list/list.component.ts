@@ -11,7 +11,7 @@ import { DynamicDialogRef, DialogService } from 'primeng/dynamicdialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { TableModule, Table, TableLazyLoadEvent } from 'primeng/table';
 import { TooltipModule } from 'primeng/tooltip';
-import { first } from 'rxjs';
+import { Subscription, first } from 'rxjs';
 import { PromotionService } from 'src/app/shared/services/promotion.service';
 import { SnackbarService } from 'src/app/shared/services/snackbar.service';
 import { NewComponent } from '../new/new.component';
@@ -19,7 +19,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-list',
+  selector: 'admin-promotions-list',
   standalone: true,
   imports: [
     CommonModule,
@@ -50,6 +50,7 @@ export class ListComponent implements OnDestroy, OnInit {
   private dialogRef: DynamicDialogRef | undefined;
 
   fakeTotalPromotions: number;
+  private routeSubscription!: Subscription;
 
   startTime: Date;
   endTime: Date;
@@ -74,7 +75,7 @@ export class ListComponent implements OnDestroy, OnInit {
     // lazy load
     this.loading = true;
     // Same page multiple links and parameters
-    this.route.paramMap.subscribe((params) => {
+    this.routeSubscription = this.route.paramMap.subscribe((params) => {
       this.activeOnly = params.get('activeOnly') === 'true';
       this.pageTitle = this.activeOnly
         ? $localize`Active Promotions`
@@ -86,6 +87,7 @@ export class ListComponent implements OnDestroy, OnInit {
 
   ngOnDestroy(): void {
     if (this.dialogRef) this.dialogRef.close();
+    this.routeSubscription.unsubscribe();
   }
 
   applyFilterGlobal(table: Table, $event: Event, stringVal: string) {
