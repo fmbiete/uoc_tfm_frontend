@@ -36,3 +36,8 @@ p-inputnumber.w-full {
     width: 100%;
   }
 }
+
+// https://github.com/primefaces/primeng/issues/13358
+.bug_13358_workaround {
+  max-width: 260px;
+}

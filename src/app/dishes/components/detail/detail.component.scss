@@ -1,12 +1,9 @@
-@import 'primeflex/core/_variables.scss';
+@import 'primeflex/primeflex.scss';
 
 :host ::ng-deep .p-panel-header {
-  background-color: var(--primary-color);
-  border-color: var(--primary-color);
-  color: var(--primary-color-text);
-  margin-bottom: 2em;
+  @include styleclass('bg-primary border-primary text-color-white mb-5');
 }
 
 :host ::ng-deep .p-panel-content {
-  border-color: var(--primary-color);
+  @include styleclass('border-primary');
 }

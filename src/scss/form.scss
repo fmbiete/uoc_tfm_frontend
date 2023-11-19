@@ -1,12 +1,12 @@
 .tfm-input-error {
-  color: var(--red-800);
-  font-size: smaller;
+  @include styleclass('text-color-800 text-xs');
 }
 
 form > div {
-  margin-top: 10px;
+  @include styleclass('mt-3');
+  // margin-top: 10px;
 }
 
 form input {
-  min-width: 100%;
+  @include styleclass('min-w-full');
 }
