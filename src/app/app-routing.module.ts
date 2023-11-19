@@ -2,17 +2,21 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './landing/components/home/home.component';
 import { AboutComponent } from './landing/components/about/about.component';
+import { PageNotFoundComponent } from './landing/components/page-not-found/page-not-found.component';
 
 const routes: Routes = [
+  {
+    path: '',
+    component: HomeComponent,
+  },
+  {
+    path: 'about',
+    component: AboutComponent,
+  },
   {
     path: 'admin',
     loadChildren: () =>
       import('./admin/admin.module').then((m) => m.AdminModule),
-  },
-  {
-    path: 'orders',
-    loadChildren: () =>
-      import('./orders/orders.module').then((m) => m.OrdersModule),
   },
   {
     path: 'cart',
@@ -29,17 +33,19 @@ const routes: Routes = [
       import('./dishes/dishes.module').then((m) => m.DishesModule),
   },
   {
-    path: '',
-    component: HomeComponent,
-  },
-  {
-    path: 'about',
-    component: AboutComponent,
+    path: 'orders',
+    loadChildren: () =>
+      import('./orders/orders.module').then((m) => m.OrdersModule),
   },
   {
     path: 'users',
     loadChildren: () =>
       import('./users/users.module').then((m) => m.UsersModule),
+  },
+  {
+    path: '**',
+    pathMatch: 'full',
+    component: PageNotFoundComponent,
   },
 ];
 
