@@ -9,9 +9,9 @@
       <img src="/assets/dishes/generic.png" alt="{{ dish.Name | titlecase }}" class="max-w-full">
     </div>
     <div class="md:ml-5">
-      <h1 class="md:text-6xl">{{ dish.Name }}</h1>
+      <h1 class="md:text-6xl m-2 md:m-5">{{ dish.Name }}</h1>
 
-      <section class="flex flex-row align-content-top">
+      <section class="flex flex-row align-content-top m-2 md:m-5">
         <div class="mr-5 bg-primary-reverse">
           <h3 class="m-0" i18n>Price</h3>
           <div class="font-bold">{{ dish.Cost | currency }}</div>
@@ -20,7 +20,7 @@
           label="Add to Cart"></p-button>
       </section>
 
-      <p-panel header="{{ dish.Name | titlecase }}" styleClass="mt-5">
+      <p-panel header="{{ dish.Name | titlecase }}" styleClass="m-2 md:m-5">
         <p class="m-0">{{ dish.Description }}</p>
 
         <p-divider></p-divider>
@@ -38,7 +38,7 @@
         </ng-container>
       </p-panel>
 
-      <section class="flex flex-column">
+      <section class="flex flex-column m-2 md:m-5">
         <h2 class="mb-1 bg-primary-reverse" i18n>Rating</h2>
         <div class="flex flex-row align-items-center">
           <dishes-rating [rating]="dish.Likes | rating: dish.Dislikes"></dishes-rating>
