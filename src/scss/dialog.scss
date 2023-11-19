@@ -1,18 +1,15 @@
 @import 'primeflex/core/_variables.scss';
 
-// FIXME: not working
-// .tfm-dynamic-dialog-responsive-sm, .tfm-dynamic-dialog-responsive {
-//   width: 90vw;
-// }
+.tfm-dialog-modal {
+  @include styleclass('w-auto');
+}
 
-// @media only screen and (min-width: $md) {
-//   .tfm-dynamic-dialog-responsive-sm {
-//     width: 50vw;
-//   }
-//   .tfm-dynamic-dialog-responsive {
-//     width: 75vw;
-//   }
-// }
+
+@media only screen and (min-width: $md) {
+  .tfm-dialog-modal {
+    width: 75% !important;
+  }
+}
 
 
 .tfm-dialog-content {

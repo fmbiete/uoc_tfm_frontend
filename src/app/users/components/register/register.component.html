@@ -11,7 +11,7 @@
   </div>
 
   <div>
-    <span class="p-float-label p-input-icon-right">
+    <span class="p-float-label p-input-icon-right w-full">
       <i class="pi {{ hide ? 'pi-eye-slash' : 'pi-eye' }}" (click)="hide = !hide"></i>
       <input id="password" pInputText [type]="hide ? 'password' : 'text'" [formControl]="password" i18n-aria-label
         aria-label="Password" required maxlength="64">
@@ -22,7 +22,7 @@
   </div>
 
   <div>
-    <span class="p-float-label p-input-icon-right">
+    <span class="p-float-label p-input-icon-right w-full">
       <i class="pi {{ hide ? 'pi-eye-slash' : 'pi-eye' }}" (click)="hide = !hide"></i>
       <input id="password2" pInputText [type]="hide ? 'password' : 'text'" [formControl]="password2" i18n-aria-label
         aria-label="Confirm Password" required maxlength="64">

@@ -1,10 +1,9 @@
 .tfm-input-error {
-  @include styleclass('text-color-800 text-xs');
+  @include styleclass('bg-red-100 text-xs p-2');
 }
 
 form > div {
   @include styleclass('mt-3');
-  // margin-top: 10px;
 }
 
 form input {

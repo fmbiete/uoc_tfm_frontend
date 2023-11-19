@@ -116,8 +116,9 @@ export class LoginComponent implements OnInit, OnDestroy {
   register(): void {
     this.dialogRegisterRef = this.dialogService.open(RegisterComponent, {
       header: $localize`User Registration`,
-      // width: '75vw',
-      contentStyle: { overflow: 'auto' },
+      // width: '100%',
+      styleClass: 'tfm-dialog-modal',
+      // contentStyle: { overflow: 'auto' },
       baseZIndex: 10000,
     });
   }
