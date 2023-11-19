@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, CurrencyPipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { jsPDF } from 'jspdf';
 import { ButtonModule } from 'primeng/button';
@@ -10,6 +10,7 @@ import { CountOrder, Order, PageOrders } from 'src/app/shared/models/order.dto';
 import { User } from 'src/app/shared/models/user.dto';
 import { OrderService } from 'src/app/shared/services/order.service';
 import { SnackbarService } from 'src/app/shared/services/snackbar.service';
+import { PDF } from 'src/app/shared/utilities/pdf.class';
 
 @Component({
   selector: 'admin-dashboard-orders',
@@ -17,29 +18,20 @@ import { SnackbarService } from 'src/app/shared/services/snackbar.service';
   styleUrls: ['./orders.component.scss'],
   standalone: true,
   imports: [CommonModule, ButtonModule, FieldsetModule, TooltipModule],
+  providers: [CurrencyPipe],
 })
 export class OrdersComponent implements OnInit {
   numOrders: number;
 
-  private doc: jsPDF;
-  private docY: number;
-  private docMaxY = 280;
-  private docFontMain: string;
-  private docFontSans = 'courier';
-  private docFontTitleSize = 20;
-  private docFontMainSize = 12;
-  private docMarginLeft = 20;
-  private docMarginCenter = 105;
+  private doc!: PDF;
   private docMaxLineLength = 63;
 
   constructor(
     private snackbar: SnackbarService,
-    private orderService: OrderService
+    private orderService: OrderService,
+    private currencyPipe: CurrencyPipe
   ) {
     this.numOrders = 0;
-    this.doc = new jsPDF();
-    this.docFontMain = this.doc.getFont().fontName;
-    this.docY = 20;
   }
 
   ngOnInit(): void {
@@ -62,10 +54,10 @@ export class OrdersComponent implements OnInit {
       .pipe(first())
       .subscribe({
         next: (value: PageOrders) => {
-          this.doc = new jsPDF();
+          this.doc = new PDF(this.currencyPipe);
           this._writeHeader();
-          value.orders.forEach((order, idx) => {
-            this._writeOrder(idx + 1, order);
+          value.orders.forEach((order) => {
+            this._writeOrder(order);
           });
           this.doc.save('OrderList.pdf');
         },
@@ -76,65 +68,30 @@ export class OrdersComponent implements OnInit {
   }
 
   private _writeHeader() {
-    this.doc
-      .setFontSize(this.docFontTitleSize)
-      .setFont(this.docFontMain, 'bold')
-      .text(
-        `Orders for ${new Date().toISOString().slice(0, 10)}`,
-        this.docMarginCenter,
-        this._currentAndMoveY(20),
-        {
-          align: 'center',
-        }
-      );
+    this.doc.text(
+      `Orders for ${new Date().toISOString().slice(0, 10)}`,
+      18,
+      'bold',
+      'center',
+      20
+    );
   }
 
-  private _writeOrder(idx: number, order: Order): void {
-    console.debug(`Order ${idx}`);
-    console.debug(order);
-    this._writeOrderHeader(idx, order.User);
+  private _writeOrder(order: Order): void {
+    this._writeOrderHeader(order.ID, order.User);
     this._writeOrderLines(order.OrderLines);
-    this._currentAndMoveY(10);
   }
 
   private _writeOrderHeader(idx: number, user: User): void {
-    this.doc
-      .setFontSize(this.docFontMainSize)
-      .setFont(this.docFontMain, 'normal')
-      .text(`Order #${idx}`, this.docMarginLeft, this._currentAndMoveY(6));
-    this.doc
-      .setFontSize(this.docFontMainSize)
-      .setFont(this.docFontMain, 'bold')
-      .text(
-        `${user.Surname}, ${user.Name}`,
-        this.docMarginLeft,
-        this._currentAndMoveY(10)
-      );
+    this.doc.text(`Order #${idx}`, 16, 'normal', '', 6);
+    this.doc.text(`${user.Surname}, ${user.Name}`, 14, 'bold', '', 10);
   }
 
   private _writeOrderLines(lines: OrderLine[]): void {
     lines.forEach((line) => {
-      this.doc
-        .setFontSize(this.docFontMainSize)
-        .setFont(this.docFontSans, 'normal')
-        .text(
-          this._padLine(line),
-          this.docMarginLeft,
-          this._currentAndMoveY(6)
-        );
+      this.doc.textSans(this._padLine(line), 13, 'normal', '', 6);
     });
-  }
-
-  private _currentAndMoveY(inc: number): number {
-    const currentY = this.docY;
-    if (this.docY + inc > this.docMaxY) {
-      this.doc.addPage();
-      this.docY = 20;
-    } else {
-      this.docY += inc;
-    }
-
-    return currentY;
+    this.doc.addSpace(10);
   }
 
   private _padLine(line: OrderLine): string {

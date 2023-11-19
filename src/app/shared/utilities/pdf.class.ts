@@ -47,22 +47,17 @@ export class PDF {
     align: string,
     nextY: number
   ): void {
-    let options = {};
-    let x = 20;
-    switch (align) {
-      case 'center':
-        options = { align: 'center' };
-        x = this.docMarginCenter;
-        break;
-      case 'right':
-        options = { align: 'right' };
-        x = this.docMarginRight;
-    }
+    this._text(text, this.docFontMain, fontSize, fontWeight, align, nextY);
+  }
 
-    this.doc
-      .setFontSize(fontSize)
-      .setFont(this.docFontMain, fontWeight)
-      .text(text, x, this._currentAndMoveY(nextY), options);
+  textSans(
+    text: string,
+    fontSize: number,
+    fontWeight: string,
+    align: string,
+    nextY: number
+  ): void {
+    this._text(text, this.docFontSans, fontSize, fontWeight, align, nextY);
   }
 
   orderLines(lines: OrderLine[]): void {
@@ -143,5 +138,31 @@ export class PDF {
     const cost = this.currencyPipe.transform(value)?.padStart(10, ' ');
     text = text.padEnd(15, ' ');
     return `${text}${cost}`;
+  }
+
+  private _text(
+    text: string,
+    fontName: string,
+    fontSize: number,
+    fontWeight: string,
+    align: string,
+    nextY: number
+  ): void {
+    let options = {};
+    let x = 20;
+    switch (align) {
+      case 'center':
+        options = { align: 'center' };
+        x = this.docMarginCenter;
+        break;
+      case 'right':
+        options = { align: 'right' };
+        x = this.docMarginRight;
+    }
+
+    this.doc
+      .setFontSize(fontSize)
+      .setFont(fontName, fontWeight)
+      .text(text, x, this._currentAndMoveY(nextY), options);
   }
 }
