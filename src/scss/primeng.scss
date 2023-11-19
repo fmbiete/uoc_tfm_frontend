@@ -7,12 +7,26 @@
 }
 
 // Message service
+.p-message {
+  @include styleclass('mx-auto w-11 border-2 border-round-xl');
+  border-left-width: 10px !important;
+}
+
+.p-message-error {
+  @include styleclass('border-red-700');
+}
+
+.p-message-success {
+  @include styleclass('border-green-700');
+}
+
 .p-message-detail {
   // extra left margin
   margin-left: 30px;
   // Allow new lines
   white-space: pre-line;
 }
+
 
 // Bug Fixes
 
