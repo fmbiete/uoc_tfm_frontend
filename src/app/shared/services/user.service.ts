@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { PageUsers, User } from '../models/user.dto';
+import { CountUsers, PageUsers, User } from '../models/user.dto';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
@@ -9,6 +9,12 @@ import { environment } from 'src/environments/environment';
 })
 export class UserService {
   constructor(private http: HttpClient) {}
+
+  count$(includeAdmin: boolean): Observable<CountUsers> {
+    return this.http.get<CountUsers>(
+      `${environment.apiUrl}/users/count?includeAdmin=${includeAdmin}`
+    );
+  }
 
   create$(user: User): Observable<User> {
     return this.http.post<User>(`${environment.apiUrl}/user/`, user);

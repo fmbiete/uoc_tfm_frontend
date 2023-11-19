@@ -1,16 +1,10 @@
-<div class="card flex justify-content-center">
-  <p-fieldset i18n-legend legend="Today's Orders">
-    <div class="flex flex-column md:flex-row">
-      <div class="p-3 border-1 border-round-xl border-green-500 bg-green-200 mb-3 md:mb-0 md:mr-2">
-        <span class="font-bold uppercase h-full flex align-items-center" i18n>Number Today's Orders:</span>
-      </div>
-      <div class="p-3 border-1 border-round-xl border-orange-500 bg-orange-200 mb-3 md:mb-0 md:mr-5">
-        <span class="font-bold text-6xl">{{ numOrders }}</span>
-      </div>
-      <div class="flex align-items-center">
-        <p-button styleClass="w-full" [raised]="true" i18n-label label="Print Orders" icon="pi pi-print" size="large"
-          i18n-pTooltip pTooltip="Print Today's Orders" tooltipPosition="bottom" (click)="generatePdf()"></p-button>
-      </div>
+<div class="surface-card shadow-2 p-3 border-round">
+  <div class="flex justify-content-between mb-3">
+    <div>
+      <span class="block text-500 font-medium mb-3" i18n>Orders Today</span>
+      <div class="text-900 font-bold text-6xl">{{ numOrders }}</div>
     </div>
-  </p-fieldset>
+    <p-button styleClass="bg-green-100" [raised]="true" [text]="true" icon="pi pi-shopping-cart" size="large"
+      i18n-pTooltip pTooltip="Print Today's Orders" tooltipPosition="bottom" (click)="generatePdf()"></p-button>
+  </div>
 </div>

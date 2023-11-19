@@ -13,6 +13,10 @@ export class User {
   IsAdmin!: boolean;
 }
 
+export class CountUsers {
+  count!: number;
+}
+
 export class PageUsers {
   users!: User[];
   page!: number;

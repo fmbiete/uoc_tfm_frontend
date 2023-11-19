@@ -1,7 +1,8 @@
 <p-menubar [model]="items" styleClass="p-0 bg-bluegray-800 border-none border-noround md:text-white">
   <ng-template pTemplate="start">
-    <img class="max-w-5rem md:max-w-8rem ml-2 md:ml-3" src="assets/logo_2.png"
-      alt="Link to {{ applicationTitle }} homepage" [routerLink]="['']" style="cursor: pointer;">
+    <img class="max-w-5rem md:max-w-8rem ml-2 md:ml-3 cursor-pointer" src="assets/logo_2.png"
+      alt="Link to {{ applicationTitle }} homepage" [routerLink]="['']" tooltipPosition="bottom" i18n-pTooltip
+      pTooltip="Go to Administrator Home Page">
   </ng-template>
   <ng-template pTemplate="end">
     <users-menu class="mr-2 md:mr-3"></users-menu>

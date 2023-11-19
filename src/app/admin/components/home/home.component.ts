@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FieldsetModule } from 'primeng/fieldset';
 import { ButtonModule } from 'primeng/button';
 import { OrdersComponent } from '../dashboard/orders/orders.component';
 import { PromotionsComponent } from '../dashboard/promotions/promotions.component';
 import { SalesComponent } from '../dashboard/sales/sales.component';
+import { UsersComponent } from '../dashboard/users/users.component';
+import { DishesComponent } from '../dashboard/dishes/dishes.component';
 
 @Component({
   selector: 'admin-home',
@@ -12,10 +13,11 @@ import { SalesComponent } from '../dashboard/sales/sales.component';
   imports: [
     CommonModule,
     ButtonModule,
-    FieldsetModule,
+    DishesComponent,
     OrdersComponent,
     PromotionsComponent,
     SalesComponent,
+    UsersComponent,
   ],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],

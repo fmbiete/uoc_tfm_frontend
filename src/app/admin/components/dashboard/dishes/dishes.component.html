@@ -1,0 +1,10 @@
+<div class="surface-card shadow-2 p-3 border-round">
+  <div class="flex justify-content-between mb-3">
+    <div>
+      <span class="block text-500 font-medium mb-3" i18n>Dishes</span>
+      <div class="text-900  font-bold text-6xl">{{ numDishes }}</div>
+    </div>
+    <p-button styleClass="bg-orange-100" [raised]="true" [text]="true" icon="pi pi-box" size="large" i18n-pTooltip
+      pTooltip="List Dishes" tooltipPosition="bottom" [routerLink]="['admin', 'dishes']"></p-button>
+  </div>
+</div>

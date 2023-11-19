@@ -4,11 +4,12 @@ import { MenubarModule } from 'primeng/menubar';
 import { MenuItem } from 'primeng/api';
 import { environment } from 'src/environments/environment';
 import { MenuComponent as UserMenuComponent } from 'src/app/users/components/menu/menu.component';
+import { TooltipModule } from 'primeng/tooltip';
 
 @Component({
   selector: 'admin-header',
   standalone: true,
-  imports: [CommonModule, MenubarModule, UserMenuComponent],
+  imports: [CommonModule, MenubarModule, TooltipModule, UserMenuComponent],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })

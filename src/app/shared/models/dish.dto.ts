@@ -16,6 +16,10 @@ export class Dish {
   Dislikes!: number;
 }
 
+export class CountDishes {
+  count!: number;
+}
+
 export class PageDishes {
   dishes!: Dish[];
   page!: number;

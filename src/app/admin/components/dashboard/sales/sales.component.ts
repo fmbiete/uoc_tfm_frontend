@@ -15,6 +15,7 @@ import { CountOrder } from 'src/app/shared/models/order.dto';
   styleUrls: ['./sales.component.scss'],
 })
 export class SalesComponent implements OnInit {
+  year: number;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   data: any;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -23,7 +24,9 @@ export class SalesComponent implements OnInit {
   constructor(
     private snackbar: SnackbarService,
     private orderService: OrderService
-  ) {}
+  ) {
+    this.year = new Date().getFullYear();
+  }
 
   ngOnInit() {
     this._setChartData(Array<number>(12).fill(0));

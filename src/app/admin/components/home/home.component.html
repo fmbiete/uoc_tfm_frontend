@@ -1,10 +1,23 @@
 <div class="tfm-main-page">
-  <h1 i18n>Administrative Console</h1>
-
-  <div class="flex flex-column md:flex-row">
-    <admin-dashboard-orders class="flex-grow-1"></admin-dashboard-orders>
-
-    <admin-dashboard-promotions class="flex-grow-1"></admin-dashboard-promotions>
+  <div class="text-500">
+    <i class="pi pi-info-circle mr-3"></i>
+    <span i18n>Click the application logo to come back to this screen</span>
+  </div>
+  <div class="surface-ground px-4 py-5 md:px-6 lg:px-8">
+    <div class="grid">
+      <div class="col-12 md:col-6 lg:col-3">
+        <admin-dashboard-orders></admin-dashboard-orders>
+      </div>
+      <div class="col-12 md:col-6 lg:col-3">
+        <admin-dashboard-dishes></admin-dashboard-dishes>
+      </div>
+      <div class="col-12 md:col-6 lg:col-3">
+        <admin-dashboard-promotions></admin-dashboard-promotions>
+      </div>
+      <div class="col-12 md:col-6 lg:col-3">
+        <admin-dashboard-users></admin-dashboard-users>
+      </div>
+    </div>
   </div>
 
   <admin-dashboard-sales></admin-dashboard-sales>

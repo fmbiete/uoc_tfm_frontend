@@ -1,0 +1,10 @@
+<div class="surface-card shadow-2 p-3 border-round">
+  <div class="flex justify-content-between mb-3">
+    <div>
+      <span class="block text-500 font-medium mb-3" i18n>Users</span>
+      <div class="text-900  font-bold text-6xl">{{ numUsers }}</div>
+    </div>
+    <p-button styleClass="bg-red-100" [raised]="true" [text]="true" icon="pi pi-user" size="large" i18n-pTooltip
+      pTooltip="List Users" tooltipPosition="bottom" [routerLink]="['admin', 'users']"></p-button>
+  </div>
+</div>

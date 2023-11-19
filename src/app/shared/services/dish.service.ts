@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Dish, PageDishes } from '../models/dish.dto';
+import { CountDishes, Dish, PageDishes } from '../models/dish.dto';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
@@ -9,6 +9,10 @@ import { Observable } from 'rxjs';
 })
 export class DishService {
   constructor(private http: HttpClient) {}
+
+  count$(): Observable<CountDishes> {
+    return this.http.get<CountDishes>(`${environment.apiUrl}/dishes/count`);
+  }
 
   create$(dish: Dish): Observable<Dish> {
     return this.http.post<Dish>(`${environment.apiUrl}/dish/`, dish);
