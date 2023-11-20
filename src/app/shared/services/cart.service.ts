@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Cart, CartLine } from '../models/cart.dto';
 import { Dish } from '../models/dish.dto';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { Price } from '../utilities/price.class';
 
 @Injectable({
   providedIn: 'root',
@@ -36,6 +37,7 @@ export class CartService {
 
     const line = cart.Lines.find((v) => v.DishID == dish.ID);
     if (line === undefined) {
+      dish.Cost = Price.ActivePrice(dish);
       cart.Lines.push(new CartLine(dish));
     } else {
       line.Quantity += 1;

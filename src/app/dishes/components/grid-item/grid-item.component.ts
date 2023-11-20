@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { CommonModule, TitleCasePipe } from '@angular/common';
+import { CommonModule, CurrencyPipe, TitleCasePipe } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { TagModule } from 'primeng/tag';
 import { Dish } from 'src/app/shared/models/dish.dto';
@@ -8,19 +8,22 @@ import { RatingComponent } from '../rating/rating.component';
 import { MessageModule } from 'primeng/message';
 import { CartService } from 'src/app/shared/services/cart.service';
 import { RouterLink } from '@angular/router';
+import { CurrentPricePipe } from '../../pipes/current-price.pipe';
 
 @Component({
   selector: 'dishes-grid-item',
   standalone: true,
   imports: [
-    TitleCasePipe,
-    RatingPipe,
     CommonModule,
+    RouterLink,
+    CurrencyPipe,
+    TitleCasePipe,
+    CurrentPricePipe,
+    RatingComponent,
+    RatingPipe,
     ButtonModule,
     MessageModule,
     TagModule,
-    RatingComponent,
-    RouterLink,
   ],
   templateUrl: './grid-item.component.html',
   styleUrls: ['./grid-item.component.scss'],

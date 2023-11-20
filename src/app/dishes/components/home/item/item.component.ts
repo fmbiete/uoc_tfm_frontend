@@ -4,6 +4,7 @@ import { ButtonModule } from 'primeng/button';
 import { Dish } from 'src/app/shared/models/dish.dto';
 import { RouterLink } from '@angular/router';
 import { CartService } from 'src/app/shared/services/cart.service';
+import { CurrentPricePipe } from 'src/app/dishes/pipes/current-price.pipe';
 
 @Component({
   selector: 'dishes-home-item',
@@ -14,6 +15,7 @@ import { CartService } from 'src/app/shared/services/cart.service';
     TitleCasePipe,
     RouterLink,
     ButtonModule,
+    CurrentPricePipe,
   ],
   templateUrl: './item.component.html',
   styleUrls: ['./item.component.scss'],

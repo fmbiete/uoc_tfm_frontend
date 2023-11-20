@@ -14,7 +14,7 @@
       <section class="flex flex-row align-content-top m-2 md:m-5">
         <div class="mr-5 bg-primary-reverse">
           <h3 class="m-0" i18n>Price</h3>
-          <div class="font-bold">{{ dish.Cost | currency }}</div>
+          <div class="font-bold">{{ dish | currentPrice | currency }}</div>
         </div>
         <p-button *ngIf="loaded" icon="pi pi-cart-plus" [raised]="true" (click)="addCart()" i18n-label
           label="Add to Cart"></p-button>

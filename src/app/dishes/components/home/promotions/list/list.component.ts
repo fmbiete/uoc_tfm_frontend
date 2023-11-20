@@ -5,7 +5,7 @@ import { first } from 'rxjs';
 import { Dish } from 'src/app/shared/models/dish.dto';
 import { SnackbarService } from 'src/app/shared/services/snackbar.service';
 import { ItemComponent } from '../../item/item.component';
-import { PagePromotions } from 'src/app/shared/models/promotion.dto';
+import { PagePromotions, Promotion } from 'src/app/shared/models/promotion.dto';
 
 @Component({
   selector: 'dishes-home-promotions-list',
@@ -33,8 +33,11 @@ export class ListComponent implements OnInit {
       .subscribe({
         next: (value: PagePromotions) => {
           this.dishes = value.promotions.map((p) => {
-            // promoted price
-            p.Dish.Cost = p.Cost;
+            const cp = new Promotion();
+            cp.Cost = p.Cost;
+            cp.EndTime = p.EndTime;
+            cp.StartTime = p.StartTime;
+            p.Dish.Promotions = [cp];
             return p.Dish;
           });
           this.loading = false;

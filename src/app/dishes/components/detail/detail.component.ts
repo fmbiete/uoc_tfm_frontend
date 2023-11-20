@@ -16,6 +16,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { BadgeModule } from 'primeng/badge';
 import { PanelModule } from 'primeng/panel';
 import { DividerModule } from 'primeng/divider';
+import { CurrentPricePipe } from '../../pipes/current-price.pipe';
 
 @Component({
   selector: 'dishes-detail',
@@ -27,6 +28,7 @@ import { DividerModule } from 'primeng/divider';
     CurrencyPipe,
     FormsModule,
     TitleCasePipe,
+    CurrentPricePipe,
     RatingComponent,
     RatingPipe,
     BadgeModule,

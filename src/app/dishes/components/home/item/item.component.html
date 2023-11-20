@@ -5,7 +5,7 @@
     <p-button icon=" pi pi-cart-plus" [rounded]="true" [raised]="true" severity="help" styleClass="absolute right-0"
       (click)="addCart()"></p-button>
   </div>
-  <p class="text-600 uppercase font-medium my-3">{{ dish.Cost | currency }}</p>
+  <p class="text-600 font-medium my-3">{{ dish | currentPrice | currency }}</p>
   <a class="text-xl cursor-pointer text-900 flex align-items-center hover:text-primary transition-duration-150 no-underline"
     [routerLink]="['dishes', 'dish', dish.ID]">
     <span>{{ dish.Name | titlecase }}</span>
