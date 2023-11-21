@@ -3,7 +3,12 @@ import { Injectable } from '@angular/core';
 import { Subvention } from '../models/subvention.dto';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
-import { CountOrder, Order, PageOrders } from '../models/order.dto';
+import {
+  CountOrder,
+  ModifiableOrder,
+  Order,
+  PageOrders,
+} from '../models/order.dto';
 import { OrderLine } from '../models/order-line.dto';
 
 @Injectable({
@@ -34,6 +39,12 @@ export class OrderService {
 
   delete$(orderId: number): Observable<boolean> {
     return this.http.delete<boolean>(`${environment.apiUrl}/order/${orderId}`);
+  }
+
+  getModifiable$(orderId: number): Observable<ModifiableOrder> {
+    return this.http.get<ModifiableOrder>(
+      `${environment.apiUrl}/order/${orderId}/modifiable`
+    );
   }
 
   getSubvention$(): Observable<Subvention> {

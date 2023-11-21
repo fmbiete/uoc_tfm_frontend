@@ -25,25 +25,32 @@
                 [showButtons]="true" buttonLayout="vertical" spinnerMode="vertical" inputId="vertical"
                 decrementButtonClass="p-button-secondary" incrementButtonClass="p-button-secondary"
                 incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus"
-                (onInput)="onLineQuantityChange($event)" [min]="1"></p-inputNumber>
+                (onInput)="onLineQuantityChange($event)" [min]="1" [readonly]="!isModifiable"></p-inputNumber>
               <p-inputNumber class="block md:hidden" styleClass="tfm-inputnumber-fix" [(ngModel)]="line.Quantity"
                 [showButtons]="true" buttonLayout="horizontal" decrementButtonClass="p-button-secondary"
                 incrementButtonClass="p-button-secondary" incrementButtonIcon="pi pi-plus"
-                decrementButtonIcon="pi pi-minus" (onInput)="onLineQuantityChange($event)" [min]="1"
-                [max]="100"></p-inputNumber>
+                decrementButtonIcon="pi pi-minus" (onInput)="onLineQuantityChange($event)" [min]="1" [max]="100"
+                [readonly]="!isModifiable"></p-inputNumber>
               <span class="text-900 font-medium text-lg mx-2 md:mx-5">{{ line.Quantity * line.CostUnit |
                 currency }}</span>
               <p-button icon="pi pi-trash" [raised]="true" [rounded]="true" [text]="true" severity="danger" size="small"
-                i18n-pTooltip pTooltip="Delete Line" tooltipPosition="left" (click)="deleteLine(line.ID)"></p-button>
+                i18n-pTooltip pTooltip="Delete Line" tooltipPosition="left" (click)="deleteLine(line.ID)"
+                [disabled]="!isModifiable"></p-button>
             </div>
           </div>
         </li>
       </ng-container>
     </ul>
     <div class="m-3 flex flex-column md:flex-row md:justify-content-end">
-      <p-button icon="pi pi-trash" [raised]="true" i18n-label label="Cancel Order" severity="danger"
-        class="mb-3 md:mb-0 md:mr-3" (click)="deleteOrder()"></p-button>
-      <p-button icon="pi pi-save" [raised]="true" i18n-label label="Modify Order" (click)="modifyOrder()"></p-button>
+      <span *ngIf="isDelivered">
+        <p class="font-semibold" i18n>Order has been delivered: {{ order.Delivery | date: 'longDate' }}</p>
+      </span>
+      <span *ngIf="!isDelivered">
+        <p-button icon="pi pi-trash" [raised]="true" i18n-label label="Cancel Order" severity="danger"
+          class="mb-3 md:mb-0 md:mr-3" (click)="deleteOrder()" [disabled]="!isModifiable"></p-button>
+        <p-button icon="pi pi-save" [raised]="true" i18n-label label="Modify Order" (click)="modifyOrder()"
+          [disabled]="!isModifiable"></p-button>
+      </span>
     </div>
   </div>
 

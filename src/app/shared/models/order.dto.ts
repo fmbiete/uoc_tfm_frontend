@@ -26,6 +26,10 @@ export class CountOrder {
   count!: number;
 }
 
+export interface ModifiableOrder {
+  modifiable: boolean;
+}
+
 export class PageOrders {
   orders!: Order[];
   page!: number;

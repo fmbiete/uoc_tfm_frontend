@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule, CurrencyPipe, DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
-import { Order } from 'src/app/shared/models/order.dto';
+import { ModifiableOrder, Order } from 'src/app/shared/models/order.dto';
 import { ButtonModule } from 'primeng/button';
 import { DividerModule } from 'primeng/divider';
 import { InputNumberInputEvent, InputNumberModule } from 'primeng/inputnumber';
@@ -34,8 +34,10 @@ import { ConfirmationService } from 'primeng/api';
   styleUrls: ['./detail.component.scss'],
   providers: [CurrencyPipe, ConfirmationService],
 })
-export class DetailComponent {
+export class DetailComponent implements OnInit {
   order: Order;
+  isDelivered: boolean;
+  isModifiable: boolean;
 
   constructor(
     private router: Router,
@@ -44,7 +46,30 @@ export class DetailComponent {
     private currencyPipe: CurrencyPipe,
     private confirmationService: ConfirmationService
   ) {
+    this.isDelivered = false;
+    this.isModifiable = false;
     this.order = this.router.getCurrentNavigation()?.extras.state?.['order'];
+  }
+
+  ngOnInit(): void {
+    this.orderService
+      .getModifiable$(this.order.ID)
+      .pipe(first())
+      .subscribe({
+        next: (value: ModifiableOrder) => {
+          this.isModifiable = value.modifiable;
+        },
+        error: (err) => {
+          if (err.error.message == `this order has been already delivered`) {
+            this.isDelivered = true;
+          } else {
+            this.snackbar.show(
+              err,
+              $localize`Failed to check if the Order is modifiable`
+            );
+          }
+        },
+      });
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
