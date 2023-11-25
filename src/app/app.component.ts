@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PrimeNGConfig } from 'primeng/api';
 import { AuthResponse } from './shared/models/auth.dto';
 import { LocalStorageService } from './shared/services/local-storage.service';
 import { SnackbarService } from './shared/services/snackbar.service';
@@ -13,6 +14,7 @@ export class AppComponent implements OnInit {
   admin: boolean;
 
   constructor(
+    private primengConfig: PrimeNGConfig,
     private snackbar: SnackbarService,
     private localStorage: LocalStorageService
   ) {
@@ -21,6 +23,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.primengConfig.ripple = true;
     this.subscribeAuthentication();
   }
 
