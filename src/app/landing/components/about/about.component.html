@@ -1,7 +1,10 @@
 <div class="tfm-main-page">
   <p-card styleClass="mt-2 bg-primary-100" header="{{ applicationTitle }}" i18n-subheader subheader="Created by">
     <ng-template pTemplate="header">
-      <img class="mt-5 max-w-10rem" alt="Logo {{ applicationTitle }}" src="assets/logo_2.png" />
+      <picture>
+        <source media="(min-width: 320px)" srcset="/assets/logo_2.webp" type="image/webp">
+        <img class="mt-5 max-w-10rem" alt="Logo {{ applicationTitle }}" src="/assets/logo_2.png" />
+      </picture>
     </ng-template>
     <h1>Francisco Miguel Biete Ba&ntilde;&oacute;n</h1>
     <ng-template pTemplate="footer">

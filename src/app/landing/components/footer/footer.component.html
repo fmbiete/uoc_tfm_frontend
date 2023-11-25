@@ -2,10 +2,13 @@
   <section class="dark">
     <div class="md:text-left mt-0 mb-5 md:mb-0">
       <p-selectButton [options]="flags" [(ngModel)]="language" optionLabel="language" optionValue="value"
-        (onChange)="languageChange($event)">
+        (onChange)="languageChange($event)" i18n-aria-roledescription aria-roledescription="Language selector">
         <ng-template let-item pTemplate>
-          <img src="/assets/flags/{{ item.flag }}.png" i18n-alt alt="Change Language to {{ item.language }}"
-            height="16px">
+          <picture>
+            <source media="(min-width: 320px)" srcset="/assets/flags/{{ item.flag }}.webp" type="image/webp">
+            <img src="/assets/flags/{{ item.flag }}.png" i18n-alt alt="Change Language to {{ item.language }}"
+              height="16px">
+          </picture>
         </ng-template>
       </p-selectButton>
     </div>

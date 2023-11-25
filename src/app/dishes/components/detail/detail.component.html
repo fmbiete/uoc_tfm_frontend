@@ -6,7 +6,10 @@
         <span class="ml-2 font-semibold">{{ category.Name | titlecase }}</span>
       </span>
 
-      <img src="/assets/dishes/generic.png" alt="{{ dish.Name | titlecase }}" class="max-w-full">
+      <picture>
+        <source media="(min-width: 320px)" srcset="/assets/dishes/generic.webp" type="image/webp">
+        <img src="/assets/dishes/generic.png" alt="{{ dish.Name | titlecase }}" class="max-w-full">
+      </picture>
     </div>
     <div class="md:ml-5">
       <h1 class="md:text-6xl m-2 md:m-5">{{ dish.Name }}</h1>

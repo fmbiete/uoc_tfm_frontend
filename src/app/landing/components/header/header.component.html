@@ -1,8 +1,12 @@
 <p-toolbar styleClass="p-0 bg-bluegray-800 border-none border-noround">
   <div class="p-toolbar-group-start">
     <dishes-menu-category></dishes-menu-category>
-    <img class="max-w-5rem md:max-w-8rem" src="assets/logo_2.png" alt="Link to {{ applicationTitle }} homepage"
-      [routerLink]="['']" style="cursor: pointer;">
+    <picture>
+      <source media="(min-width: 320px)" srcset="/assets/logo_2.webp" type="image/webp">
+      <img class="max-w-5rem md:max-w-8rem cursor-pointer" src="/assets/logo_2.png"
+        alt="Link to {{ applicationTitle }} homepage" [routerLink]="['']">
+    </picture>
+
   </div>
 
   <div>
