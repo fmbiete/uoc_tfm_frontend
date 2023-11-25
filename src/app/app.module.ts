@@ -6,12 +6,12 @@ import {
   isDevMode,
 } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ServiceWorkerModule } from '@angular/service-worker';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ServiceWorkerModule } from '@angular/service-worker';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpInterceptorService } from './shared/services/http-interceptor.service';
 import { HeaderComponent } from './landing/components/header/header.component';
 import { FooterComponent } from './landing/components/footer/footer.component';
@@ -28,22 +28,22 @@ import { environment } from 'src/environments/environment';
 @NgModule({
   declarations: [AppComponent],
   imports: [
+    AppRoutingModule,
     CommonModule,
     BrowserModule,
-    AppRoutingModule,
+    BrowserAnimationsModule,
+    HttpClientModule,
+    ReactiveFormsModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: !isDevMode(),
       // Register the ServiceWorker as soon as the application is stable
       // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000',
     }),
-    BrowserAnimationsModule,
-    ReactiveFormsModule,
-    HttpClientModule,
+    MessagesModule,
     AdminMenubarComponent,
     HeaderComponent,
     FooterComponent,
-    MessagesModule,
   ],
   providers: [
     {
