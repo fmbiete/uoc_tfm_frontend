@@ -1,6 +1,5 @@
 import { CommonModule, CurrencyPipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { jsPDF } from 'jspdf';
 import { ButtonModule } from 'primeng/button';
 import { FieldsetModule } from 'primeng/fieldset';
 import { TooltipModule } from 'primeng/tooltip';

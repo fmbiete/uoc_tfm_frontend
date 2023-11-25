@@ -21,7 +21,7 @@ import { SnackbarService } from 'src/app/shared/services/snackbar.service';
 import { Dish } from 'src/app/shared/models/dish.dto';
 import { Promotion } from 'src/app/shared/models/promotion.dto';
 import { DividerModule } from 'primeng/divider';
-import { InputText, InputTextModule } from 'primeng/inputtext';
+import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
   selector: 'admin-promotions-new',
