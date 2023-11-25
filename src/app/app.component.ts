@@ -1,19 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { PrimeNGConfig } from 'primeng/api';
 import { AuthResponse } from './shared/models/auth.dto';
 import { LocalStorageService } from './shared/services/local-storage.service';
 import { SnackbarService } from './shared/services/snackbar.service';
 import { Title } from '@angular/platform-browser';
 import { environment } from 'src/environments/environment';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
   authenticated: boolean;
   admin: boolean;
+
+  private subscription!: Subscription;
 
   constructor(
     private titleService: Title,
@@ -33,8 +36,12 @@ export class AppComponent implements OnInit {
     this.subscribeAuthentication();
   }
 
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
   private subscribeAuthentication(): void {
-    this.localStorage.authenticationResponse$().subscribe({
+    this.subscription = this.localStorage.authenticationResponse$().subscribe({
       next: (value: AuthResponse) => {
         this.authenticated = value.id > 0;
         this.admin = value.admin;
