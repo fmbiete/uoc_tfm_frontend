@@ -25,7 +25,7 @@ export class SnackbarService {
             : $localize`Reflection Code: ${error.reflection}`;
         this.messageService.add({
           key: 'tc',
-          sticky: true,
+          life: 30000,
           severity: 'error',
           summary: $localize`Error`,
           detail: `${message}\n${error.message}\n${errorCode}`,
@@ -34,7 +34,7 @@ export class SnackbarService {
         // anything else
         this.messageService.add({
           key: 'tc',
-          sticky: true,
+          life: 30000,
           severity: 'error',
           summary: $localize`Error`,
           detail: `${message}\nFailed to connect to remote server`,
