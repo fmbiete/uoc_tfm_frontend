@@ -26,5 +26,19 @@
         ]
       }
     }
+  ],
+  "dataGroups": [
+    {
+      "name": "api",
+      "urls": [
+        "http://localhost:8080/**", 
+        "/backend/**"
+      ],
+      "cacheConfig": {
+        "strategy": "freshness",
+        "maxAge": "1h",
+        "maxSize": 100
+      }
+    }
   ]
 }
