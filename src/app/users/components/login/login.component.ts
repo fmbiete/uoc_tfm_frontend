@@ -70,8 +70,9 @@ export class LoginComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     // Speedup development
     // this.email.setValue('user1@tfm.es');
-    this.email.setValue('admin@tfm.es');
-    this.password.setValue('password');
+    // this.email.setValue('admin@tfm.es');
+    // this.password.setValue('password');
+    return;
   }
 
   ngOnDestroy(): void {
