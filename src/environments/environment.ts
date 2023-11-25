@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  apiUrl: '/backend',
+  apiUrl: 'http://localhost:8080',
   title: 'Eating at the Office',
   company: 'ACME ltd',
   currency: 'EUR',

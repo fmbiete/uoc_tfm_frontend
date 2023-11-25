@@ -3,6 +3,8 @@ import { PrimeNGConfig } from 'primeng/api';
 import { AuthResponse } from './shared/models/auth.dto';
 import { LocalStorageService } from './shared/services/local-storage.service';
 import { SnackbarService } from './shared/services/snackbar.service';
+import { Title } from '@angular/platform-browser';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -14,6 +16,7 @@ export class AppComponent implements OnInit {
   admin: boolean;
 
   constructor(
+    private titleService: Title,
     private primengConfig: PrimeNGConfig,
     private snackbar: SnackbarService,
     private localStorage: LocalStorageService
@@ -23,7 +26,10 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // Enable ripple animation
     this.primengConfig.ripple = true;
+    // Set application title
+    this.titleService.setTitle(environment.title);
     this.subscribeAuthentication();
   }
 
