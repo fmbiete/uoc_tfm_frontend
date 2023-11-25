@@ -20,6 +20,7 @@ import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { first } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'users-login',
@@ -45,6 +46,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   constructor(
     private formBuilder: UntypedFormBuilder,
+    private router: Router,
     private snackbar: SnackbarService,
     private authService: AuthService,
     private localStorageService: LocalStorageService,
@@ -106,6 +108,9 @@ export class LoginComponent implements OnInit, OnDestroy {
           this.headerService.showAuthenticated(value.admin);
           this.snackbar.show(null, $localize`Welcome back!`);
           this.ref.close(true);
+          if (value.admin) {
+            this.router.navigate(['/']);
+          }
         },
         error: (err) => {
           this.headerService.showUnauthenticated();
