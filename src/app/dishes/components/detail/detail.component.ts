@@ -17,6 +17,7 @@ import { BadgeModule } from 'primeng/badge';
 import { PanelModule } from 'primeng/panel';
 import { DividerModule } from 'primeng/divider';
 import { CurrentPricePipe } from '../../pipes/current-price.pipe';
+import { first } from 'rxjs';
 
 @Component({
   selector: 'dishes-detail',
@@ -65,15 +66,18 @@ export class DetailComponent implements OnInit {
   ngOnInit(): void {
     this.authenticated = this.localStorage.isUserLogged();
     if (this.id !== undefined) {
-      this.dishService.get$(parseInt(this.id)).subscribe({
-        next: (dish: Dish) => {
-          this.dish = dish;
-          this.loaded = true;
-        },
-        error: (err: HttpErrorResponse) => {
-          this.snackbar.show(err.error, $localize`Detail Dish Failed`);
-        },
-      });
+      this.dishService
+        .get$(parseInt(this.id))
+        .pipe(first())
+        .subscribe({
+          next: (dish: Dish) => {
+            this.dish = dish;
+            this.loaded = true;
+          },
+          error: (err: HttpErrorResponse) => {
+            this.snackbar.show(err.error, $localize`Detail Dish Failed`);
+          },
+        });
     }
   }
 
@@ -82,26 +86,32 @@ export class DetailComponent implements OnInit {
   }
 
   like(): void {
-    this.dishService.like$(this.dish.ID).subscribe({
-      next: () => {
-        this.liked = true;
-        this.disliked = false;
-      },
-      error: (err: HttpErrorResponse) => {
-        this.snackbar.show(err.error, $localize`Like Dish Failed`);
-      },
-    });
+    this.dishService
+      .like$(this.dish.ID)
+      .pipe(first())
+      .subscribe({
+        next: () => {
+          this.liked = true;
+          this.disliked = false;
+        },
+        error: (err: HttpErrorResponse) => {
+          this.snackbar.show(err.error, $localize`Like Dish Failed`);
+        },
+      });
   }
 
   dislike(): void {
-    this.dishService.dislike$(this.dish.ID).subscribe({
-      next: () => {
-        this.liked = false;
-        this.disliked = true;
-      },
-      error: (err: HttpErrorResponse) => {
-        this.snackbar.show(err.error, $localize`Dislike Dish Failed`);
-      },
-    });
+    this.dishService
+      .dislike$(this.dish.ID)
+      .pipe(first())
+      .subscribe({
+        next: () => {
+          this.liked = false;
+          this.disliked = true;
+        },
+        error: (err: HttpErrorResponse) => {
+          this.snackbar.show(err.error, $localize`Dislike Dish Failed`);
+        },
+      });
   }
 }
