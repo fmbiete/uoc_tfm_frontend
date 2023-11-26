@@ -61,7 +61,7 @@ export class DetailComponent implements OnInit {
   goCheckout(): void {
     if (this.localStorage.isUserLogged()) {
       // if logged in
-      this.router.navigate(['checkout', 'address']);
+      this.router.navigate(['checkout', 'steps', 'address']);
     } else {
       // if not logged in - request login
       const dialogRef = this.dialogService.open(LoginComponent, {
@@ -75,7 +75,7 @@ export class DetailComponent implements OnInit {
         console.debug(`Dialog result: ${result}`);
         if (this.localStorage.isUserLogged()) {
           // if logged in
-          this.router.navigate(['checkout', 'address']);
+          this.router.navigate(['checkout', 'steps', 'address']);
         }
       });
     }

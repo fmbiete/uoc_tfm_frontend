@@ -129,12 +129,12 @@ export class PaymentComponent implements OnInit {
           // clear cart
           this.cartService.reset();
           // goto success
-          this.router.navigate(['checkout', 'success']);
+          this.router.navigate(['checkout', 'steps', 'success']);
         },
         error: (err) => {
           this.snackbarService.show(err, $localize`Failed to create Order`);
           // goto failure
-          this.router.navigate(['checkout', 'failure']);
+          this.router.navigate(['checkout', 'steps', 'failure']);
         },
       });
   }

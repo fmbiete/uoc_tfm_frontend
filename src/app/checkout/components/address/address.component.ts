@@ -160,6 +160,8 @@ export class AddressComponent implements OnInit {
     order.City = this.city.value;
     order.Phone = this.phone.value;
 
-    this.router.navigate(['checkout', 'payment'], { state: { order: order } });
+    this.router.navigate(['checkout', 'steps', 'payment'], {
+      state: { order: order },
+    });
   }
 }
