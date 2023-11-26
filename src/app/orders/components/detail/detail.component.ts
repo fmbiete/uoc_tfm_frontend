@@ -52,24 +52,26 @@ export class DetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.orderService
-      .getModifiable$(this.order.ID)
-      .pipe(first())
-      .subscribe({
-        next: (value: ModifiableOrder) => {
-          this.isModifiable = value.modifiable;
-        },
-        error: (err) => {
-          if (err.error.message == `this order has been already delivered`) {
-            this.isDelivered = true;
-          } else {
-            this.snackbar.show(
-              err,
-              $localize`Failed to check if the Order is modifiable`
-            );
-          }
-        },
-      });
+    if (this.order) {
+      this.orderService
+        .getModifiable$(this.order.ID)
+        .pipe(first())
+        .subscribe({
+          next: (value: ModifiableOrder) => {
+            this.isModifiable = value.modifiable;
+          },
+          error: (err) => {
+            if (err.error.message == `this order has been already delivered`) {
+              this.isDelivered = true;
+            } else {
+              this.snackbar.show(
+                err,
+                $localize`Failed to check if the Order is modifiable`
+              );
+            }
+          },
+        });
+    }
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
