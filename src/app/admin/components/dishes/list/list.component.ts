@@ -137,7 +137,7 @@ export class ListComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     if (this.dialogRefDish) this.dialogRefDish.close();
     if (this.dialogRefPromotion) this.dialogRefPromotion.close();
-    this.subscription.unsubscribe();
+    if (this.subscription) this.subscription.unsubscribe();
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

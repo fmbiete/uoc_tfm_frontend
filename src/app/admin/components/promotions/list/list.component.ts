@@ -87,7 +87,7 @@ export class ListComponent implements OnDestroy, OnInit {
 
   ngOnDestroy(): void {
     if (this.dialogRef) this.dialogRef.close();
-    this.routeSubscription.unsubscribe();
+    if (this.routeSubscription) this.routeSubscription.unsubscribe();
   }
 
   applyFilterGlobal(table: Table, $event: Event, stringVal: string) {

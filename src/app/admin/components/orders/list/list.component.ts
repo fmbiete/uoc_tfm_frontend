@@ -137,8 +137,8 @@ export class ListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
-    this.routeSubscription.unsubscribe();
+    if (this.subscription) this.subscription.unsubscribe();
+    if (this.routeSubscription) this.routeSubscription.unsubscribe();
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
