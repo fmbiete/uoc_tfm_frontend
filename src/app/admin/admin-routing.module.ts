@@ -8,6 +8,7 @@ import { ListComponent as UsersComponent } from './components/users/list/list.co
 import { ListComponent as DishesListComponent } from './components/dishes/list/list.component';
 import { ListComponent as PromotionsComponent } from './components/promotions/list/list.component';
 import { ListComponent as OrdersComponent } from './components/orders/list/list.component';
+import { ConfigurationComponent } from './components/configuration/configuration.component';
 
 const routes: Routes = [
   {
@@ -18,6 +19,11 @@ const routes: Routes = [
   {
     path: 'categories',
     component: CategoriesComponent,
+    canActivate: [AuthAdminGuard],
+  },
+  {
+    path: 'configuration',
+    component: ConfigurationComponent,
     canActivate: [AuthAdminGuard],
   },
   {

@@ -1,0 +1,49 @@
+<div class="tfm-main-page">
+  <h1 i18n>Configuration</h1>
+  <form [formGroup]="createForm" class="mt-2 flex flex-column">
+    <div class="mb-3">
+      <p-message styleClass="w-full" severity="info" i18n-text
+        text="Change Time Limit marks until when do we accept new Orders or Order changes"></p-message>
+      <span class="p-float-label mt-3">
+        <p-inputMask inputId="changesTime" formControlName="changesTime" mask="99:99" placeholder="00:00"
+          [required]="true"></p-inputMask>
+        <label for="changesTime" i18n>Change Time Limit</label>
+      </span>
+      <div class="tfm-input-error" i18n *ngIf="changesTime.errors?.['required']">You must enter a time</div>
+      <div class="tfm-input-error" i18n *ngIf="changesTime.errors?.['pattern']">You must enter a valid time</div>
+    </div>
+
+    <div class="mb-3">
+      <p-message styleClass="w-full" severity="info" i18n-text
+        text="Delivery Time Limit marks when will we deliver the Order"></p-message>
+      <span class="p-float-label mt-3">
+        <p-inputMask inputId="deliveryTime" formControlName="deliveryTime" mask="99:99" placeholder="00:00"
+          [required]="true"></p-inputMask>
+        <label for="deliveryTime" i18n>Delivery Time Limit</label>
+      </span>
+      <div class="tfm-input-error" i18n *ngIf="deliveryTime.errors?.['required']">You must enter a time</div>
+      <div class="tfm-input-error" i18n *ngIf="deliveryTime.errors?.['pattern']">You must enter a valid time</div>
+    </div>
+
+    <div>
+      <p-message styleClass="w-full" severity="info" i18n-text
+        text="Subvention is the amount that the company contributes to the employees first Order"></p-message>
+      <span class="p-float-label mt-3">
+        <p-inputNumber inputId="subvention" formControlName="subvention" [min]="0" [minFractionDigits]="2"
+          [maxFractionDigits]="2" [required]="true" class="w-full" styleClass="w-full"></p-inputNumber>
+        <label for="subvention" i18n>Subvention</label>
+      </span>
+      <div class="tfm-input-error" i18n *ngIf="subvention.errors?.['required']">You must enter a value</div>
+      <div class="tfm-input-error" i18n *ngIf="subvention.errors?.['min']">The value must be greater or equal than 0
+      </div>
+    </div>
+
+    <p-divider></p-divider>
+    <div class="tfm-actions">
+      <p-button icon="pi pi-times" severity="danger" (click)="cancel()" i18n-label label="Cancel"
+        styleClass="tfm-actions-secondary"></p-button>
+      <p-button icon="pi pi-check" [disabled]="!createForm.valid" (click)="update()" i18n-label
+        label="Update Configuration" styleClass="tfm-actions-primary"></p-button>
+    </div>
+  </form>
+</div>

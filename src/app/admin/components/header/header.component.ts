@@ -20,68 +20,74 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
     this.items = [
       {
-        label: `Categories`,
+        label: $localize`Categories`,
         icon: 'pi pi-tags',
         styleClass: 'text-white',
         routerLink: ['/admin/categories'],
       },
       {
-        label: 'Allergens',
+        label: $localize`Allergens`,
         icon: 'pi pi-fw pi-exclamation-triangle',
         styleClass: 'text-white',
         routerLink: ['/admin/allergens'],
       },
       {
-        label: 'Ingredients',
+        label: $localize`Ingredients`,
         icon: 'pi pi-list',
         styleClass: 'text-white',
         routerLink: ['/admin/ingredients'],
       },
       {
-        label: `Dishes`,
+        label: $localize`Dishes`,
         icon: 'pi pi-box',
         styleClass: 'text-white',
         routerLink: ['/admin/dishes'],
       },
       {
-        label: `Promotions`,
+        label: $localize`Promotions`,
         icon: 'pi pi-fw pi-gift',
         styleClass: 'text-white',
         items: [
           {
-            label: `Active Promotions`,
+            label: $localize`Active Promotions`,
             icon: 'pi pi-check',
             routerLink: ['/admin/promotions/true'],
           },
           {
-            label: 'List Promotions',
+            label: $localize`List Promotions`,
             icon: 'pi pi-gift',
             routerLink: ['/admin/promotions/false'],
           },
         ],
       },
       {
-        label: `Orders`,
+        label: $localize`Orders`,
         icon: 'pi pi-fw pi-shopping-cart',
         styleClass: 'text-white',
         items: [
           {
-            label: `Today's Orders`,
+            label: $localize`Today's Orders`,
             icon: 'pi pi-shopping-cart',
             routerLink: ['/admin/orders/true'],
           },
           {
-            label: `List Orders`,
+            label: $localize`List Orders`,
             icon: 'pi pi-shopping-cart',
             routerLink: ['/admin/orders/false'],
           },
         ],
       },
       {
-        label: `Users`,
+        label: $localize`Users`,
         icon: 'pi pi-user',
         styleClass: 'text-white',
         routerLink: ['/admin/users'],
+      },
+      {
+        label: $localize`Configuration`,
+        icon: 'pi pi-wrench',
+        styleClass: 'text-white',
+        routerLink: ['/admin/configuration'],
       },
     ];
   }
