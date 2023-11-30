@@ -5,7 +5,7 @@
         i18n-aria-label aria-label="Allergen Name" required maxlength="250">
       <label for="name" i18n>Allergen Name</label>
     </span>
-    <div class="tfm-input-error" i18n *ngIf="name.errors?.['required']">You must enter a value</div>
+    <div class="tfm-input-error" i18n *ngIf="!name.pristine && name.errors?.['required']">You must enter a value</div>
     <div class="tfm-input-error" i18n *ngIf="name.errors?.['maxlength']">The value is too long</div>
   </div>
 </div>

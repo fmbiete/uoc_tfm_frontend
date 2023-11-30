@@ -9,7 +9,8 @@
           [required]="true"></p-inputMask>
         <label for="changesTime" i18n>Change Time Limit</label>
       </span>
-      <div class="tfm-input-error" i18n *ngIf="changesTime.errors?.['required']">You must enter a time</div>
+      <div class="tfm-input-error" i18n *ngIf="!changesTime.pristine && changesTime.errors?.['required']">You must enter
+        a time</div>
       <div class="tfm-input-error" i18n *ngIf="changesTime.errors?.['pattern']">You must enter a valid time</div>
     </div>
 
@@ -21,7 +22,8 @@
           [required]="true"></p-inputMask>
         <label for="deliveryTime" i18n>Delivery Time Limit</label>
       </span>
-      <div class="tfm-input-error" i18n *ngIf="deliveryTime.errors?.['required']">You must enter a time</div>
+      <div class="tfm-input-error" i18n *ngIf="!deliveryTime.pristine && deliveryTime.errors?.['required']">You must
+        enter a time</div>
       <div class="tfm-input-error" i18n *ngIf="deliveryTime.errors?.['pattern']">You must enter a valid time</div>
     </div>
 
@@ -33,7 +35,8 @@
           [maxFractionDigits]="2" [required]="true" class="w-full" styleClass="w-full"></p-inputNumber>
         <label for="subvention" i18n>Subvention</label>
       </span>
-      <div class="tfm-input-error" i18n *ngIf="subvention.errors?.['required']">You must enter a value</div>
+      <div class="tfm-input-error" i18n *ngIf="!subvention.pristine && subvention.errors?.['required']">You must enter a
+        value</div>
       <div class="tfm-input-error" i18n *ngIf="subvention.errors?.['min']">The value must be greater or equal than 0
       </div>
     </div>

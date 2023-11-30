@@ -5,7 +5,7 @@
         i18n-aria-label aria-label="Name" required maxlength="250">
       <label for="name" i18n>Name</label>
     </span>
-    <div class="tfm-input-error" i18n *ngIf="name.errors?.['required']">You must enter a value</div>
+    <div class="tfm-input-error" i18n *ngIf="!name.pristine && name.errors?.['required']">You must enter a value</div>
     <div class="tfm-input-error" i18n *ngIf="name.errors?.['maxlength']">The value is too long</div>
   </div>
 
@@ -42,7 +42,8 @@
         class="w-full"></textarea>
       <label for="description" i18n>Description</label>
     </span>
-    <div class="tfm-input-error" i18n *ngIf="description.errors?.['required']">You must enter a value</div>
+    <div class="tfm-input-error" i18n *ngIf="!description.pristine && description.errors?.['required']">You must enter a
+      value</div>
     <div class="tfm-input-error" i18n *ngIf="description.errors?.['maxlength']">The value is too long</div>
   </div>
 
@@ -52,7 +53,7 @@
         [required]="true"></p-inputNumber>
       <label for="cost" i18n>Cost</label>
     </span>
-    <div class="tfm-input-error" i18n *ngIf="cost.errors?.['required']">You must enter a value</div>
+    <div class="tfm-input-error" i18n *ngIf="!cost.pristine && cost.errors?.['required']">You must enter a value</div>
     <div class="tfm-input-error" i18n *ngIf="cost.errors?.['min']">The value must be greater or equal than 0</div>
   </div>
 

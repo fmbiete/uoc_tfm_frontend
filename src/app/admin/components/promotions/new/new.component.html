@@ -14,7 +14,8 @@
       <label for="period" i18n>Validity Period</label>
       <p-calendar id="period" formControlName="periodDates" selectionMode="range" [readonlyInput]="true" [inline]="true"
         [showButtonBar]="true" styleClass="w-full"></p-calendar>
-      <div class="tfm-input-error" i18n *ngIf="periodDates.errors?.['required']">You must enter a value</div>
+      <div class="tfm-input-error" i18n *ngIf="!periodDates.pristine && periodDates.errors?.['required']">You must enter
+        a value</div>
     </div>
 
     <div>
@@ -23,7 +24,7 @@
           [required]="true" class="w-full" styleClass="w-full"></p-inputNumber>
         <label for="cost" i18n>Cost</label>
       </span>
-      <div class="tfm-input-error" i18n *ngIf="cost.errors?.['required']">You must enter a value</div>
+      <div class="tfm-input-error" i18n *ngIf="!cost.pristine && cost.errors?.['required']">You must enter a value</div>
       <div class="tfm-input-error" i18n *ngIf="cost.errors?.['min']">The value must be greater or equal than 0</div>
     </div>
 
