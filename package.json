@@ -13,7 +13,8 @@
     "compodoc:serve": "compodoc -s",
     "sme": "ng build --source-map=true --named-chunks==true && source-map-explorer dist/**/*.js",
     "lint": "ng lint",
-    "http-server": "npx http-server -p 8081 -c-1 dist/"
+    "http-server": "npx http-server -p 8081 -c-1 dist/",
+    "cypress:open": "cypress open"
   },
   "private": true,
   "dependencies": {
@@ -50,6 +51,7 @@
     "@types/jasmine": "~4.3.0",
     "@typescript-eslint/eslint-plugin": "5.62.0",
     "@typescript-eslint/parser": "5.62.0",
+    "cypress": "^13.6.1",
     "eslint": "^8.51.0",
     "jasmine-core": "~4.6.0",
     "karma": "~6.4.0",
